@@ -1,0 +1,255 @@
+<template>
+  <div
+    class="textarea"
+    :class="{
+      textarea_focus: hasFocus,
+      textarea_error: hasError,
+      textarea_fixed: isFixed,
+    }"
+  >
+    <div class="textarea__inner">
+      <label class="textarea__label" :for="guid">{{ label }}</label>
+      <div class="textarea__box">
+        <div class="textarea__controls" v-if="controls.length">
+          <template v-for="control in controls">
+            <template v-if="control === 'divider'">
+              <span class="textarea__control" :key="control">
+                <SvgIcon name="divider" :size="[16]" />
+              </span>
+            </template>
+            <template v-else>
+              <button class="textarea__control" :key="control">
+                <SvgIcon :name="control" :size="[16]" />
+              </button>
+            </template>
+          </template>
+        </div>
+        <textarea
+          :id="guid"
+          :placeholder="placeholder"
+          :value="text"
+          :rows="rows"
+          @input="updateValue"
+          @focus="onFocus"
+          @blur="onBlur"
+        />
+      </div>
+      <div class="textarea__footer">
+        <p class="textarea__helper" v-if="helper">{{ helper }}</p>
+        <p class="textarea__limit" v-if="limit">
+          {{ limitRest }} / {{ limit }}
+        </p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import SvgIcon from "@/components/SvgIcon.vue";
+
+export default {
+  props: {
+    label: {
+      type: String,
+      default: "",
+    },
+    placeholder: {
+      type: String,
+      default: "",
+    },
+    helper: {
+      type: String,
+      default: "",
+    },
+    limit: {
+      type: Number,
+      default: 0,
+    },
+    rows: {
+      type: Number,
+      default: 6,
+    },
+    controls: {
+      type: Array,
+      default: () => [],
+    },
+    hasError: {
+      type: Boolean,
+      default: false,
+    },
+    isFixed: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  components: {
+    SvgIcon,
+  },
+  data() {
+    return {
+      text: "",
+      hasFocus: false,
+    };
+  },
+  computed: {
+    guid() {
+      return (Math.random() + 1).toString(36).substring(2);
+    },
+    limitRest() {
+      return this.text.length;
+    },
+  },
+  methods: {
+    updateValue(event) {
+      const value = event.target.value;
+      if (!this.limit || String(value).length <= this.limit) {
+        this.text = value;
+      }
+      this.$forceUpdate();
+    },
+    onFocus() {
+      this.hasFocus = true;
+    },
+    onBlur() {
+      this.hasFocus = false;
+    },
+  },
+};
+</script>
+
+<style lang="scss">
+.textarea {
+  $c: &;
+
+  width: 100%;
+
+  &_focus {
+    #{$c} {
+      &__box {
+        box-shadow: inset 0 0 0 1px var(--color-main-colors-orange-3) !important;
+      }
+
+      &__control {
+        color: var(--color-main-colors-orange-10) !important;
+      }
+
+      & textarea {
+        color: var(--color-main-colors-orange-10) !important;
+      }
+    }
+  }
+
+  &_error {
+    #{$c} {
+      &__footer {
+        color: var(--color-complementary-colors-red-6);
+      }
+    }
+  }
+
+  &_fixed {
+    #{$c} {
+      &__box {
+        & textarea {
+          resize: none !important;
+        }
+      }
+    }
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  &__label {
+    margin: 0 0 10px;
+    align-self: start;
+    flex-shrink: 0;
+  }
+
+  &__box {
+    padding: 14px 10px 10px 20px;
+    box-shadow: inset 0 0 0 1px var(--color-main-colors-gray--1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 20px;
+    transition: box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: inset 0 0 0 1px var(--color-main-colors-orange-1-5),
+        0px 4px 8px rgba(203, 87, 22, 0.08);
+
+      #{$c} {
+        &__control {
+          color: var(--color-main-colors-gray-0);
+        }
+
+        & textarea {
+          &::placeholder {
+            color: var(--color-main-colors-gray-0);
+          }
+        }
+      }
+    }
+
+    & textarea {
+      min-width: 280px;
+      width: 100%;
+      border: 0;
+      width: 100%;
+      height: 100%;
+      font-size: 14px;
+      line-height: 1;
+      font-family: inherit;
+      transition: color 0.2s ease;
+      resize: vertical;
+      flex-grow: 1;
+
+      &:focus {
+        outline: none;
+      }
+
+      &::placeholder {
+        color: var(--color-main-colors-gray--1);
+      }
+    }
+  }
+
+  &__controls {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__control {
+    background: none;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-main-colors-gray--1);
+    transition: color 0.2s ease;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: var(--color-main-colors-gray-0);
+    transition: color 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  &__helper {
+    padding: 10px 0 0;
+  }
+
+  &__limit {
+    margin-left: auto;
+    padding: 10px 0 0;
+  }
+}
+</style>

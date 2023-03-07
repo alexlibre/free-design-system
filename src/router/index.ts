@@ -11,13 +11,66 @@ const routes: Array<RouteConfig> = [
     component: HomeView,
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    path: "/components",
+    name: "Components",
+    children: [
+      {
+        path: "buttons",
+        name: "Button",
+        component: () =>
+          import(
+            /* webpackChunkName: "buttons" */ "../views/buttons/ButtonsView.vue"
+          ),
+      },
+      {
+        path: "tags",
+        name: "Tag",
+        component: () =>
+          import(/* webpackChunkName: "tags" */ "../views/tags/TagsView.vue"),
+      },
+      {
+        path: "inputs",
+        name: "Input",
+        component: () =>
+          import(
+            /* webpackChunkName: "inputs" */ "../views/inputs/InputsView.vue"
+          ),
+      },
+      {
+        path: "checkbox",
+        name: "Checkbox",
+        component: () =>
+          import(
+            /* webpackChunkName: "checkbox" */ "../views/checkbox/CheckboxView.vue"
+          ),
+      },
+      {
+        path: "textarea",
+        name: "Textarea",
+        component: () =>
+          import(
+            /* webpackChunkName: "textareas" */ "../views/textarea/TextareaView.vue"
+          ),
+      },
+      {
+        path: "card",
+        name: "Card",
+        component: () =>
+          import(/* webpackChunkName: "card" */ "../views/card/CardView.vue"),
+      },
+      {
+        path: "colors",
+        name: "Colors",
+        component: () =>
+          import(
+            /* webpackChunkName: "colors" */ "../views/colors/ColorsView.vue"
+          ),
+      },
+    ],
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+      import(
+        /* webpackChunkName: "components" */ "../views/ComponentsView.vue"
+      ),
   },
 ];
 
