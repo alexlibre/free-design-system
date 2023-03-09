@@ -15,7 +15,9 @@
       button_size_l: size === 'l',
     }"
   >
-    <slot></slot>
+    <span v-if="!noText" class="button__text">
+      <slot></slot>
+    </span>
     <svg-icon v-if="icon" :name="icon" :size="iconSize" />
   </button>
 </template>
@@ -25,9 +27,6 @@ import SvgIcon from "@/components/SvgIcon";
 
 export default {
   props: {
-    text: {
-      type: String,
-    },
     size: {
       type: String,
       default: "m",
@@ -72,6 +71,8 @@ export default {
   align-items: center;
   gap: 4px;
   line-height: 1;
+  font-family: "Gotham Pro";
+  font-weight: 400;
 
   &:focus {
     outline: 2px solid var(--color-main-colors-orange-0-5);
@@ -198,6 +199,10 @@ export default {
         padding: 8px;
       }
     }
+  }
+
+  &__text {
+    margin: 0 auto;
   }
 }
 </style>

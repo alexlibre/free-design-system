@@ -66,6 +66,14 @@ const routes: Array<RouteConfig> = [
             /* webpackChunkName: "colors" */ "../views/colors/ColorsView.vue"
           ),
       },
+      {
+        path: "grids",
+        name: "Grids",
+        component: () =>
+          import(
+            /* webpackChunkName: "colors" */ "../views/grids/GridsView.vue"
+          ),
+      },
     ],
     component: () =>
       import(

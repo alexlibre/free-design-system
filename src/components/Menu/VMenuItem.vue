@@ -48,6 +48,7 @@ export default {
   &.router-link-exact-active {
     background: var(--color-main-colors-orange-5);
     color: var(--color-white);
+    pointer-events: none;
   }
 }
 </style>

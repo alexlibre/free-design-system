@@ -13,14 +13,14 @@
           label="Error message"
           placeholder="Placeholder"
           helper="Error text"
-          :isFixed="true"
-          :hasError="true"
+          fixed
+          hasError
         />
         <v-textarea
           label="Custom rows count (10)"
           placeholder="Placeholder"
           helper="Error text"
-          :isFixed="true"
+          fixed
           :rows="10"
         />
       </div>

@@ -164,15 +164,16 @@ export default {
   }
 
   &__label {
-    margin: 0 0 10px;
+    margin: 0 0 8px;
     align-self: start;
     flex-shrink: 0;
   }
 
   &__box {
-    padding: 14px 10px 10px 20px;
+    padding: 14px;
     box-shadow: inset 0 0 0 1px var(--color-main-colors-gray--1);
     border-radius: 8px;
+    background: var(--color-white);
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -244,12 +245,12 @@ export default {
   }
 
   &__helper {
-    padding: 10px 0 0;
+    padding: 8px 0 0;
   }
 
   &__limit {
     margin-left: auto;
-    padding: 10px 0 0;
+    padding: 8px 0 0;
   }
 }
 </style>

@@ -1,7 +1,9 @@
 <template>
   <div class="ui-color">
     <div class="ui-color__fill mb-8" :style="`background-color: ${color}`">
-      <div v-if="show" class="copy">Скопирован {{ copy }}</div>
+      <div v-if="show" class="copy">
+        Скопирован <strong>{{ copy }}</strong>
+      </div>
     </div>
     <div class="ui-color__copy">
       <p class="ui-color__value mb-8" @click="copyToClipboard(color)">
@@ -151,7 +153,11 @@ export default {
     padding: 4px 8px;
     border-radius: 4px;
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
+
+    & strong {
+      font-weight: 900;
+    }
   }
 }
 </style>
