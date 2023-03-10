@@ -52,12 +52,12 @@ export default {
 
     #{$c} {
       &__box {
-        background: var(--color-main-colors-gray--1) !important;
-        box-shadow: 0 0 0 2px var(--color-main-colors-gray--1) !important;
+        background: var(--color-gray--1) !important;
+        box-shadow: 0 0 0 2px var(--color-gray--1) !important;
       }
 
       &__label {
-        color: var(--color-main-colors-gray-0) !important;
+        color: var(--color-gray-0) !important;
       }
     }
   }
@@ -73,7 +73,7 @@ export default {
   }
 
   &__label {
-    color: var(--color-main-colors-gray-4);
+    color: var(--color-gray-4);
   }
 
   &__input {
@@ -81,7 +81,7 @@ export default {
 
     &:checked + #{$c} {
       &__box {
-        background: var(--color-main-colors-orange-5);
+        background: var(--color-orange-5);
 
         & svg {
           opacity: 1;
@@ -95,7 +95,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: inset 0 0 0 2px var(--color-main-colors-orange-5);
+    box-shadow: inset 0 0 0 2px var(--color-orange-5);
     width: 18px;
     height: 18px;
     position: relative;

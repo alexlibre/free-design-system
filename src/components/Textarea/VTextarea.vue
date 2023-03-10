@@ -11,16 +11,22 @@
       <label class="textarea__label" :for="guid">{{ label }}</label>
       <div class="textarea__box">
         <div class="textarea__controls" v-if="controls.length">
-          <template v-for="control in controls">
-            <template v-if="control === 'divider'">
-              <span class="textarea__control" :key="control">
+          <template v-for="(control, idx) in controls">
+            <template v-if="control.name === 'divider'">
+              <span
+                class="textarea__control textarea__control_divider"
+                :key="idx"
+              >
                 <SvgIcon name="divider" :size="[16]" />
               </span>
             </template>
             <template v-else>
-              <button class="textarea__control" :key="control">
-                <SvgIcon :name="control" :size="[16]" />
-              </button>
+              <v-button
+                view="text"
+                :icon="control.name"
+                :on-click="control.cb"
+                :key="idx"
+              />
             </template>
           </template>
         </div>
@@ -46,6 +52,7 @@
 
 <script>
 import SvgIcon from "@/components/SvgIcon.vue";
+import VButton from "@/components/Button/VButton.vue";
 
 export default {
   props: {
@@ -84,6 +91,7 @@ export default {
   },
   components: {
     SvgIcon,
+    VButton,
   },
   data() {
     return {
@@ -126,15 +134,15 @@ export default {
   &_focus {
     #{$c} {
       &__box {
-        box-shadow: inset 0 0 0 1px var(--color-main-colors-orange-3) !important;
+        box-shadow: inset 0 0 0 1px var(--color-orange-3) !important;
       }
 
       &__control {
-        color: var(--color-main-colors-orange-10) !important;
+        color: var(--color-orange-10) !important;
       }
 
       & textarea {
-        color: var(--color-main-colors-orange-10) !important;
+        color: var(--color-orange-10) !important;
       }
     }
   }
@@ -142,7 +150,7 @@ export default {
   &_error {
     #{$c} {
       &__footer {
-        color: var(--color-complementary-colors-red-6);
+        color: var(--color-red-6);
       }
     }
   }
@@ -171,7 +179,7 @@ export default {
 
   &__box {
     padding: 14px;
-    box-shadow: inset 0 0 0 1px var(--color-main-colors-gray--1);
+    box-shadow: inset 0 0 0 1px var(--color-gray--1);
     border-radius: 8px;
     background: var(--color-white);
     display: flex;
@@ -181,17 +189,17 @@ export default {
     transition: box-shadow 0.2s ease;
 
     &:hover {
-      box-shadow: inset 0 0 0 1px var(--color-main-colors-orange-1-5),
+      box-shadow: inset 0 0 0 1px var(--color-orange-1-5),
         0px 4px 8px rgba(203, 87, 22, 0.08);
 
       #{$c} {
         &__control {
-          color: var(--color-main-colors-gray-0);
+          color: var(--color-gray-0);
         }
 
         & textarea {
           &::placeholder {
-            color: var(--color-main-colors-gray-0);
+            color: var(--color-gray-0);
           }
         }
       }
@@ -215,7 +223,7 @@ export default {
       }
 
       &::placeholder {
-        color: var(--color-main-colors-gray--1);
+        color: var(--color-gray--1);
       }
     }
   }
@@ -231,15 +239,19 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-main-colors-gray--1);
+    color: var(--color-gray--1);
     transition: color 0.2s ease;
+
+    &_divider {
+      opacity: 0.33;
+    }
   }
 
   &__footer {
     display: flex;
     align-items: center;
     font-size: 12px;
-    color: var(--color-main-colors-gray-0);
+    color: var(--color-gray-0);
     transition: color 0.2s ease;
     flex-shrink: 0;
   }

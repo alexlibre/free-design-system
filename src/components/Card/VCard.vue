@@ -1,5 +1,8 @@
 <template>
-  <div class="card">
+  <div
+    class="card"
+    :class="`card_size_${size} card_theme_${themeDark ? 'dark' : 'light'}`"
+  >
     <div class="card__inner">
       <div v-if="hasHeader" class="card__header">
         <slot name="header"></slot>
@@ -20,6 +23,16 @@
 
 <script>
 export default {
+  props: {
+    size: {
+      type: String,
+      default: "m",
+    },
+    themeDark: {
+      type: Boolean,
+      default: false,
+    },
+  },
   computed: {
     hasHeader() {
       return !!this.$scopedSlots.header;
@@ -36,25 +49,60 @@ export default {
 
 <style lang="scss" scoped>
 .card {
+  $c: &;
+
+  &_theme {
+    &_dark {
+      #{$c} {
+        &__inner {
+          background: var(--color-gray-4);
+          color: var(--color-white);
+        }
+      }
+    }
+
+    &_light {
+      #{$c} {
+        &__inner {
+          background: var(--color-white);
+          color: var(--color-gray-4);
+        }
+      }
+    }
+  }
+
+  &_size {
+    &_s {
+      #{$c} {
+        &__body {
+          padding: 14px 12px;
+        }
+      }
+    }
+
+    &_m {
+      #{$c} {
+        &__body {
+          padding: 40px 30px;
+        }
+      }
+    }
+  }
   &__inner {
     display: flex;
-    background: var(--color-white);
+    flex-direction: column;
     border-radius: 10px;
+    overflow: hidden;
     box-shadow: 0px 4px 8px rgba(41, 41, 41, 0.08);
   }
 
   &__header {
-  }
-
-  &__body {
-    padding: 40px 30px 0;
-  }
-
-  &__body {
-    padding: 0 30px 40px;
-
-    &_pt {
-      padding-top: 40px;
+    & img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      overflow: hidden;
     }
   }
 }

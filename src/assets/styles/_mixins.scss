@@ -26,6 +26,13 @@
   letter-spacing: -0.05em;
 }
 
+@mixin h5 {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
 @mixin p1 {
   font-size: 16px;
   font-weight: 400;

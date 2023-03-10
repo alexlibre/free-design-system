@@ -6,11 +6,40 @@
         <router-link class="header__link" to="/components"
           >Components</router-link
         >
+        <v-button
+          icon="mask"
+          view="text"
+          :onClick="switchTheme"
+          style="margin-left: auto"
+        />
       </nav>
     </header>
     <router-view />
   </div>
 </template>
+
+<script>
+import VButton from "@/components/Button/VButton.vue";
+
+export default {
+  components: { VButton },
+  data() {
+    return {
+      darkTheme: false,
+    };
+  },
+  methods: {
+    switchTheme() {
+      this.darkTheme = !this.darkTheme;
+    },
+  },
+  watch: {
+    darkTheme: function (val) {
+      document.body.style = `color-scheme: ${val ? "light" : "dark"}`;
+    },
+  },
+};
+</script>
 
 <style lang="scss">
 @import "@/assets/styles/main.scss";
@@ -25,12 +54,12 @@
   }
 
   &__link {
-    color: var(--color-main-colors-gray-6);
+    color: var(--color-gray-6);
     text-decoration: none;
 
     &.router-link-exact-active,
     &.router-link-active {
-      color: var(--color-main-colors-orange-6);
+      color: var(--color-orange-6);
     }
   }
 }

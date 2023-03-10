@@ -1,25 +1,34 @@
 <template>
-  <table>
+  <table class="components-table">
     <thead>
       <tr>
-        <th>Attributes</th>
-        <th>Values</th>
-        <th>Types</th>
-        <th>Default</th>
+        <th class="components-table__attributes">Attributes</th>
+        <th class="components-table__values">Values</th>
+        <th class="components-table__types">Types</th>
+        <th class="components-table__default">Default</th>
+        <th class="components-table__required">Required</th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="item in items" :key="item.attr">
-        <td>{{ item.attr }}</td>
-        <td>{{ item.values.join(", ") }}</td>
-        <td>{{ item.types.join(", ") }}</td>
-        <td>{{ item.default }}</td>
+        <td class="components-table__attributes">{{ item.attr }}</td>
+        <td class="components-table__values">{{ item.values.join(", ") }}</td>
+        <td class="components-table__types">{{ item.types.join(", ") }}</td>
+        <td class="components-table__default">{{ item.default }}</td>
+        <td class="components-table__required">
+          <span class="components-table__icon" v-if="item.required">
+            <svg-icon name="tick-circle" :size="[18]"
+          /></span>
+          <span v-else>—</span>
+        </td>
       </tr>
     </tbody>
   </table>
 </template>
 
 <script>
+import SvgIcon from "@/components/SvgIcon.vue";
+
 export default {
   props: {
     items: {
@@ -27,16 +36,22 @@ export default {
       default: () => [{}],
     },
   },
+  components: {
+    SvgIcon,
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-table {
-  // width: 100%;
+.components-table {
+  $c: &;
+
+  width: 100%;
   border-collapse: collapse;
+  margin-bottom: 48px;
 
   thead {
-    border-bottom: 1px solid var(--color-main-colors-gray--1);
+    border-bottom: 1px solid var(--color-gray--1);
     background: var(--color-white);
   }
 
@@ -44,13 +59,12 @@ table {
     background: var(--color-white);
     transition: background 0.2s ease;
     &:hover {
-      background: var(--color-main-colors-orange-0-5);
+      background: var(--color-gray--1);
     }
   }
 
   th {
-    color: var(--color-main-colors-gray-4);
-    text-align: left;
+    color: var(--color-gray-4);
     min-width: 150px;
   }
 
@@ -60,7 +74,26 @@ table {
   }
 
   td {
-    color: var(--color-main-colors-gray-2);
+    color: var(--color-gray-2);
+    & {
+      #{$c}__icon {
+        color: var(--color-orange-5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  &__attributes,
+  &__values {
+    text-align: left;
+  }
+
+  &__required,
+  &__default,
+  &__types {
+    text-align: center;
   }
 }
 </style>

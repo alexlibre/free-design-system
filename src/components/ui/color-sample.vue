@@ -111,7 +111,7 @@ export default {
     align-items: flex-start;
     justify-content: space-between;
     font-size: 14px;
-    color: var(--color-main-colors-gray-0);
+    color: var(--color-gray-0);
   }
 
   &__name {
@@ -120,7 +120,7 @@ export default {
     gap: 4px;
 
     &:hover {
-      color: var(--color-main-colors-gray-4);
+      color: var(--color-gray-4);
       cursor: pointer;
     }
 
@@ -137,7 +137,7 @@ export default {
     gap: 4px;
 
     &:hover {
-      color: var(--color-main-colors-gray-4);
+      color: var(--color-gray-4);
       cursor: pointer;
     }
 

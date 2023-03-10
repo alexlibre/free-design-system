@@ -74,6 +74,20 @@ const routes: Array<RouteConfig> = [
             /* webpackChunkName: "colors" */ "../views/grids/GridsView.vue"
           ),
       },
+      {
+        path: "logo",
+        name: "Logo",
+        component: () =>
+          import(/* webpackChunkName: "logo" */ "../views/logo/LogoView.vue"),
+      },
+      {
+        path: "rating",
+        name: "Rating",
+        component: () =>
+          import(
+            /* webpackChunkName: "rating" */ "../views/rating/RatingView.vue"
+          ),
+      },
     ],
     component: () =>
       import(

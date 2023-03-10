@@ -11,7 +11,7 @@ body {
   font-family: "Gotham Pro", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: var(--color-main-colors-gray-4);
+  color: var(--color-gray-4);
 }
 
 #app {
@@ -58,23 +58,35 @@ body {
       width: calc(25% - 12px);
     }
   }
+
+  &.justify {
+    &-between {
+      justify-content: space-between;
+    }
+  }
 }
 
 hr {
   border: 0;
-  border-bottom: 1px solid var(--color-main-colors-gray--1);
+  border-bottom: 1px solid var(--color-gray--1);
 }
 
 ::-webkit-scrollbar {
   background: transparent;
   width: 6px;
+  height: 6px;
   margin-left: 10px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-main-colors-orange-5);
+  background: var(--color-orange-5);
+}
+
+::selection {
+  background-color: var(--color-orange-5);
+  color: var(--color-white);
 }
 
 .mb {
@@ -89,6 +101,9 @@ hr {
   }
   &-24 {
     margin-bottom: 24px;
+  }
+  &-48 {
+    margin-bottom: 48px;
   }
 }
 

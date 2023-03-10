@@ -75,7 +75,7 @@ export default {
   font-weight: 400;
 
   &:focus {
-    outline: 2px solid var(--color-main-colors-orange-0-5);
+    outline: 2px solid var(--color-orange-0-5);
   }
 
   &:not(:disabled) {
@@ -88,84 +88,84 @@ export default {
 
   &_view {
     &_primary {
-      background: var(--color-main-colors-orange-5);
+      background: var(--color-orange-5);
       border-radius: 4px;
       color: var(--color-white);
 
       &:hover {
-        background: var(--color-main-colors-orange-4);
+        background: var(--color-orange-4);
       }
 
       &:active {
-        background: var(--color-main-colors-orange-7);
+        background: var(--color-orange-7);
       }
     }
 
     &_secondary {
-      background: var(--color-main-colors-orange-1);
+      background: var(--color-orange-1);
       border-radius: 4px;
-      color: var(--color-main-colors-orange-6);
+      color: var(--color-orange-6);
 
       &:hover {
-        background: var(--color-main-colors-orange-1-5);
+        background: var(--color-orange-1-5);
       }
 
       &:active {
-        background: var(--color-main-colors-orange-1);
-        color: var(--color-main-colors-orange-8-5);
+        background: var(--color-orange-1);
+        color: var(--color-orange-8-5);
       }
     }
 
     &_outline {
-      background: var(--color-main-colors-orange-1);
+      background: var(--color-orange-1);
       border-radius: 4px;
-      box-shadow: inset 0 0 0 1px var(--color-main-colors-orange-6);
-      color: var(--color-main-colors-orange-6);
+      box-shadow: inset 0 0 0 1px var(--color-orange-6);
+      color: var(--color-orange-6);
 
       &:hover {
-        background: var(--color-main-colors-orange-1-5);
+        background: var(--color-orange-1-5);
       }
 
       &:active {
-        background: var(--color-main-colors-orange-1);
-        box-shadow: inset 0 0 0 1px var(--color-main-colors-orange-8-5);
-        color: var(--color-main-colors-orange-8-5);
+        background: var(--color-orange-1);
+        box-shadow: inset 0 0 0 1px var(--color-orange-8-5);
+        color: var(--color-orange-8-5);
       }
     }
 
     &_text {
       background: transparent;
-      color: var(--color-main-colors-orange-6);
+      color: var(--color-orange-6);
 
       &:active {
-        color: var(--color-main-colors-orange-8-5);
+        color: var(--color-orange-8-5);
       }
     }
 
     &_rounded {
-      background: var(--color-main-colors-orange-5);
+      background: var(--color-orange-5);
       border-radius: 30px;
       color: var(--color-white);
 
       &:hover {
-        background: var(--color-main-colors-orange-4);
+        background: var(--color-orange-4);
       }
 
       &:active {
-        background: var(--color-main-colors-orange-7);
+        background: var(--color-orange-7);
       }
     }
 
     &_square {
-      background: var(--color-main-colors-orange-5);
+      background: var(--color-orange-5);
       color: var(--color-white);
 
       &:hover {
-        background: var(--color-main-colors-orange-4);
+        background: var(--color-orange-4);
       }
 
       &:active {
-        background: var(--color-main-colors-orange-7);
+        background: var(--color-orange-7);
       }
     }
   }

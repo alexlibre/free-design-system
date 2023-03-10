@@ -26,18 +26,21 @@
           <v-menu-item class="content__nav-link" url="/components/checkbox"
             >Checkbox</v-menu-item
           >
-          <v-menu-item class="content__nav-link" url="/components/tags"
-            >Tag</v-menu-item
-          >
           <v-menu-item class="content__nav-link" url="/components/inputs"
             >Input</v-menu-item
+          >
+          <v-menu-item class="content__nav-link" url="/components/logo"
+            >Logo</v-menu-item
           >
           <!-- <v-menu-item class="content__nav-link" url="/components"
             >Switch</v-menu-item
           > -->
-          <!-- <v-menu-item class="content__nav-link" url="/components"
+          <v-menu-item class="content__nav-link" url="/components/rating"
             >Rating</v-menu-item
-          > -->
+          >
+          <v-menu-item class="content__nav-link" url="/components/tags"
+            >Tag</v-menu-item
+          >
           <v-menu-item class="content__nav-link" url="/components/textarea"
             >Textarea</v-menu-item
           >
@@ -114,7 +117,7 @@ export default {
 
   &__header {
     margin-bottom: 24px;
-    color: var(--color-main-colors-gray-4);
+    color: var(--color-gray-4);
   }
 
   &__nav {
@@ -127,7 +130,7 @@ export default {
       font-size: 14px;
       padding: 16px;
       font-weight: 300;
-      color: var(--color-main-colors-gray-0);
+      color: var(--color-gray-0);
     }
 
     &-divider {

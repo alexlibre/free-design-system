@@ -30,11 +30,11 @@ export default {
     },
     hasClose: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     hasBorder: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
   components: { SvgIcon },
@@ -63,38 +63,38 @@ export default {
 
   &_type {
     &_primary {
-      background: var(--color-main-colors-orange-1);
-      color: var(--color-main-colors-orange-6);
+      background: var(--color-orange-1);
+      color: var(--color-orange-6);
     }
 
     &_disabled {
-      background: var(--color-main-colors-gray--1);
-      color: var(--color-main-colors-gray-3);
+      background: var(--color-gray--1);
+      color: var(--color-gray-3);
       pointer-events: none;
 
       #{$c}__close {
-        color: var(--color-main-colors-gray-0);
+        color: var(--color-gray-0);
       }
     }
 
     &_danger {
-      background: var(--color-complementary-colors-red-0-5);
-      color: var(--color-complementary-colors-red-8);
+      background: var(--color-red-0-5);
+      color: var(--color-red-6);
     }
 
     &_info {
-      background: var(--color-complementary-colors-blue-0-5);
-      color: var(--color-complementary-colors-blue-8);
+      background: var(--color-blue-0-5);
+      color: var(--color-blue-6);
     }
 
     &_success {
-      background: var(--color-complementary-colors-green-0-5);
-      color: var(--color-complementary-colors-green-9-5);
+      background: var(--color-green-0-5);
+      color: var(--color-green-9-5);
     }
 
     &_warning {
-      background: var(--color-complementary-colors-yellow-0-5);
-      color: var(--color-complementary-colors-yellow-7);
+      background: var(--color-yellow-0-5);
+      color: var(--color-yellow-7);
     }
   }
 
@@ -105,27 +105,27 @@ export default {
     &_border {
       &#{$c}_type {
         &_primary {
-          box-shadow: inset 0 0 0 1px var(--color-main-colors-orange-3);
+          box-shadow: inset 0 0 0 1px var(--color-orange-3);
         }
 
         &_disabled {
-          box-shadow: inset 0 0 0 1px var(--color-main-colors-gray-0);
+          box-shadow: inset 0 0 0 1px var(--color-gray-0);
         }
 
         &_danger {
-          box-shadow: inset 0 0 0 1px var(--color-complementary-colors-red-6);
+          box-shadow: inset 0 0 0 1px var(--color-red-6);
         }
 
         &_info {
-          box-shadow: inset 0 0 0 1px var(--color-complementary-colors-blue-4);
+          box-shadow: inset 0 0 0 1px var(--color-blue-4);
         }
 
         &_success {
-          box-shadow: inset 0 0 0 1px var(--color-complementary-colors-green-6);
+          box-shadow: inset 0 0 0 1px var(--color-green-6);
         }
 
         &_warning {
-          box-shadow: inset 0 0 0 1px var(--color-complementary-colors-yellow-5);
+          box-shadow: inset 0 0 0 1px var(--color-yellow-5);
         }
       }
     }

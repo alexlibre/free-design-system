@@ -122,7 +122,7 @@ export default {
   &_focus {
     #{$c} {
       &__box {
-        box-shadow: inset 0 0 0 1px var(--color-main-colors-orange-3) !important;
+        box-shadow: inset 0 0 0 1px var(--color-orange-3) !important;
       }
     }
   }
@@ -133,13 +133,13 @@ export default {
 
     #{$c} {
       &__box {
-        box-shadow: inset 0 0 0 1px var(--color-main-colors-gray-0) !important;
-        background: var(--color-main-colors-gray--1);
-        color: var(--color-main-colors-gray-0) !important;
+        box-shadow: inset 0 0 0 1px var(--color-gray-0) !important;
+        background: var(--color-gray--1);
+        color: var(--color-gray-0) !important;
       }
 
       & input {
-        color: var(--color-main-colors-gray-0) !important;
+        color: var(--color-gray-0) !important;
       }
     }
   }
@@ -147,28 +147,28 @@ export default {
   &_success {
     #{$c} {
       &__box {
-        box-shadow: inset 0 0 0 1px var(--color-complementary-colors-green-7);
-        color: var(--color-complementary-colors-green-7);
+        box-shadow: inset 0 0 0 1px var(--color-green-7);
+        color: var(--color-green-7);
 
         &:hover {
-          box-shadow: inset 0 0 0 1px var(--color-complementary-colors-green-7),
+          box-shadow: inset 0 0 0 1px var(--color-green-7),
             0px 4px 8px rgba(34, 203, 22, 0.08);
         }
       }
 
       & input {
-        color: var(--color-main-colors-gray-10) !important;
+        color: var(--color-gray-10) !important;
       }
 
       &__helper {
-        color: var(--color-complementary-colors-green-7);
+        color: var(--color-green-7);
       }
     }
 
     &#{$c}_focus {
       #{$c} {
         &__box {
-          box-shadow: inset 0 0 0 1px var(--color-complementary-colors-green-5) !important;
+          box-shadow: inset 0 0 0 1px var(--color-green-5) !important;
         }
       }
     }
@@ -177,28 +177,28 @@ export default {
   &_error {
     #{$c} {
       &__box {
-        box-shadow: inset 0 0 0 1px var(--color-complementary-colors-red-6);
-        color: var(--color-complementary-colors-red-6);
+        box-shadow: inset 0 0 0 1px var(--color-red-6);
+        color: var(--color-red-6);
 
         &:hover {
-          box-shadow: inset 0 0 0 1px var(--color-complementary-colors-red-6),
+          box-shadow: inset 0 0 0 1px var(--color-red-6),
             0px 4px 8px rgba(203, 22, 22, 0.08);
         }
       }
 
       & input {
-        color: var(--color-main-colors-gray-10) !important;
+        color: var(--color-gray-10) !important;
       }
 
       &__helper {
-        color: var(--color-complementary-colors-red-6);
+        color: var(--color-red-6);
       }
     }
 
     &#{$c}_focus {
       #{$c} {
         &__box {
-          box-shadow: inset 0 0 0 1px var(--color-complementary-colors-red-3) !important;
+          box-shadow: inset 0 0 0 1px var(--color-red-3) !important;
         }
       }
     }
@@ -221,34 +221,34 @@ export default {
   &__label {
     @include p1();
     line-height: 1;
-    color: var(--color-main-colors-gray-4);
+    color: var(--color-gray-4);
   }
 
   &__label-second {
     @include p2();
     line-height: 1;
     margin-left: auto;
-    color: var(--color-main-colors-gray-0);
+    color: var(--color-gray-0);
   }
 
   &__box {
     padding: 14px;
-    box-shadow: inset 0 0 0 1px var(--color-main-colors-gray--1);
+    box-shadow: inset 0 0 0 1px var(--color-gray--1);
     border-radius: 8px;
     display: flex;
     align-items: center;
     gap: 8px;
     transition: box-shadow 0.2s ease;
-    color: var(--color-main-colors-gray-0);
+    color: var(--color-gray-0);
     background: var(--color-white);
 
     &:hover {
-      box-shadow: inset 0 0 0 1px var(--color-main-colors-orange-1-5),
+      box-shadow: inset 0 0 0 1px var(--color-orange-1-5),
         0px 4px 8px rgba(203, 87, 22, 0.08);
 
       #{$c} {
         & input {
-          color: var(--color-main-colors-gray-7);
+          color: var(--color-gray-7);
         }
       }
     }
@@ -259,7 +259,7 @@ export default {
       font-family: inherit;
       border: 0;
       background: none;
-      color: var(--color-main-colors-gray-2);
+      color: var(--color-gray-2);
       width: 100%;
 
       &:focus {
@@ -267,7 +267,7 @@ export default {
       }
 
       &::placeholder {
-        color: var(--color-main-colors-gray--1);
+        color: var(--color-gray--1);
       }
     }
   }
@@ -279,7 +279,7 @@ export default {
   &__helper {
     @include caption();
     margin: 8px 0 0;
-    color: var(--color-main-colors-gray-0);
+    color: var(--color-gray-0);
   }
 }
 </style>

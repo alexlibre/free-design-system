@@ -27,7 +27,7 @@
     <div class="flex flex-start gap-16">
       <v-input
         id="input-9"
-        label="Disabled"
+        label="Label"
         labelSecond="Second label"
         helper="Helper text"
         icon="eye"
