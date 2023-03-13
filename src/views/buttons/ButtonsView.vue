@@ -27,73 +27,66 @@
           types: ['string'],
           default: '—',
         },
-        {
-          attr: 'onClick',
-          values: ['function'],
-          types: ['function'],
-          default: '—',
-          required: true,
-        },
       ]"
     />
 
-    <components-block title="size">
+    <components-block
+      title="size"
+      desc="Select from different sizes: 's', 'm', 'l'. Default is medium."
+    >
       <div class="flex gap-16">
-        <v-button size="s" :onClick="logClick">Small</v-button>
-        <v-button :onClick="logClick">Medium</v-button>
-        <v-button size="l" :onClick="logClick">Large</v-button>
+        <v-button size="s" @click="logClick">Small</v-button>
+        <v-button @click="logClick">Medium</v-button>
+        <v-button size="l" @click="logClick">Large</v-button>
+        <v-button size="l" @click="logClick"></v-button>
       </div>
     </components-block>
 
     <components-block title="view">
       <div class="flex gap-16">
-        <v-button :onClick="logClick">Primary</v-button>
-        <v-button view="secondary" :onClick="logClick">Secondary</v-button>
-        <v-button view="outline" :onClick="logClick">Outline</v-button>
-        <v-button view="text" :onClick="logClick">Text</v-button>
-        <v-button view="rounded" :onClick="logClick">Rounded</v-button>
-        <v-button view="square" :onClick="logClick">Square</v-button>
+        <v-button @click="logClick">Primary</v-button>
+        <v-button view="secondary" @click="logClick">Secondary</v-button>
+        <v-button view="outline" @click="logClick">Outline</v-button>
+        <v-button view="text" @click="logClick">Text</v-button>
+        <v-button view="rounded" @click="logClick">Rounded</v-button>
+        <v-button view="square" @click="logClick">Square</v-button>
       </div>
     </components-block>
 
     <components-block title="icon">
       <div class="flex gap-16">
-        <v-button :onClick="logClick" icon="heart">Like</v-button>
-        <v-button view="secondary" :onClick="logClick" icon="eye"
-          >View</v-button
-        >
-        <v-button view="outline" :onClick="logClick" icon="link-2"
-          >Link</v-button
-        >
-        <v-button view="text" :onClick="logClick" icon="task">Tasks</v-button>
-        <v-button view="rounded" :onClick="logClick" icon="info-circle"
+        <v-button @click="logClick" icon="heart">Like</v-button>
+        <v-button view="secondary" @click="logClick" icon="eye">View</v-button>
+        <v-button view="outline" @click="logClick" icon="link-2">Link</v-button>
+        <v-button view="text" @click="logClick" icon="task">Tasks</v-button>
+        <v-button view="rounded" @click="logClick" icon="info-circle"
           >Info</v-button
         >
-        <v-button view="square" :onClick="logClick" icon="attach-square"
+        <v-button view="square" @click="logClick" icon="attach-square"
           >Attach</v-button
         >
       </div>
       <div class="flex gap-16">
-        <v-button :onClick="logClick" icon="heart"></v-button>
-        <v-button view="secondary" :onClick="logClick" icon="eye"></v-button>
-        <v-button view="outline" :onClick="logClick" icon="link-2"></v-button>
-        <v-button view="text" :onClick="logClick" icon="task"></v-button>
+        <v-button @click="logClick" icon="heart"></v-button>
+        <v-button view="secondary" @click="logClick" icon="eye"></v-button>
+        <v-button view="outline" @click="logClick" icon="link-2"></v-button>
+        <v-button view="text" @click="logClick" icon="task"></v-button>
         <v-button
           view="rounded"
-          :onClick="logClick"
+          @click="logClick"
           icon="info-circle"
         ></v-button>
         <v-button
           view="square"
-          :onClick="logClick"
+          @click="logClick"
           icon="attach-square"
         ></v-button>
       </div>
     </components-block>
 
-    <components-block title="onClick">
+    <components-block title="click">
       <div class="flex gap-16">
-        <v-button :onClick="alertClick">Make alert</v-button>
+        <v-button @click="alertClick">Make alert</v-button>
       </div>
     </components-block>
   </div>

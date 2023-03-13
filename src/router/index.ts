@@ -29,8 +29,8 @@ const routes: Array<RouteConfig> = [
           import(/* webpackChunkName: "tags" */ "../views/tags/TagsView.vue"),
       },
       {
-        path: "inputs",
-        name: "Input",
+        path: "input",
+        name: "input",
         component: () =>
           import(
             /* webpackChunkName: "inputs" */ "../views/inputs/InputsView.vue"
@@ -86,6 +86,14 @@ const routes: Array<RouteConfig> = [
         component: () =>
           import(
             /* webpackChunkName: "rating" */ "../views/rating/RatingView.vue"
+          ),
+      },
+      {
+        path: "button-group",
+        name: "Button group",
+        component: () =>
+          import(
+            /* webpackChunkName: "button-group" */ "../views/button-group/ButtonGroupView.vue"
           ),
       },
     ],

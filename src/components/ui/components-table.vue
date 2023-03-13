@@ -11,7 +11,9 @@
     </thead>
     <tbody>
       <tr v-for="item in items" :key="item.attr">
-        <td class="components-table__attributes">{{ item.attr }}</td>
+        <td class="components-table__attributes">
+          <router-link :to="`#${item.attr}`">{{ item.attr }}</router-link>
+        </td>
         <td class="components-table__values">{{ item.values.join(", ") }}</td>
         <td class="components-table__types">{{ item.types.join(", ") }}</td>
         <td class="components-table__default">{{ item.default }}</td>
@@ -33,7 +35,7 @@ export default {
   props: {
     items: {
       type: Array,
-      default: () => [{}],
+      required: true,
     },
   },
   components: {

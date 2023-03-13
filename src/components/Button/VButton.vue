@@ -1,6 +1,6 @@
 <template>
   <button
-    @click="(() => onClick)()"
+    @click="onClick"
     class="button"
     :class="{
       button_view_primary: view === 'primary',
@@ -13,6 +13,8 @@
       button_size_s: size === 's',
       button_size_m: size === 'm',
       button_size_l: size === 'l',
+      button_is_active: active,
+      button_empty: empty,
     }"
   >
     <span v-if="!noText" class="button__text">
@@ -31,10 +33,6 @@ export default {
       type: String,
       default: "m",
     },
-    onClick: {
-      type: Function,
-      required: true,
-    },
     view: {
       type: String,
       default: "primary",
@@ -42,6 +40,14 @@ export default {
     icon: {
       type: String,
       default: "",
+    },
+    active: {
+      type: Boolean,
+      default: false,
+    },
+    empty: {
+      type: Boolean,
+      default: false,
     },
   },
   components: { SvgIcon },
@@ -58,6 +64,11 @@ export default {
         default:
           return [16];
       }
+    },
+  },
+  methods: {
+    onClick(e) {
+      this.$emit("click", e);
     },
   },
 };
@@ -199,6 +210,10 @@ export default {
         padding: 8px;
       }
     }
+  }
+
+  &_empty {
+    padding: 0 !important;
   }
 
   &__text {

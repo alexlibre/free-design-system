@@ -4,13 +4,14 @@
     :class="{
       input_disabled: disabled,
       input_focus: hasFocus,
+      input_compact: compact,
       input_success: state === 'success',
       input_error: state === 'error',
     }"
   >
     <div class="input__inner">
       <div class="input__head" v-if="label || labelSecond">
-        <label :for="id" class="input__label" v-if="label">{{ label }}</label>
+        <label :for="guid" class="input__label" v-if="label">{{ label }}</label>
         <span class="input__label-second" v-if="labelSecond">{{
           labelSecond
         }}</span>
@@ -18,14 +19,22 @@
       <div class="input__box">
         <input
           class="input__input"
-          :id="id"
-          :type="type"
+          :id="guid"
+          :type="inputType"
           :placeholder="placeholder"
+          :value="text"
           @input="updateValue"
           @focus="onFocus"
           @blur="onBlur"
         />
-        <svg-icon v-if="icon" class="input__icon" :name="icon" :size="[16]" />
+        <template v-if="type === 'password'">
+          <v-button @click="switchPasswordVisibility" view="text" empty>
+            <svg-icon class="input__icon" :name="currentIcon" :size="[16]" />
+          </v-button>
+        </template>
+        <template v-else>
+          <svg-icon v-if="icon" class="input__icon" :name="icon" :size="[16]" />
+        </template>
       </div>
       <span class="input__helper" v-if="helper">{{ helper }}</span>
     </div>
@@ -34,13 +43,10 @@
 
 <script>
 import SvgIcon from "@/components/SvgIcon.vue";
+import VButton from "@/components/Button/VButton.vue";
 
 export default {
   props: {
-    id: {
-      type: String,
-      required: true,
-    },
     label: {
       type: String,
       default: "",
@@ -81,19 +87,42 @@ export default {
       type: Boolean,
       default: false,
     },
+    compact: {
+      type: Boolean,
+      default: false,
+    },
     icon: {
+      type: String,
+      default: "",
+    },
+    initial: {
       type: String,
       default: "",
     },
   },
   components: {
     SvgIcon,
+    VButton,
   },
   data() {
     return {
-      text: "",
+      text: this.initial,
+      inputType: this.type,
       hasFocus: false,
+      showPassword: false,
+      currentIcon: this.icon,
     };
+  },
+  watch: {
+    showPassword: function () {
+      this.inputType = this.showPassword ? "text" : "password";
+      this.currentIcon = this.showPassword ? "eye-slash" : "eye";
+    },
+  },
+  computed: {
+    guid() {
+      return (Math.random() + 1).toString(36).substring(2);
+    },
   },
   methods: {
     updateValue(event) {
@@ -108,6 +137,12 @@ export default {
     onBlur() {
       this.hasFocus = false;
     },
+    switchPasswordVisibility() {
+      console.log("not passed");
+      // if (this.type !== "password") return;
+      console.log("pass");
+      this.showPassword = !this.showPassword;
+    },
   },
 };
 </script>
@@ -118,6 +153,10 @@ export default {
   $c: &;
 
   width: 100%;
+
+  &_compact {
+    max-width: 308px;
+  }
 
   &_focus {
     #{$c} {
@@ -268,6 +307,13 @@ export default {
 
       &::placeholder {
         color: var(--color-gray--1);
+      }
+
+      & + button {
+        height: 16px;
+        display: block;
+        cursor: pointer;
+        color: inherit !important;
       }
     }
   }

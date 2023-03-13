@@ -17,4 +17,5 @@ module.exports = defineConfig({
   chainWebpack: (config) => {
     config.module.rule("svg-sprite").use("svgo-loader").loader("svgo-loader");
   },
+  publicPath: "/free-design-system/",
 });

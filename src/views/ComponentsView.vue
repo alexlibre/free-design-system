@@ -23,10 +23,13 @@
           <v-menu-item class="content__nav-link" url="/components/buttons"
             >Button</v-menu-item
           >
+          <v-menu-item class="content__nav-link" url="/components/button-group"
+            >Button group</v-menu-item
+          >
           <v-menu-item class="content__nav-link" url="/components/checkbox"
             >Checkbox</v-menu-item
           >
-          <v-menu-item class="content__nav-link" url="/components/inputs"
+          <v-menu-item class="content__nav-link" url="/components/input"
             >Input</v-menu-item
           >
           <v-menu-item class="content__nav-link" url="/components/logo"
