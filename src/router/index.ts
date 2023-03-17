@@ -96,6 +96,14 @@ const routes: Array<RouteConfig> = [
             /* webpackChunkName: "button-group" */ "../views/button-group/ButtonGroupView.vue"
           ),
       },
+      {
+        path: "modal",
+        name: "Modal",
+        component: () =>
+          import(
+            /* webpackChunkName: "modal" */ "../views/modal/ModalView.vue"
+          ),
+      },
     ],
     component: () =>
       import(

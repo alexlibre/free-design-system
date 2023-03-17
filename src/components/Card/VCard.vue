@@ -55,7 +55,7 @@ export default {
     &_dark {
       #{$c} {
         &__inner {
-          background: var(--color-gray-4);
+          background: var(--color-gray-10);
           color: var(--color-white);
         }
       }
@@ -65,7 +65,6 @@ export default {
       #{$c} {
         &__inner {
           background: var(--color-white);
-          color: var(--color-gray-4);
         }
       }
     }

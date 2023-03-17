@@ -91,13 +91,13 @@ export default {
 
   &_color {
     &_positive {
-      color: var(--color-gray-5);
+      color: var(--color-gray-10);
       background: transparent;
     }
 
     &_negative {
       color: var(--color-white);
-      background: var(--color-gray-5);
+      background: var(--color-gray-10);
     }
 
     &_orange {

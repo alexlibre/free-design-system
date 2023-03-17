@@ -66,9 +66,9 @@
 
     <components-block title="rows">
       <div class="flex flex-start gap-16">
-        <v-textarea :rows="15" />
-        <v-textarea :rows="3" />
-        <v-textarea :rows="8" />
+        <v-textarea helper="15 rows" :rows="15" />
+        <v-textarea helper="3 rows" :rows="3" />
+        <v-textarea helper="8 rows" :rows="8" />
       </div>
     </components-block>
 

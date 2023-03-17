@@ -56,3 +56,26 @@
   font-weight: 400;
   line-height: 1;
 }
+
+@mixin generate-colors($hue, $saturation, $values, $name, $base) {
+  @each $value in $values {
+    $i: index($values, $value) - 1;
+    $lightness: $i * 5% + $base * 1%;
+    --color-#{$name}-#{$value}: hsl(#{$hue}, #{$saturation}, #{$lightness});
+  }
+}
+
+@mixin generate-grays($hue, $saturation, $values, $name) {
+  @each $value in $values {
+    $i: index($values, $value) - 1;
+    $lightness: $i * 6% + 5%;
+    --color-#{$name}-#{$value}: hsl(#{$hue}, #{$saturation}, #{$lightness});
+  }
+}
+
+@mixin repeatColorBlock($colors) {
+  @each $newcolor in $colors {
+    $color: $newcolor !global;
+    @content;
+  }
+}

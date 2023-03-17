@@ -9,6 +9,12 @@
       button_view_text: view === 'text',
       button_view_rounded: view === 'rounded',
       button_view_square: view === 'square',
+      button_color_red: color === 'red',
+      button_color_orange: color === 'orange',
+      button_color_yellow: color === 'yellow',
+      button_color_green: color === 'green',
+      button_color_blue: color === 'blue',
+      button_color_gray: color === 'gray',
       button_icon: noText,
       button_size_s: size === 's',
       button_size_m: size === 'm',
@@ -49,6 +55,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    color: {
+      type: String,
+      default: "orange",
+    },
   },
   components: { SvgIcon },
   computed: {
@@ -75,6 +85,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/styles/mixins";
+$colors: "orange", "red", "yellow", "green", "blue", "violet", "gray";
+
 .button {
   $c: &;
   border: 0;
@@ -97,89 +110,110 @@ export default {
     padding: 8px;
   }
 
-  &_view {
-    &_primary {
-      background: var(--color-orange-5);
-      border-radius: 4px;
-      color: var(--color-white);
+  &_color {
+    @include repeatColorBlock($colors) {
+      &_#{$color} {
+        &#{$c} {
+          &::selection {
+            background-color: #{$color} !important;
+          }
+          &:focus {
+            outline: 2px solid var(--color-#{$color}-0-5);
+          }
 
-      &:hover {
-        background: var(--color-orange-4);
-      }
+          &_view {
+            &_primary {
+              background: var(--color-#{$color}-5);
+              border-radius: 4px;
+              color: var(--color-white);
 
-      &:active {
-        background: var(--color-orange-7);
-      }
-    }
+              &:hover {
+                background: var(--color-#{$color}-4);
+              }
 
-    &_secondary {
-      background: var(--color-orange-1);
-      border-radius: 4px;
-      color: var(--color-orange-6);
+              &:active {
+                background: var(--color-#{$color}-7);
+              }
+            }
 
-      &:hover {
-        background: var(--color-orange-1-5);
-      }
+            &_secondary {
+              background: var(--color-#{$color}-1);
+              border-radius: 4px;
+              color: var(--color-#{$color}-6);
 
-      &:active {
-        background: var(--color-orange-1);
-        color: var(--color-orange-8-5);
-      }
-    }
+              &:hover {
+                background: var(--color-#{$color}-1-5);
+              }
 
-    &_outline {
-      background: var(--color-orange-1);
-      border-radius: 4px;
-      box-shadow: inset 0 0 0 1px var(--color-orange-6);
-      color: var(--color-orange-6);
+              &:active {
+                background: var(--color-#{$color}-1);
+                color: var(--color-#{$color}-7);
+              }
+            }
 
-      &:hover {
-        background: var(--color-orange-1-5);
-      }
+            &_outline {
+              background: var(--color-#{$color}-1);
+              border-radius: 4px;
+              box-shadow: inset 0 0 0 1px var(--color-#{$color}-6);
+              color: var(--color-#{$color}-6);
 
-      &:active {
-        background: var(--color-orange-1);
-        box-shadow: inset 0 0 0 1px var(--color-orange-8-5);
-        color: var(--color-orange-8-5);
-      }
-    }
+              &:hover {
+                background: var(--color-#{$color}-1-5);
+              }
 
-    &_text {
-      background: transparent;
-      color: var(--color-orange-6);
+              &:active {
+                background: var(--color-#{$color}-1);
+                box-shadow: inset 0 0 0 1px var(--color-#{$color}-7);
+                color: var(--color-#{$color}-7);
+              }
+            }
 
-      &:active {
-        color: var(--color-orange-8-5);
-      }
-    }
+            &_text {
+              background: transparent;
+              color: var(--color-#{$color}-6);
 
-    &_rounded {
-      background: var(--color-orange-5);
-      border-radius: 30px;
-      color: var(--color-white);
+              &:active {
+                color: var(--color-#{$color}-7);
+              }
+            }
 
-      &:hover {
-        background: var(--color-orange-4);
-      }
+            &_rounded {
+              background: var(--color-#{$color}-5);
+              border-radius: 30px;
+              color: var(--color-white);
 
-      &:active {
-        background: var(--color-orange-7);
-      }
-    }
+              &:hover {
+                background: var(--color-#{$color}-4);
+              }
 
-    &_square {
-      background: var(--color-orange-5);
-      color: var(--color-white);
+              &:active {
+                background: var(--color-#{$color}-7);
+              }
+            }
 
-      &:hover {
-        background: var(--color-orange-4);
-      }
+            &_square {
+              background: var(--color-#{$color}-5);
+              color: var(--color-white);
 
-      &:active {
-        background: var(--color-orange-7);
+              &:hover {
+                background: var(--color-#{$color}-4);
+              }
+
+              &:active {
+                background: var(--color-#{$color}-7);
+              }
+            }
+          }
+        }
       }
     }
   }
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
   &_size {
     &_s {
       font-size: 14px;
@@ -189,25 +223,40 @@ export default {
       &#{$c}_icon {
         padding: 8px;
       }
+
+      & .icon {
+        width: 18px;
+        height: 18px;
+      }
     }
 
     &_m {
       font-size: 16px;
       gap: 8px;
-      padding: 12px 24px;
+      padding: 10px 24px;
 
       &#{$c}_icon {
-        padding: 12px;
+        padding: 10px;
+      }
+
+      & .icon {
+        width: 20px;
+        height: 20px;
       }
     }
 
     &_l {
       font-size: 20px;
       gap: 8px;
-      padding: 16px 32px;
+      padding: 14px 32px;
 
       &#{$c}_icon {
-        padding: 8px;
+        padding: 14px;
+      }
+
+      & .icon {
+        width: 24px;
+        height: 24px;
       }
     }
   }
@@ -218,6 +267,7 @@ export default {
 
   &__text {
     margin: 0 auto;
+    padding: 2px 0;
   }
 }
 </style>

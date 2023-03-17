@@ -1,6 +1,6 @@
 <template>
   <section class="components-block" :id="id">
-    <h2 class="components-block__title">{{ title }}</h2>
+    <h2 class="components-block__title">{{ capitalize(title) }}</h2>
     <p class="components-block__desc" v-html="desc"></p>
     <slot></slot>
   </section>
@@ -20,6 +20,11 @@ export default {
     desc: {
       type: String,
       default: "",
+    },
+  },
+  methods: {
+    capitalize(str) {
+      return (str.charAt(0).toUpperCase() + str.slice(1)).split("-").join(" ");
     },
   },
 };

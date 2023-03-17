@@ -6,7 +6,8 @@
           :icon="item.icon"
           :active="item.active"
           :size="size"
-          :view="item.active ? 'primary' : 'secondary'"
+          :view="item.active ? activeView : inactiveView"
+          :color="color"
           @click="selectItem(idx, $event)"
           >{{ item.name }}</v-button
         >
@@ -38,6 +39,18 @@ export default {
     mandatory: {
       type: Boolean,
       default: false,
+    },
+    color: {
+      type: String,
+      default: "orange",
+    },
+    activeView: {
+      type: String,
+      default: "primary",
+    },
+    inactiveView: {
+      type: String,
+      default: "secondary",
     },
   },
   data() {

@@ -27,7 +27,7 @@
             <img src="@/assets/img/pizza.jpg" alt="pizza" />
           </template>
           <template v-slot:body>
-            <div class="flex justify-between">
+            <div class="flex justify-between mb-4">
               <h5>Пицца Карбонара</h5>
               <v-rating :initial="5" small :range="1" />
             </div>

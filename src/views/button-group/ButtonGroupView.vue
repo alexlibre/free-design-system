@@ -27,6 +27,38 @@
           types: ['boolean'],
           default: false,
         },
+        {
+          attr: 'color',
+          values: ['red', 'orange', 'yellow', 'green', 'blue', 'gray'],
+          types: ['string'],
+          default: 'orange',
+        },
+        {
+          attr: 'activeView',
+          values: [
+            'primary',
+            'secondary',
+            'outline',
+            'text',
+            'rounded',
+            'square',
+          ],
+          types: ['string'],
+          default: 'primary',
+        },
+        {
+          attr: 'inactiveView',
+          values: [
+            'primary',
+            'secondary',
+            'outline',
+            'text',
+            'rounded',
+            'square',
+          ],
+          types: ['string'],
+          default: 'secondary',
+        },
       ]"
     />
     <components-block
@@ -121,6 +153,60 @@
       </div>
     </components-block>
     <components-block
+      title="Color"
+      desc="Select color from predefined variables."
+    >
+      <div class="flex flex-col flex-start gap-16">
+        <v-button-group
+          :items="[
+            { name: 'Button 1', active: true },
+            { name: 'Button 2' },
+            { name: 'Button 3' },
+          ]"
+          color="red"
+        />
+        <v-button-group
+          :items="[
+            { name: 'Button 1', active: true },
+            { name: 'Button 2' },
+            { name: 'Button 3' },
+          ]"
+        />
+        <v-button-group
+          :items="[
+            { name: 'Button 1', active: true },
+            { name: 'Button 2' },
+            { name: 'Button 3' },
+          ]"
+          color="yellow"
+        />
+        <v-button-group
+          :items="[
+            { name: 'Button 1', active: true },
+            { name: 'Button 2' },
+            { name: 'Button 3' },
+          ]"
+          color="green"
+        />
+        <v-button-group
+          :items="[
+            { name: 'Button 1', active: true },
+            { name: 'Button 2' },
+            { name: 'Button 3' },
+          ]"
+          color="blue"
+        />
+        <v-button-group
+          :items="[
+            { name: 'Button 1', active: true },
+            { name: 'Button 2' },
+            { name: 'Button 3' },
+          ]"
+          color="gray"
+        />
+      </div>
+    </components-block>
+    <components-block
       title="Mandatory"
       desc="Use case for minimum one item as required."
     >
@@ -154,6 +240,108 @@
             },
           ]"
           mandatory
+        />
+      </div>
+    </components-block>
+    <components-block
+      title="Active view"
+      desc="Button view style for active button in group."
+    >
+      <div class="flex flex-col flex-start gap-16">
+        <v-button-group
+          :items="[
+            {
+              name: 'Button 1',
+              active: true,
+            },
+            {
+              name: 'Button 2',
+            },
+            {
+              name: 'Button 3',
+            },
+          ]"
+        />
+        <v-button-group
+          :items="[
+            {
+              name: 'Button 1',
+              active: true,
+            },
+            {
+              name: 'Button 2',
+            },
+            {
+              name: 'Button 3',
+            },
+          ]"
+          activeView="outline"
+        />
+        <v-button-group
+          :items="[
+            {
+              name: 'Button 1',
+              active: true,
+            },
+            {
+              name: 'Button 2',
+            },
+            {
+              name: 'Button 3',
+            },
+          ]"
+          activeView="text"
+        />
+      </div>
+    </components-block>
+    <components-block
+      title="inactive view"
+      desc="Inactive button view style for active button in group."
+    >
+      <div class="flex flex-col flex-start gap-16">
+        <v-button-group
+          :items="[
+            {
+              name: 'Button 1',
+              active: true,
+            },
+            {
+              name: 'Button 2',
+            },
+            {
+              name: 'Button 3',
+            },
+          ]"
+        />
+        <v-button-group
+          :items="[
+            {
+              name: 'Button 1',
+              active: true,
+            },
+            {
+              name: 'Button 2',
+            },
+            {
+              name: 'Button 3',
+            },
+          ]"
+          inactiveView="outline"
+        />
+        <v-button-group
+          :items="[
+            {
+              name: 'Button 1',
+              active: true,
+            },
+            {
+              name: 'Button 2',
+            },
+            {
+              name: 'Button 3',
+            },
+          ]"
+          inactiveView="text"
         />
       </div>
     </components-block>

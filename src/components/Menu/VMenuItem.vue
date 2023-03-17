@@ -20,13 +20,13 @@ export default {
   font-size: 14px;
   line-height: 1;
   padding: 10px 32px;
-  color: var(--color-gray-2);
+  color: var(--color-gray-8);
   transition: box-shadow 0.2s ease, color 0.2s ease, background 0.2s ease;
   text-decoration: none;
   border-radius: 4px;
 
   &:hover {
-    color: var(--color-gray-4);
+    color: var(--color-gray-9-5);
     box-shadow: 0px 0px 50px -10px rgba(41, 41, 41, 0.08);
   }
 

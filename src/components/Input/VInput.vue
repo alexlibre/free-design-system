@@ -168,7 +168,7 @@ export default {
 
   &_disabled {
     pointer-events: none;
-    opacity: 0.33;
+    opacity: 0.66;
 
     #{$c} {
       &__box {
@@ -196,7 +196,7 @@ export default {
       }
 
       & input {
-        color: var(--color-gray-10) !important;
+        color: var(--color-gray-4) !important;
       }
 
       &__helper {
@@ -226,7 +226,7 @@ export default {
       }
 
       & input {
-        color: var(--color-gray-10) !important;
+        color: var(--color-gray-4) !important;
       }
 
       &__helper {
@@ -260,7 +260,6 @@ export default {
   &__label {
     @include p1();
     line-height: 1;
-    color: var(--color-gray-4);
   }
 
   &__label-second {
@@ -298,7 +297,7 @@ export default {
       font-family: inherit;
       border: 0;
       background: none;
-      color: var(--color-gray-2);
+      color: var(--color-gray-8);
       width: 100%;
 
       &:focus {
@@ -306,7 +305,7 @@ export default {
       }
 
       &::placeholder {
-        color: var(--color-gray--1);
+        color: var(--color-gray-1);
       }
 
       & + button {
@@ -325,7 +324,7 @@ export default {
   &__helper {
     @include caption();
     margin: 8px 0 0;
-    color: var(--color-gray-0);
+    color: var(--color-gray-1);
   }
 }
 </style>

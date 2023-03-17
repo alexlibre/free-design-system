@@ -23,6 +23,8 @@
             <template v-else>
               <v-button
                 view="text"
+                size="s"
+                color="gray"
                 :icon="control.name"
                 :on-click="control.cb"
                 :key="idx"
@@ -199,7 +201,7 @@ export default {
 
         & textarea {
           &::placeholder {
-            color: var(--color-gray-0);
+            color: var(--color-gray-1);
           }
         }
       }
@@ -223,7 +225,7 @@ export default {
       }
 
       &::placeholder {
-        color: var(--color-gray--1);
+        color: var(--color-gray-1);
       }
     }
   }
@@ -251,7 +253,7 @@ export default {
     display: flex;
     align-items: center;
     font-size: 12px;
-    color: var(--color-gray-0);
+    color: var(--color-gray-1);
     transition: color 0.2s ease;
     flex-shrink: 0;
   }

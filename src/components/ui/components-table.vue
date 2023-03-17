@@ -66,7 +66,6 @@ export default {
   }
 
   th {
-    color: var(--color-gray-4);
     min-width: 150px;
   }
 
@@ -76,13 +75,21 @@ export default {
   }
 
   td {
-    color: var(--color-gray-2);
+    color: var(--color-gray-8);
     & {
       #{$c}__icon {
         color: var(--color-orange-5);
         display: flex;
         align-items: center;
         justify-content: center;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        font-family: monospace;
+        font-size: 1rem;
+        line-height: 1rem;
       }
     }
   }

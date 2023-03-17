@@ -11,7 +11,7 @@ body {
   font-family: "Gotham Pro", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: var(--color-gray-4);
+  color: var(--color-gray-9-5);
 }
 
 #app {
@@ -51,11 +51,23 @@ body {
     align-items: flex-start;
   }
 
+  &-col {
+    flex-direction: column;
+  }
+
   &-4 {
     flex-wrap: wrap;
 
     & > * {
       width: calc(25% - 12px);
+    }
+  }
+
+  &-3 {
+    flex-wrap: wrap;
+
+    & > * {
+      width: calc((100% / 3) - (16px / 3 * 2));
     }
   }
 
@@ -81,6 +93,9 @@ code {
   width: 6px;
   height: 6px;
   margin-left: 10px;
+  position: fixed;
+  top: 0;
+  z-index: -1;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -90,13 +105,16 @@ code {
 }
 
 ::selection {
-  background-color: var(--color-orange-5);
+  background-color: var(--color-gray-2);
   color: var(--color-white);
 }
 
 .mb {
   &-2 {
     margin-bottom: 2px;
+  }
+  &-4 {
+    margin-bottom: 4px;
   }
   &-8 {
     margin-bottom: 8px;
