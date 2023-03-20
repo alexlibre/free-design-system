@@ -28,7 +28,13 @@
           @blur="onBlur"
         />
         <template v-if="type === 'password'">
-          <v-button @click="switchPasswordVisibility" view="text" empty>
+          <v-button
+            @click="switchPasswordVisibility"
+            :color="currentColor"
+            view="text"
+            empty
+            class="input__icon-btn"
+          >
             <svg-icon class="input__icon" :name="currentIcon" :size="[16]" />
           </v-button>
         </template>
@@ -110,7 +116,7 @@ export default {
       inputType: this.type,
       hasFocus: false,
       showPassword: false,
-      currentIcon: this.icon,
+      currentIcon: this.icon || "eye",
     };
   },
   watch: {
@@ -122,6 +128,16 @@ export default {
   computed: {
     guid() {
       return (Math.random() + 1).toString(36).substring(2);
+    },
+    currentColor() {
+      switch (this.state) {
+        case "success":
+          return "green";
+        case "error":
+          return "red";
+        default:
+          return "orange";
+      }
     },
   },
   methods: {
@@ -138,9 +154,7 @@ export default {
       this.hasFocus = false;
     },
     switchPasswordVisibility() {
-      console.log("not passed");
-      // if (this.type !== "password") return;
-      console.log("pass");
+      if (this.type !== "password") return;
       this.showPassword = !this.showPassword;
     },
   },
@@ -173,7 +187,7 @@ export default {
     #{$c} {
       &__box {
         box-shadow: inset 0 0 0 1px var(--color-gray-0) !important;
-        background: var(--color-gray--1);
+        background: var(--color-gray-0);
         color: var(--color-gray-0) !important;
       }
 
@@ -260,6 +274,7 @@ export default {
   &__label {
     @include p1();
     line-height: 1;
+    cursor: pointer;
   }
 
   &__label-second {
@@ -270,13 +285,13 @@ export default {
   }
 
   &__box {
-    padding: 14px;
+    padding: 10px 14px;
     box-shadow: inset 0 0 0 1px var(--color-gray--1);
     border-radius: 8px;
     display: flex;
     align-items: center;
     gap: 8px;
-    transition: box-shadow 0.2s ease;
+    transition: box-shadow 0.2s linear;
     color: var(--color-gray-0);
     background: var(--color-white);
 
@@ -299,6 +314,7 @@ export default {
       background: none;
       color: var(--color-gray-8);
       width: 100%;
+      margin: 2px 0;
 
       &:focus {
         outline: none;
@@ -307,18 +323,21 @@ export default {
       &::placeholder {
         color: var(--color-gray-1);
       }
-
-      & + button {
-        height: 16px;
-        display: block;
-        cursor: pointer;
-        color: inherit !important;
-      }
     }
+  }
+
+  &__icon-btn {
+    width: 20px;
+    height: 20px;
+    display: block;
+    cursor: pointer;
+    color: inherit !important;
   }
 
   &__icon {
     flex-shrink: 0;
+    width: 20px;
+    height: 20px;
   }
 
   &__helper {

@@ -2,11 +2,11 @@
   <table class="components-table">
     <thead>
       <tr>
-        <th class="components-table__attributes">Attributes</th>
-        <th class="components-table__values">Values</th>
-        <th class="components-table__types">Types</th>
-        <th class="components-table__default">Default</th>
-        <th class="components-table__required">Required</th>
+        <th class="components-table__attributes">Атрибуты</th>
+        <th class="components-table__values">Значения</th>
+        <th class="components-table__types">Типы</th>
+        <th class="components-table__default">По умолчанию</th>
+        <th class="components-table__required">Обязательный</th>
       </tr>
     </thead>
     <tbody>
@@ -21,7 +21,7 @@
           <span class="components-table__icon" v-if="item.required">
             <svg-icon name="tick-circle" :size="[18]"
           /></span>
-          <span v-else>—</span>
+          <span v-else></span>
         </td>
       </tr>
     </tbody>
@@ -59,7 +59,7 @@ export default {
 
   tbody tr {
     background: var(--color-white);
-    transition: background 0.2s ease;
+    transition: background 0.2s linear;
     &:hover {
       background: var(--color-gray--1);
     }

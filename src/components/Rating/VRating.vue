@@ -193,7 +193,7 @@ export default {
 
   &__control {
     cursor: pointer;
-    transition: color 0.2s ease;
+    transition: color 0.2s linear;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -1,6 +1,10 @@
 <template>
   <div class="content">
-    <h1 class="content__header">{{ currentRouteName }}</h1>
+    <Transition appear name="slide-fade" mode="out-in">
+      <h1 :key="currentRouteName" class="content__header">
+        {{ currentRouteName }}
+      </h1>
+    </Transition>
     <hr />
     <div class="content__inner">
       <div class="content__aside">
@@ -73,9 +77,11 @@
       </div>
 
       <div class="content__wrapper">
-        <router-view class="content__view">
-          <p>Components page</p>
-        </router-view>
+        <transition mode="out-in" appear>
+          <router-view class="content__view">
+            <p>Components page</p>
+          </router-view>
+        </transition>
         <div class="content__view" v-if="isRoot">
           <p>In progress</p>
         </div>
@@ -123,6 +129,7 @@ export default {
 
   &__header {
     margin-bottom: 24px;
+    align-self: flex-start;
   }
 
   &__nav {
@@ -147,6 +154,7 @@ export default {
     flex: 1;
     padding: 24px;
     overflow-y: auto;
+    overflow-x: hidden;
     max-height: 100%;
     min-height: 100%;
     // background: #fefefe;
@@ -155,5 +163,31 @@ export default {
     background-position: bottom left;
     background-repeat: repeat;
   }
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.4s linear;
+}
+.v-enter {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+.v-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 0.3s linear;
+}
+.slide-fade-enter {
+  transform: translateX(-50px);
+  opacity: 0;
+}
+.slide-fade-leave-to {
+  transform: translateX(50px);
+  opacity: 0;
 }
 </style>

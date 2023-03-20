@@ -62,6 +62,7 @@
       ]"
     />
     <components-block
+      id="items"
       title="Items"
       desc="Array of items. Every item must include <code>name</code> or <code>icon</code> property."
     >
@@ -83,6 +84,7 @@
       </div>
     </components-block>
     <components-block
+      id="size"
       title="Size"
       desc="Select from different sizes: 's', 'm', 'l'. Default is medium."
     >
@@ -134,7 +136,11 @@
         size="l"
       />
     </components-block>
-    <components-block title="Multiple" desc="Use for multiselect.">
+    <components-block
+      id="multiple"
+      title="Multiple"
+      desc="Use for multiselect."
+    >
       <div class="flex gap-16">
         <v-button-group
           :items="[
@@ -153,6 +159,7 @@
       </div>
     </components-block>
     <components-block
+      id="color"
       title="Color"
       desc="Select color from predefined variables."
     >
@@ -207,6 +214,7 @@
       </div>
     </components-block>
     <components-block
+      id="mandatory"
       title="Mandatory"
       desc="Use case for minimum one item as required."
     >
@@ -244,6 +252,7 @@
       </div>
     </components-block>
     <components-block
+      id="activeView"
       title="Active view"
       desc="Button view style for active button in group."
     >
@@ -295,6 +304,7 @@
       </div>
     </components-block>
     <components-block
+      id="inactiveView"
       title="inactive view"
       desc="Inactive button view style for active button in group."
     >

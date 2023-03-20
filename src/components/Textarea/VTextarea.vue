@@ -177,6 +177,7 @@ export default {
     margin: 0 0 8px;
     align-self: start;
     flex-shrink: 0;
+    cursor: pointer;
   }
 
   &__box {
@@ -188,7 +189,7 @@ export default {
     flex-direction: column;
     flex-grow: 1;
     gap: 20px;
-    transition: box-shadow 0.2s ease;
+    transition: box-shadow 0.2s linear;
 
     &:hover {
       box-shadow: inset 0 0 0 1px var(--color-orange-1-5),
@@ -216,7 +217,7 @@ export default {
       font-size: 14px;
       line-height: 1;
       font-family: inherit;
-      transition: color 0.2s ease;
+      transition: color 0.2s linear;
       resize: vertical;
       flex-grow: 1;
 
@@ -242,7 +243,7 @@ export default {
     align-items: center;
     justify-content: center;
     color: var(--color-gray--1);
-    transition: color 0.2s ease;
+    transition: color 0.2s linear;
 
     &_divider {
       opacity: 0.33;
@@ -254,7 +255,7 @@ export default {
     align-items: center;
     font-size: 12px;
     color: var(--color-gray-1);
-    transition: color 0.2s ease;
+    transition: color 0.2s linear;
     flex-shrink: 0;
   }
 

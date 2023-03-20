@@ -48,23 +48,23 @@
       ]"
     />
 
-    <components-block title="label">
+    <components-block id="label" title="label">
       <v-textarea label="Textarea label" />
     </components-block>
 
-    <components-block title="placeholder">
+    <components-block id="placeholder" title="placeholder">
       <v-textarea placeholder="Textarea placeholder" />
     </components-block>
 
-    <components-block title="helper">
+    <components-block id="helper" title="helper">
       <v-textarea helper="Textarea helper" />
     </components-block>
 
-    <components-block title="limit">
+    <components-block id="limit" title="limit">
       <v-textarea :limit="1000" />
     </components-block>
 
-    <components-block title="rows">
+    <components-block id="rows" title="rows">
       <div class="flex flex-start gap-16">
         <v-textarea helper="15 rows" :rows="15" />
         <v-textarea helper="3 rows" :rows="3" />
@@ -72,7 +72,7 @@
       </div>
     </components-block>
 
-    <components-block title="controls">
+    <components-block id="controls" title="controls">
       <v-textarea
         :controls="[
           {
@@ -98,13 +98,13 @@
       />
     </components-block>
 
-    <components-block title="has-error">
+    <components-block id="hasError" title="has-error">
       <div class="flex flex-start gap-16">
         <v-textarea has-error helper="Error" />
       </div>
     </components-block>
 
-    <components-block title="is-fixed">
+    <components-block id="isFixed" title="is-fixed">
       <div class="flex flex-start gap-16">
         <v-textarea label="Fixed" is-fixed />
         <v-textarea label="Not fixed" />

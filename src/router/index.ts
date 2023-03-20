@@ -30,7 +30,7 @@ const routes: Array<RouteConfig> = [
       },
       {
         path: "input",
-        name: "input",
+        name: "Input",
         component: () =>
           import(
             /* webpackChunkName: "inputs" */ "../views/inputs/InputsView.vue"

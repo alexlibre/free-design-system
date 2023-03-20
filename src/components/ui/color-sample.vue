@@ -1,9 +1,11 @@
 <template>
   <div class="ui-color">
     <div class="ui-color__fill mb-8" :style="`background-color: ${color}`">
-      <div v-if="show" class="copy">
-        Скопирован <strong>{{ copy }}</strong>
-      </div>
+      <transition name="scale">
+        <div v-if="show" class="copy" mode="out-in">
+          Скопирован <strong>{{ copy }}</strong>
+        </div>
+      </transition>
     </div>
     <div class="ui-color__copy">
       <p class="ui-color__value mb-8" @click="copyToClipboard(color)">
@@ -111,7 +113,7 @@ export default {
     align-items: flex-start;
     justify-content: space-between;
     font-size: 14px;
-    color: var(--color-gray-0);
+    color: var(--color-gray-4);
   }
 
   &__name {
@@ -159,5 +161,18 @@ export default {
       font-weight: 900;
     }
   }
+}
+
+.scale-enter-active,
+.scale-leave-active {
+  transition: all 0.2s linear;
+}
+.scale-enter {
+  opacity: 0;
+  transform: scale(0);
+}
+.scale-leave-to {
+  opacity: 0;
+  transform: scale(0);
 }
 </style>

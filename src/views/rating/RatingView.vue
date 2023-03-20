@@ -47,7 +47,7 @@
         },
       ]"
     />
-    <components-block title="static">
+    <components-block id="static" title="static">
       <v-rating
         view="heart"
         color="red"
@@ -58,13 +58,13 @@
       />
     </components-block>
 
-    <components-block title="view">
+    <components-block id="view" title="view">
       <v-rating :size="32" :initial="5" />
       <v-rating view="heart" :size="32" color="red" :initial="4" />
       <v-rating view="tick-circle" color="green" :size="32" :initial="2" />
     </components-block>
 
-    <components-block title="small">
+    <components-block id="small" title="small">
       <v-rating
         view="info-circle"
         color="blue"
@@ -75,7 +75,7 @@
       />
     </components-block>
 
-    <components-block title="range">
+    <components-block id="range" title="range">
       <v-rating :size="32" :initial="5" :range="5" />
       <v-rating view="heart" :size="32" color="red" :initial="4" :range="10" />
       <v-rating
@@ -87,13 +87,13 @@
       />
     </components-block>
 
-    <components-block title="size">
+    <components-block id="size" title="size">
       <v-rating :size="16" :initial="5" :range="5" />
       <v-rating :size="32" :initial="5" :range="5" />
       <v-rating :size="64" :initial="5" :range="5" />
     </components-block>
 
-    <components-block title="initial">
+    <components-block id="initial" title="initial">
       <v-rating view="heart" color="red" :size="32" :initial="1" />
       <v-rating view="heart" color="red" :size="32" :initial="5" />
       <v-rating

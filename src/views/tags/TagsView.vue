@@ -29,7 +29,7 @@
         },
       ]"
     />
-    <components-block title="type">
+    <components-block id="type" title="type">
       <div class="flex gap-16">
         <v-tag>primary</v-tag>
         <v-tag type="danger">danger</v-tag>
@@ -40,7 +40,7 @@
       </div>
     </components-block>
 
-    <components-block title="has-border">
+    <components-block id="hasBorder" title="has-border">
       <div class="flex gap-16">
         <v-tag has-border>primary</v-tag>
         <v-tag has-border type="danger">danger</v-tag>
@@ -51,7 +51,7 @@
       </div>
     </components-block>
 
-    <components-block title="has-close">
+    <components-block id="hsaClose" title="has-close">
       <div class="flex gap-16">
         <v-tag has-close>primary</v-tag>
         <v-tag has-close type="danger">danger</v-tag>

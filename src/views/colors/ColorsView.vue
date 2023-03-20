@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4 class="mb-16">Gray</h4>
-    <div class="flex flex-start gap-16 flex-3">
+    <div class="flex flex-start gap-16 flex-3 cols">
       <color-sample
         v-for="weight in grayWeights"
         :key="weight"
@@ -17,7 +17,7 @@
       <h4 class="mb-16 mt-24">
         {{ color.charAt(0).toUpperCase() + color.slice(1) }}
       </h4>
-      <div class="flex flex-start gap-16 flex-3" :key="color">
+      <div class="flex flex-start gap-16 cols" :key="color">
         <color-sample
           v-for="weight in colorWeights"
           :key="weight"
@@ -31,6 +31,7 @@
 
 <script>
 import ColorSample from "@/components/ui/color-sample.vue";
+import { gsap } from "gsap";
 
 export default {
   components: {
@@ -84,3 +85,19 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/styles/mixins";
+
+.cols {
+  @include cols(1);
+
+  @include md-block {
+    @include cols(2);
+  }
+
+  @include lg-block {
+    @include cols(3);
+  }
+}
+</style>

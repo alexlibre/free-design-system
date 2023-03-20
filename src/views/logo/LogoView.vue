@@ -30,11 +30,11 @@
       ]"
     />
 
-    <components-block title="icon">
+    <components-block id="icon" title="icon">
       <v-logo icon="7spaces" name="7spaces" />
     </components-block>
 
-    <components-block title="size">
+    <components-block id="size" title="size">
       <div class="flex gap-16">
         <v-logo icon="7spaces" name="7spaces" />
         <v-logo icon="7spaces" name="7spaces" size="m" />
@@ -42,7 +42,7 @@
       </div>
     </components-block>
 
-    <components-block title="color">
+    <components-block id="color" title="color">
       <div class="flex gap-16">
         <v-logo icon="7spaces" name="7spaces" />
         <v-logo icon="7spaces" name="7spaces" color="negative" />
@@ -54,7 +54,7 @@
       </div>
     </components-block>
 
-    <components-block title="icon">
+    <components-block id="icon" title="icon">
       <div class="flex gap-16">
         <v-logo icon="7spaces" />
         <v-logo icon="7spaces" name="7spaces" />

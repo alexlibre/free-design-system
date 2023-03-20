@@ -1,21 +1,23 @@
 <template>
   <div
     class="card"
-    :class="`card_size_${size} card_theme_${themeDark ? 'dark' : 'light'}`"
+    :class="`${size ? 'card_size_' + size : ''} card_theme_${
+      themeDark ? 'dark' : 'light'
+    } ${shadow ? 'card_has_shadow' : ''}`"
   >
     <div class="card__inner">
       <div v-if="hasHeader" class="card__header">
-        <slot name="header"></slot>
+        <slot name="cardHeader"></slot>
       </div>
       <div
         v-if="hasBody"
         class="card__body"
         :class="{ card__body_pt: !hasHeader }"
       >
-        <slot name="body"></slot>
+        <slot name="cardBody"></slot>
       </div>
       <div v-if="hasFooter" class="card__footer">
-        <slot name="footer"></slot>
+        <slot name="cardFooter"></slot>
       </div>
     </div>
   </div>
@@ -26,22 +28,26 @@ export default {
   props: {
     size: {
       type: String,
-      default: "m",
+      default: "",
     },
     themeDark: {
+      type: Boolean,
+      default: false,
+    },
+    shadow: {
       type: Boolean,
       default: false,
     },
   },
   computed: {
     hasHeader() {
-      return !!this.$scopedSlots.header;
+      return !!this.$scopedSlots.cardHeader;
     },
     hasBody() {
-      return !!this.$scopedSlots.body;
+      return !!this.$scopedSlots.cardBody;
     },
     hasFooter() {
-      return !!this.$scopedSlots.footer;
+      return !!this.$scopedSlots.cardFooter;
     },
   },
 };
@@ -51,20 +57,11 @@ export default {
 .card {
   $c: &;
 
-  &_theme {
-    &_dark {
+  &_has {
+    &_shadow {
       #{$c} {
         &__inner {
-          background: var(--color-gray-10);
-          color: var(--color-white);
-        }
-      }
-    }
-
-    &_light {
-      #{$c} {
-        &__inner {
-          background: var(--color-white);
+          box-shadow: 0px 4px 8px rgba(41, 41, 41, 0.08);
         }
       }
     }
@@ -87,12 +84,31 @@ export default {
       }
     }
   }
+
+  &_theme {
+    &_dark {
+      #{$c} {
+        &__inner {
+          background: var(--color-gray-10);
+          color: var(--color-white);
+        }
+      }
+    }
+
+    &_light {
+      #{$c} {
+        &__inner {
+          background: var(--color-white);
+        }
+      }
+    }
+  }
+
   &__inner {
     display: flex;
     flex-direction: column;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0px 4px 8px rgba(41, 41, 41, 0.08);
   }
 
   &__header {

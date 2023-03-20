@@ -22,6 +22,8 @@
 <script>
 import SvgIcon from "@/components/SvgIcon.vue";
 
+import { gsap } from "gsap";
+
 export default {
   props: {
     type: {
@@ -43,7 +45,16 @@ export default {
       this.$destroy();
 
       if (this.$el !== null && this.$el.parentNode !== null) {
-        this.$el.parentNode.removeChild(this.$el);
+        gsap.to(this.$el, {
+          scale: 0,
+          y: -120,
+          x: 320,
+          rotation: "720deg",
+          duration: 0.5,
+          onComplete: () => {
+            this.$el.parentNode.removeChild(this.$el);
+          },
+        });
       }
     },
   },

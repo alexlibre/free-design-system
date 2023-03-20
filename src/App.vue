@@ -14,7 +14,9 @@
         />
       </nav>
     </header>
-    <router-view />
+    <transition appear name="nested" mode="out-in">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -62,5 +64,18 @@ export default {
       color: var(--color-orange-6);
     }
   }
+}
+
+.nested-enter-active,
+.nested-leave-active {
+  transition: all 0.5s linear;
+}
+.nested-enter {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+.nested-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
 }
 </style>

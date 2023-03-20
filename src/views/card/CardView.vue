@@ -15,7 +15,7 @@
                   placeholder="hello@mail.com"
                 />
                 <v-textarea label="Message" placeholder="Placeholder" isFixed />
-                <v-button :onClick="logClick">Continue</v-button>
+                <v-button @click="logClick">Continue</v-button>
               </div>
             </div>
           </template>
@@ -29,7 +29,7 @@
           <template v-slot:body>
             <div class="flex justify-between mb-4">
               <h5>Пицца Карбонара</h5>
-              <v-rating :initial="5" small :range="1" />
+              <v-rating :initial="5" small :range="1" static />
             </div>
             <p>650₽</p>
           </template>

@@ -79,3 +79,33 @@
     @content;
   }
 }
+
+// breakpoints
+@mixin lg-block {
+  @media screen and (min-width: 1280px) {
+    @content;
+  }
+}
+
+@mixin md-block {
+  @media screen and (min-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin sm-block {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+// cols
+@mixin cols($i) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  & > * {
+    width: calc(100% / #{$i} - (16px / #{$i} * #{$i - 1}));
+  }
+}

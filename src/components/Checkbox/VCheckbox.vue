@@ -1,11 +1,11 @@
 <template>
-  <label :for="id" class="checkbox" :class="{ checkbox_disabled: disabled }">
+  <label :for="guid" class="checkbox" :class="{ checkbox_disabled: disabled }">
     <div class="checkbox__inner">
       <input
         class="checkbox__input"
         :checked="checked ? true : false"
         type="checkbox"
-        :id="id"
+        :id="guid"
       />
       <span class="checkbox__box">
         <SvgIcon name="check" :size="[10, 8]" />
@@ -20,10 +20,6 @@ import SvgIcon from "@/components/SvgIcon.vue";
 
 export default {
   props: {
-    id: {
-      type: String,
-      required: true,
-    },
     label: {
       type: String,
       default: "",
@@ -40,6 +36,11 @@ export default {
   components: {
     SvgIcon,
   },
+  computed: {
+    guid() {
+      return (Math.random() + 1).toString(36).substring(2);
+    },
+  },
 };
 </script>
 
@@ -52,8 +53,8 @@ export default {
 
     #{$c} {
       &__box {
-        background: var(--color-gray--1) !important;
-        box-shadow: 0 0 0 2px var(--color-gray--1) !important;
+        background: var(--color-gray-0) !important;
+        box-shadow: 0 0 0 2px var(--color-gray-0) !important;
       }
 
       &__label {
@@ -105,7 +106,7 @@ export default {
     & svg {
       opacity: 0;
       transform: rotate(270deg);
-      transition: opacity 0.2s ease, transform 0.2s ease;
+      transition: opacity 0.2s linear, transform 0.2s linear;
     }
   }
 }
