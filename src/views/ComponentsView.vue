@@ -173,7 +173,7 @@ export default {
     flex-shrink: 0;
     background: var(--color-white);
     position: absolute;
-    z-index: 1000;
+    z-index: 10;
     transform: translateX(-120%);
     top: 0;
     bottom: 0;
@@ -229,7 +229,7 @@ export default {
   }
   &__menu-btn {
     @include lg-block {
-      display: none;
+      display: none !important;
     }
   }
 }

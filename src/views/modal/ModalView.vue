@@ -3,7 +3,7 @@
     <v-button @click="toggleModal">Show modal</v-button>
     <v-modal v-if="showModal" @closeModal="toggleModal">
       <template #body>
-        <v-card>
+        <v-card class="modal-form">
           <template #cardBody>
             <div class="form">
               <div class="form__inner">
@@ -63,4 +63,11 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "@/assets/styles/mixins";
+.modal-form {
+  @include lg-block {
+    width: 500px;
+  }
+}
+</style>

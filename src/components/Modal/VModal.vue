@@ -1,6 +1,6 @@
 <template>
   <div class="modal">
-    <div class="modal__cloak" @click="close"></div>
+    <div class="modal__cloak" @click="close" ref="cloak"></div>
     <div class="modal__wrapper" ref="modal">
       <div class="modal__inner">
         <div class="modal__header">
@@ -28,7 +28,7 @@
 <script>
 import VButton from "@/components/Button/VButton";
 
-import { gsap } from "gsap";
+import { gsap, Bounce } from "gsap";
 
 export default {
   components: {
@@ -48,26 +48,57 @@ export default {
     },
   },
   mounted() {
-    gsap.from(this.$refs.modal, {
-      scale: 0.5,
-      y: "-100%",
+    gsap.from(this.$refs.cloak, {
       opacity: 0,
-      duration: 0.3,
+      duration: 0.5,
     });
+
+    gsap.fromTo(
+      this.$refs.modal,
+      0.5,
+      {
+        opacity: 0,
+        y: "-100vh",
+        delay: 0.5,
+      },
+      {
+        opacity: 1,
+        y: "-100%",
+      }
+    );
+    gsap.fromTo(
+      this.$refs.modal,
+      0.9,
+      {
+        y: "-100%",
+        delay: 1,
+      },
+      {
+        y: "0",
+        ease: Bounce.easeOut,
+      }
+    );
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .modal {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+
   &__cloak {
     background-color: var(--color-gray-8);
     opacity: 0.3;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
   }
 
   &__wrapper {
@@ -80,6 +111,7 @@ export default {
     justify-content: center;
     background: var(--color-white);
     padding: 2rem;
+    transform-origin: top center;
   }
 
   &__header {

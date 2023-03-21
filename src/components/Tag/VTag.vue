@@ -45,17 +45,23 @@ export default {
       this.$destroy();
 
       if (this.$el !== null && this.$el.parentNode !== null) {
+        this.$el.style = "position: absolute; z-index: 1000";
+
         gsap.to(this.$el, {
-          scale: 0,
-          y: -120,
-          x: 320,
+          scale: 0.5,
+          opacity: 0,
+          y: this.getRandomDirection(),
+          x: this.getRandomDirection(),
           rotation: "720deg",
-          duration: 0.5,
+          duration: 0.85,
           onComplete: () => {
             this.$el.parentNode.removeChild(this.$el);
           },
         });
       }
+    },
+    getRandomDirection() {
+      return Math.round(Math.random() * 1000 - 500);
     },
   },
 };
