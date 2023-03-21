@@ -60,16 +60,14 @@ export default {
 
 <style lang="scss" scoped>
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-
   &__cloak {
     background-color: var(--color-gray-8);
     opacity: 0.3;
-    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
   }
 
   &__wrapper {

@@ -26,7 +26,7 @@
                 size="s"
                 color="gray"
                 :icon="control.name"
-                :on-click="control.cb"
+                @click="control.cb"
                 :key="idx"
               />
             </template>
@@ -201,6 +201,8 @@ export default {
         }
 
         & textarea {
+          -webkit-tap-highlight-color: transparent;
+
           &::placeholder {
             color: var(--color-gray-1);
           }
@@ -209,7 +211,7 @@ export default {
     }
 
     & textarea {
-      min-width: 280px;
+      // min-width: 280px;
       width: 100%;
       border: 0;
       width: 100%;

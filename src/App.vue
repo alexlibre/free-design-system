@@ -6,12 +6,12 @@
         <router-link class="header__link" to="/components"
           >Components</router-link
         >
-        <v-button
+        <!-- <v-button
           icon="mask"
           view="text"
           :onClick="switchTheme"
           style="margin-left: auto"
-        />
+        /> -->
       </nav>
     </header>
     <transition appear name="nested" mode="out-in">
@@ -21,10 +21,7 @@
 </template>
 
 <script>
-import VButton from "@/components/Button/VButton.vue";
-
 export default {
-  components: { VButton },
   data() {
     return {
       darkTheme: false,
@@ -47,8 +44,12 @@ export default {
 @import "@/assets/styles/main.scss";
 
 .header {
-  padding: 30px;
+  padding: 16px;
   flex-shrink: 0;
+
+  @include lg-block {
+    padding: 30px;
+  }
 
   &__nav {
     display: flex;
@@ -58,6 +59,7 @@ export default {
   &__link {
     color: var(--color-gray-6);
     text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
 
     &.router-link-exact-active,
     &.router-link-active {

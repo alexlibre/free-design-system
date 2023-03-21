@@ -197,6 +197,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    -webkit-tap-highlight-color: transparent;
   }
 
   &__qty {

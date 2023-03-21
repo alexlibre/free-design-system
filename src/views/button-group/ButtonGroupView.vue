@@ -6,7 +6,7 @@
           attr: 'items',
           values: ['any object with name prop'],
           types: ['array'],
-          default: '—',
+          default: '',
           required: true,
         },
         {

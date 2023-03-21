@@ -1,25 +1,33 @@
 <template>
   <div class="content">
-    <Transition appear name="slide-fade" mode="out-in">
-      <h1 :key="currentRouteName" class="content__header">
-        {{ currentRouteName }}
-      </h1>
-    </Transition>
+    <div class="content__head">
+      <v-button
+        class="content__menu-btn"
+        @click="toggleAside"
+        :icon="menuOpened ? 'menu-close' : 'menu'"
+      />
+
+      <Transition appear name="slide-fade" mode="out-in">
+        <h1 :key="currentRouteName" class="content__header">
+          {{ currentRouteName }}
+        </h1>
+      </Transition>
+    </div>
     <hr />
     <div class="content__inner">
-      <div class="content__aside">
+      <div class="content__aside" ref="aside">
         <nav class="content__nav">
           <span class="content__nav-title">Foundations</span>
           <v-menu-item class="content__nav-link" url="/components/grids"
             >Grid</v-menu-item
           >
-          <!-- <v-menu-item class="content__nav-link" url="/components"
+          <!-- <v-menu-item  class="content__nav-link" url="/components"
             >Icons</v-menu-item
           > -->
           <v-menu-item class="content__nav-link" url="/components/colors"
             >Colors</v-menu-item
           >
-          <!-- <v-menu-item class="content__nav-link" url="/components"
+          <!-- <v-menu-item  class="content__nav-link" url="/components"
             >Typography</v-menu-item
           > -->
           <hr class="content__nav-divider" />
@@ -39,7 +47,7 @@
           <v-menu-item class="content__nav-link" url="/components/logo"
             >Logo</v-menu-item
           >
-          <!-- <v-menu-item class="content__nav-link" url="/components"
+          <!-- <v-menu-item  class="content__nav-link" url="/components"
             >Switch</v-menu-item
           > -->
           <v-menu-item class="content__nav-link" url="/components/rating"
@@ -51,12 +59,12 @@
           <v-menu-item class="content__nav-link" url="/components/textarea"
             >Textarea</v-menu-item
           >
-          <!-- <v-menu-item class="content__nav-link" url="/components"
+          <!-- <v-menu-item  class="content__nav-link" url="/components"
             >Dropdown</v-menu-item
           > -->
           <hr class="content__nav-divider" />
           <span class="content__nav-title">Molecules</span>
-          <!-- <v-menu-item class="content__nav-link" url="/components"
+          <!-- <v-menu-item  class="content__nav-link" url="/components"
             >Navigation bar</v-menu-item
           > -->
           <v-menu-item class="content__nav-link" url="/components/card"
@@ -67,10 +75,10 @@
           >
           <hr class="content__nav-divider" />
           <span class="content__nav-title">Organisms</span>
-          <!-- <v-menu-item class="content__nav-link" url="/components"
+          <!-- <v-menu-item  class="content__nav-link" url="/components"
             >Hero</v-menu-item
           > -->
-          <!-- <v-menu-item class="content__nav-link" url="/components"
+          <!-- <v-menu-item  class="content__nav-link" url="/components"
             >Footer</v-menu-item
           > -->
         </nav>
@@ -92,10 +100,19 @@
 
 <script>
 import VMenuItem from "@/components/Menu/VMenuItem.vue";
+import VButton from "@/components/Button/VButton.vue";
+
+import { gsap } from "gsap";
 
 export default {
   components: {
     VMenuItem,
+    VButton,
+  },
+  data() {
+    return {
+      menuOpened: false,
+    };
   },
   computed: {
     currentRouteName() {
@@ -105,12 +122,48 @@ export default {
       return this.$route.name === "Components";
     },
   },
+  watch: {
+    $route(to, from) {
+      this.closeAside();
+    },
+  },
+  methods: {
+    toggleAside() {
+      if (!this.menuOpened) {
+        this.menuOpened = true;
+        gsap.to(this.$refs.aside, {
+          x: "0",
+        });
+        return;
+      }
+
+      this.closeAside();
+    },
+    closeAside() {
+      this.menuOpened = false;
+      gsap.to(this.$refs.aside, {
+        x: "-120%",
+      });
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/styles/mixins";
 .content {
-  padding: 30px;
+  padding: 16px;
+
+  @include lg-block {
+    padding: 30px;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    justify-content: space-between;
+  }
 
   &__aside {
     overflow-y: auto;
@@ -118,6 +171,17 @@ export default {
     padding-right: 16px;
     max-height: 100%;
     flex-shrink: 0;
+    background: var(--color-white);
+    position: absolute;
+    z-index: 1000;
+    transform: translateX(-120%);
+    top: 0;
+    bottom: 0;
+
+    @include lg-block {
+      position: static;
+      transform: translateX(0) !important;
+    }
   }
 
   &__inner {
@@ -125,11 +189,7 @@ export default {
     align-items: flex-start;
     gap: 24px;
     height: calc(100% - 48px);
-  }
-
-  &__header {
-    margin-bottom: 24px;
-    align-self: flex-start;
+    position: relative;
   }
 
   &__nav {
@@ -152,9 +212,9 @@ export default {
 
   &__wrapper {
     flex: 1;
-    padding: 24px;
-    overflow-y: auto;
+    padding: 16px;
     overflow-x: hidden;
+    overflow-y: auto;
     max-height: 100%;
     min-height: 100%;
     // background: #fefefe;
@@ -162,12 +222,21 @@ export default {
     background-image: url(data:image/svg;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2IoMTUgMjMgNDIgLyAwLjA0KSI+ICA8cGF0aCBkPSJNMCAuNWgzMS41VjMyIi8+PC9zdmc+);
     background-position: bottom left;
     background-repeat: repeat;
+
+    @include lg-block {
+      padding: 24px;
+    }
+  }
+  &__menu-btn {
+    @include lg-block {
+      display: none;
+    }
   }
 }
 
 .v-enter-active,
 .v-leave-active {
-  transition: all 0.4s linear;
+  transition: all 0.3s linear;
 }
 .v-enter {
   opacity: 0;
@@ -183,11 +252,11 @@ export default {
   transition: all 0.3s linear;
 }
 .slide-fade-enter {
-  transform: translateX(-50px);
+  transform: translateX(50px);
   opacity: 0;
 }
 .slide-fade-leave-to {
-  transform: translateX(50px);
+  transform: translateX(-50px);
   opacity: 0;
 }
 </style>

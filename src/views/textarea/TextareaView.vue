@@ -2,18 +2,18 @@
   <div>
     <components-table
       :items="[
-        { attr: 'label', values: ['any'], types: ['string'], default: '—' },
+        { attr: 'label', values: ['any'], types: ['string'], default: '' },
         {
           attr: 'placeholder',
           values: ['any'],
           types: ['string'],
-          default: '—',
+          default: '',
         },
         {
           attr: 'helper',
           values: ['any'],
           types: ['string'],
-          default: '—',
+          default: '',
         },
         {
           attr: 'limit',
@@ -30,7 +30,7 @@
         {
           attr: 'controls',
           values: ['any'],
-          types: ['{[ name: string', 'cb: function ]}'],
+          types: ['Object'],
           default: 'empty Array',
         },
         {
@@ -125,16 +125,16 @@ export default {
   },
   methods: {
     cb1() {
-      console.log("text-bold");
+      alert("Will set text to bold");
     },
     cb2() {
-      console.log("text-italic");
+      alert("Will set text to italic");
     },
     cb3() {
-      console.log("text-underline");
+      alert("Will set text to underline");
     },
     cb4() {
-      console.log("link-2");
+      alert("Will add link");
     },
   },
 };

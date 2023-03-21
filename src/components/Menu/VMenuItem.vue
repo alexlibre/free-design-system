@@ -4,7 +4,7 @@
   </router-link>
 </template>
 
-<script lang="ts">
+<script>
 export default {
   props: {
     url: {
@@ -24,6 +24,7 @@ export default {
   transition: box-shadow 0.2s linear, color 0.2s linear, background 0.2s linear;
   text-decoration: none;
   border-radius: 4px;
+  -webkit-tap-highlight-color: transparent;
 
   &:hover {
     color: var(--color-gray-9-5);

@@ -18,7 +18,7 @@
           attr: 'label',
           values: ['any string'],
           types: ['string'],
-          default: '—',
+          default: '',
         },
       ]"
     >

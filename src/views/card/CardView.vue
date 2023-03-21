@@ -1,41 +1,38 @@
 <template>
   <div>
-    <v-grid :cols="3">
-      <template #0>
-        <v-card>
-          <template v-slot:body>
-            <div class="form">
-              <div class="form__inner">
-                <h4>Send Invitation</h4>
-                <v-input
-                  id="card-input"
-                  label="Email"
-                  type="email"
-                  text="hello.mail.cristian.com"
-                  placeholder="hello@mail.com"
-                />
-                <v-textarea label="Message" placeholder="Placeholder" isFixed />
-                <v-button @click="logClick">Continue</v-button>
-              </div>
+    <div class="flex gap-16 flex-start">
+      <v-card size="m">
+        <template #cardBody>
+          <div class="form">
+            <div class="form__inner">
+              <h4>Send Invitation</h4>
+              <v-input
+                id="card-input"
+                label="Email"
+                type="email"
+                text="hello.mail.cristian.com"
+                placeholder="hello@mail.com"
+              />
+              <v-textarea label="Message" placeholder="Placeholder" isFixed />
+              <v-button @click="logClick">Continue</v-button>
             </div>
-          </template>
-        </v-card>
-      </template>
-      <template #1>
-        <v-card size="s" theme-dark>
-          <template v-slot:header>
-            <img src="@/assets/img/pizza.jpg" alt="pizza" />
-          </template>
-          <template v-slot:body>
-            <div class="flex justify-between mb-4">
-              <h5>Пицца Карбонара</h5>
-              <v-rating :initial="5" small :range="1" static />
-            </div>
-            <p>650₽</p>
-          </template>
-        </v-card>
-      </template>
-    </v-grid>
+          </div>
+        </template>
+      </v-card>
+
+      <v-card size="s" theme-dark class="menu-card">
+        <template #cardHeader>
+          <img src="@/assets/img/pizza.jpg" alt="pizza" />
+        </template>
+        <template #cardBody>
+          <div class="flex justify-between mb-4">
+            <h5>Пицца Карбонара</h5>
+            <v-rating :initial="5" small :range="1" static />
+          </div>
+          <p>650₽</p>
+        </template>
+      </v-card>
+    </div>
   </div>
 </template>
 
@@ -45,7 +42,6 @@ import VInput from "@/components/Input/VInput.vue";
 import VCard from "@/components/Card/VCard.vue";
 import VTextarea from "@/components/Textarea/VTextarea.vue";
 import VRating from "@/components/Rating/VRating.vue";
-import VGrid from "@/components/ui/VGrid.vue";
 
 export default {
   components: {
@@ -54,7 +50,6 @@ export default {
     VCard,
     VTextarea,
     VRating,
-    VGrid,
   },
   methods: {
     logClick() {
@@ -69,5 +64,9 @@ export default {
 
 h5 {
   @include h5();
+}
+
+.menu-card {
+  max-width: 400px;
 }
 </style>

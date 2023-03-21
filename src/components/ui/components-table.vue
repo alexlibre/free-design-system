@@ -1,31 +1,33 @@
 <template>
-  <table class="components-table">
-    <thead>
-      <tr>
-        <th class="components-table__attributes">Атрибуты</th>
-        <th class="components-table__values">Значения</th>
-        <th class="components-table__types">Типы</th>
-        <th class="components-table__default">По умолчанию</th>
-        <th class="components-table__required">Обязательный</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="item in items" :key="item.attr">
-        <td class="components-table__attributes">
-          <router-link :to="`#${item.attr}`">{{ item.attr }}</router-link>
-        </td>
-        <td class="components-table__values">{{ item.values.join(", ") }}</td>
-        <td class="components-table__types">{{ item.types.join(", ") }}</td>
-        <td class="components-table__default">{{ item.default }}</td>
-        <td class="components-table__required">
-          <span class="components-table__icon" v-if="item.required">
-            <svg-icon name="tick-circle" :size="[18]"
-          /></span>
-          <span v-else></span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="wrap">
+    <table class="components-table">
+      <thead>
+        <tr>
+          <th class="components-table__attributes">Attributes</th>
+          <th class="components-table__values">Values</th>
+          <th class="components-table__types">Types</th>
+          <th class="components-table__default">Default</th>
+          <th class="components-table__required">Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in items" :key="item.attr">
+          <td class="components-table__attributes">
+            <router-link :to="`#${item.attr}`">{{ item.attr }}</router-link>
+          </td>
+          <td class="components-table__values">{{ item.values.join(", ") }}</td>
+          <td class="components-table__types">{{ item.types.join(", ") }}</td>
+          <td class="components-table__default">{{ item.default }}</td>
+          <td class="components-table__required">
+            <span class="components-table__icon" v-if="item.required">
+              <svg-icon name="tick-circle" :size="[18]"
+            /></span>
+            <span v-else></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
@@ -45,12 +47,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  margin-bottom: 48px;
+}
 .components-table {
   $c: &;
 
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 48px;
+  overflow-x: auto;
 
   thead {
     border-bottom: 1px solid var(--color-gray--1);

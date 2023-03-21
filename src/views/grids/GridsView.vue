@@ -3,7 +3,7 @@
     <components-block
       id="cols"
       title="number"
-      desc="Число задает количество столбцов из дочерних элементов."
+      desc="Set the number of equal columns"
     >
       <div class="grid grid-12">
         <div v-for="(item, idx) in Array(12)" :key="idx">{{ idx + 1 }}</div>

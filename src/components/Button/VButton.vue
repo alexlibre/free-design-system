@@ -97,6 +97,8 @@ $colors: "orange", "red", "yellow", "green", "blue", "violet", "gray";
   line-height: 1;
   font-family: "Gotham Pro";
   font-weight: 400;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
 
   &:focus {
     outline: 2px solid var(--color-orange-0-5);

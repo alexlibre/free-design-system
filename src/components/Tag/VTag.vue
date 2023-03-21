@@ -150,6 +150,7 @@ export default {
     background: none;
     color: inherit;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 
     & svg path {
       fill: currentColor;
