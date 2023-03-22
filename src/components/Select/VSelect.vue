@@ -112,6 +112,8 @@ export default {
 
   width: 100%;
   font-size: 14px;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
 
   &:not(&_disabled) {
     cursor: pointer;
