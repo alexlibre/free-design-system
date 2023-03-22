@@ -86,7 +86,7 @@
     <components-block
       id="size"
       title="Size"
-      desc="Select from different sizes: 's', 'm', 'l'. Default is medium."
+      desc="Select from different sizes: <code>s</code>, <code>m</code>, <code>l</code>. Default is medium."
     >
       <v-button-group
         class="mb-24"
@@ -341,17 +341,22 @@
         <v-button-group
           :items="[
             {
+              idx: 1,
               name: 'Button 1',
               active: true,
             },
             {
+              idx: 2,
               name: 'Button 2',
             },
             {
+              idx: 3,
               name: 'Button 3',
             },
           ]"
           inactiveView="text"
+          multiple
+          @selected="check"
         />
       </div>
     </components-block>
@@ -368,6 +373,11 @@ export default {
     VButtonGroup,
     ComponentsTable,
     ComponentsBlock,
+  },
+  methods: {
+    check(val) {
+      console.log(val);
+    },
   },
 };
 </script>

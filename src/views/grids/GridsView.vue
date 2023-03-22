@@ -67,7 +67,7 @@ export default {
       @include cols($i);
 
       & > * {
-        background-color: var(--color-orange-5);
+        background-color: var(--color-gray-1);
         height: 3rem;
         display: flex;
         align-items: center;

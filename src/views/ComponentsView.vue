@@ -32,6 +32,9 @@
           > -->
           <hr class="content__nav-divider" />
           <span class="content__nav-title">Atoms</span>
+          <v-menu-item class="content__nav-link" url="/components/avatar"
+            >Avatar</v-menu-item
+          >
           <v-menu-item class="content__nav-link" url="/components/buttons"
             >Button</v-menu-item
           >
@@ -52,6 +55,9 @@
           > -->
           <v-menu-item class="content__nav-link" url="/components/rating"
             >Rating</v-menu-item
+          >
+          <v-menu-item class="content__nav-link" url="/components/select"
+            >Select</v-menu-item
           >
           <v-menu-item class="content__nav-link" url="/components/tags"
             >Tag</v-menu-item
@@ -131,7 +137,7 @@ export default {
     toggleAside() {
       if (!this.menuOpened) {
         this.menuOpened = true;
-        gsap.to(this.$refs.aside, {
+        gsap.to(this.$refs.aside, 0.2, {
           x: "0",
         });
         return;
@@ -141,7 +147,7 @@ export default {
     },
     closeAside() {
       this.menuOpened = false;
-      gsap.to(this.$refs.aside, {
+      gsap.to(this.$refs.aside, 0.2, {
         x: "-120%",
       });
     },

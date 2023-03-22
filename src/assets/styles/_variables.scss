@@ -1,5 +1,6 @@
 @import "./mixins";
 :root {
+  // colors
   $color-suffix: "10", "9-5", "9", "8-5", "8", "7", "6", "5", "4", "3", "2",
     "1-5", "1", "0-5";
   $gray-suffix: "10", "9-5", "9", "8-5", "8", "7", "6", "5", "4", "3", "2",
@@ -9,29 +10,12 @@
   @include generate-colors(022, 100%, $color-suffix, "orange", 25);
   @include generate-colors(048, 85%, $color-suffix, "yellow", 25);
   @include generate-colors(119, 50%, $color-suffix, "green", 25);
-  @include generate-colors(206, 100%, $color-suffix, "blue", 25);
+  @include generate-colors(206, 85%, $color-suffix, "blue", 25);
   @include generate-colors(261, 100%, $color-suffix, "violet", 25);
-  // colors
-  --color-white: #ffffff;
-
-  // --color-gray-10: #000000;
-  // --color-gray-9-5: #010101;
-  // --color-gray-9: #020202;
-  // --color-gray-8-5: #030303;
-  // --color-gray-8: #040404;
-  // --color-gray-7: #070707;
-  // --color-gray-6: #090909;
-  // --color-gray-5: #0b0b0b;
-  // --color-gray-4: #292929;
-  // --color-gray-3: #464646;
-  // --color-gray-2: #646464;
-  // --color-gray-1-5: #737373;
-  // --color-gray-1: #818181;
-  // --color-gray-0-5: #909090;
-  // --color-gray-0: #9f9f9f;
-  // --color-gray--1: #e6e6e6;
 
   @include generate-grays(0, 0%, $gray-suffix, "gray");
+
+  --color-white: #ffffff;
 
   --color-shadow-light-gray: rgba(41, 41, 41, 0.08);
 }

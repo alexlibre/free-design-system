@@ -29,7 +29,7 @@
         },
         {
           attr: 'color',
-          values: ['red', 'orange', 'yellow', 'green', 'blue', 'violet'],
+          values: ['red', 'orange', 'yellow', 'green', 'orange', 'violet'],
           types: ['string'],
           default: 'orange',
         },
@@ -144,12 +144,12 @@
       </div>
 
       <div class="flex gap-16">
-        <v-button color="blue">Primary</v-button>
-        <v-button view="secondary" color="blue">Secondary</v-button>
-        <v-button view="outline" color="blue">Outlined</v-button>
-        <v-button view="text" color="blue">Text</v-button>
-        <v-button view="rounded" color="blue">Rounded</v-button>
-        <v-button view="square" color="blue">Square</v-button>
+        <v-button color="orange">Primary</v-button>
+        <v-button view="secondary" color="orange">Secondary</v-button>
+        <v-button view="outline" color="orange">Outlined</v-button>
+        <v-button view="text" color="orange">Text</v-button>
+        <v-button view="rounded" color="orange">Rounded</v-button>
+        <v-button view="square" color="orange">Square</v-button>
       </div>
 
       <div class="flex gap-16">
@@ -185,12 +185,12 @@
         <v-button view="square" icon="tick-circle" color="green"></v-button>
       </div>
       <div class="flex gap-16">
-        <v-button color="blue" icon="mask"></v-button>
-        <v-button view="secondary" icon="mask" color="blue"></v-button>
-        <v-button view="outline" icon="mask" color="blue"></v-button>
-        <v-button view="text" icon="mask" color="blue"></v-button>
-        <v-button view="rounded" icon="mask" color="blue"></v-button>
-        <v-button view="square" icon="mask" color="blue"></v-button>
+        <v-button color="orange" icon="mask"></v-button>
+        <v-button view="secondary" icon="mask" color="orange"></v-button>
+        <v-button view="outline" icon="mask" color="orange"></v-button>
+        <v-button view="text" icon="mask" color="orange"></v-button>
+        <v-button view="rounded" icon="mask" color="orange"></v-button>
+        <v-button view="square" icon="mask" color="orange"></v-button>
       </div>
     </components-block>
 
@@ -232,12 +232,12 @@
       </div>
 
       <div class="flex gap-16">
-        <v-button disabled color="blue">Primary</v-button>
-        <v-button disabled view="secondary" color="blue">Secondary</v-button>
-        <v-button disabled view="outline" color="blue">Outlined</v-button>
-        <v-button disabled view="text" color="blue">Text</v-button>
-        <v-button disabled view="rounded" color="blue">Rounded</v-button>
-        <v-button disabled view="square" color="blue">Square</v-button>
+        <v-button disabled color="orange">Primary</v-button>
+        <v-button disabled view="secondary" color="orange">Secondary</v-button>
+        <v-button disabled view="outline" color="orange">Outlined</v-button>
+        <v-button disabled view="text" color="orange">Text</v-button>
+        <v-button disabled view="rounded" color="orange">Rounded</v-button>
+        <v-button disabled view="square" color="orange">Square</v-button>
       </div>
 
       <div class="flex gap-16">
@@ -338,12 +338,17 @@
         ></v-button>
       </div>
       <div class="flex gap-16">
-        <v-button disabled color="blue" icon="mask"></v-button>
-        <v-button disabled view="secondary" icon="mask" color="blue"></v-button>
-        <v-button disabled view="outline" icon="mask" color="blue"></v-button>
-        <v-button disabled view="text" icon="mask" color="blue"></v-button>
-        <v-button disabled view="rounded" icon="mask" color="blue"></v-button>
-        <v-button disabled view="square" icon="mask" color="blue"></v-button>
+        <v-button disabled color="orange" icon="mask"></v-button>
+        <v-button
+          disabled
+          view="secondary"
+          icon="mask"
+          color="orange"
+        ></v-button>
+        <v-button disabled view="outline" icon="mask" color="orange"></v-button>
+        <v-button disabled view="text" icon="mask" color="orange"></v-button>
+        <v-button disabled view="rounded" icon="mask" color="orange"></v-button>
+        <v-button disabled view="square" icon="mask" color="orange"></v-button>
       </div>
     </components-block>
 

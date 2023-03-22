@@ -78,7 +78,7 @@
       <div class="flex gap-16">
         <v-input label="Name" compact />
         <v-input label="Email" type="email" compact />
-        <v-input label="Password" type="password" compact state="error" />
+        <v-input label="Password" type="password" compact />
       </div>
     </components-block>
     <components-block title="Disabled" id="disabled">

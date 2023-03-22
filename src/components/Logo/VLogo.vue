@@ -100,9 +100,9 @@ export default {
       background: var(--color-gray-10);
     }
 
-    &_orange {
+    &_colored {
       color: var(--color-white);
-      background: var(--color-orange-5);
+      background: var(--color-blue-5);
     }
 
     &_white {
@@ -110,8 +110,8 @@ export default {
       background: transparent;
     }
 
-    &_orange-only {
-      color: var(--color-orange-5);
+    &_colored-only {
+      color: var(--color-blue-5);
       background: transparent;
     }
   }

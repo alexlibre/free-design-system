@@ -82,7 +82,7 @@ export default {
 
     &:checked + #{$c} {
       &__box {
-        background: var(--color-orange-5);
+        background: var(--color-blue-5);
 
         & svg {
           opacity: 1;
@@ -96,7 +96,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: inset 0 0 0 2px var(--color-orange-5);
+    box-shadow: inset 0 0 0 2px var(--color-blue-5);
     width: 18px;
     height: 18px;
     position: relative;

@@ -56,7 +56,6 @@ export default {
   methods: {
     ...mapActions("modal", ["updateModal"]),
     toggleModal() {
-      console.log("click");
       this.updateModal();
     },
   },
@@ -66,8 +65,7 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/styles/mixins";
 .modal-form {
-  @include lg-block {
-    width: 500px;
-  }
+  width: calc(100vw - 96px);
+  max-width: 500px;
 }
 </style>

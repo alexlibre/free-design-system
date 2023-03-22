@@ -104,6 +104,22 @@ const routes: Array<RouteConfig> = [
             /* webpackChunkName: "modal" */ "../views/modal/ModalView.vue"
           ),
       },
+      {
+        path: "avatar",
+        name: "Avatar",
+        component: () =>
+          import(
+            /* webpackChunkName: "avatar" */ "../views/avatar/AvatarView.vue"
+          ),
+      },
+      {
+        path: "select",
+        name: "Select",
+        component: () =>
+          import(
+            /* webpackChunkName: "select" */ "../views/select/SelectView.vue"
+          ),
+      },
     ],
     component: () =>
       import(

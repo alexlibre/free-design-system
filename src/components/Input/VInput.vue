@@ -136,7 +136,7 @@ export default {
         case "error":
           return "red";
         default:
-          return "orange";
+          return "blue";
       }
     },
   },
@@ -175,7 +175,7 @@ export default {
   &_focus {
     #{$c} {
       &__box {
-        box-shadow: inset 0 0 0 1px var(--color-orange-3) !important;
+        box-shadow: inset 0 0 0 1px var(--color-blue-3) !important;
       }
     }
   }
@@ -292,11 +292,11 @@ export default {
     align-items: center;
     gap: 8px;
     transition: box-shadow 0.2s linear;
-    color: var(--color-gray-0);
+    color: var(--color-gray-2);
     background: var(--color-white);
 
     &:hover {
-      box-shadow: inset 0 0 0 1px var(--color-orange-1-5),
+      box-shadow: inset 0 0 0 1px var(--color-blue-1-5),
         0px 4px 8px rgba(203, 87, 22, 0.08);
 
       #{$c} {

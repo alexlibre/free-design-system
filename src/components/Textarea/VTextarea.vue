@@ -136,15 +136,15 @@ export default {
   &_focus {
     #{$c} {
       &__box {
-        box-shadow: inset 0 0 0 1px var(--color-orange-3) !important;
+        box-shadow: inset 0 0 0 1px var(--color-blue-3) !important;
       }
 
       &__control {
-        color: var(--color-orange-10) !important;
+        color: var(--color-blue-10) !important;
       }
 
       & textarea {
-        color: var(--color-orange-10) !important;
+        color: var(--color-blue-10) !important;
       }
     }
   }
@@ -192,7 +192,7 @@ export default {
     transition: box-shadow 0.2s linear;
 
     &:hover {
-      box-shadow: inset 0 0 0 1px var(--color-orange-1-5),
+      box-shadow: inset 0 0 0 1px var(--color-blue-1-5),
         0px 4px 8px rgba(203, 87, 22, 0.08);
 
       #{$c} {

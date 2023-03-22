@@ -42,7 +42,7 @@ export default {
     },
     color: {
       type: String,
-      default: "orange",
+      default: "blue",
     },
     activeView: {
       type: String,
@@ -77,6 +77,11 @@ export default {
       }
 
       this.list = arr;
+
+      this.$emit(
+        "selected",
+        arr.filter((item) => item.active === true)
+      );
     },
   },
 };

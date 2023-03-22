@@ -33,12 +33,12 @@ export default {
 
   &:focus {
     outline: none;
-    // outline: 2px solid var(--color-orange-0-5);
+    // outline: 2px solid var(--color-blue-0-5);
   }
 
   &:active {
-    box-shadow: inset 0px 0px 0 2px var(--color-orange-5);
-    color: var(--color-orange-6);
+    box-shadow: inset 0px 0px 0 2px var(--color-blue-5);
+    color: var(--color-blue-6);
   }
 
   &.disabled {
@@ -47,7 +47,7 @@ export default {
   }
 
   &.router-link-exact-active {
-    background: var(--color-orange-5);
+    background: var(--color-blue-5);
     color: var(--color-white);
     pointer-events: none;
   }

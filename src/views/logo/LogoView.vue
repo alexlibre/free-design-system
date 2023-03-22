@@ -17,7 +17,7 @@
         },
         {
           attr: 'color',
-          values: ['positive', 'negative', 'orange', 'white', 'orange-only'],
+          values: ['positive', 'negative', 'colored', 'white', 'colored-only'],
           types: ['string'],
           default: 'positive',
         },
@@ -46,11 +46,11 @@
       <div class="flex gap-16">
         <v-logo icon="7spaces" name="7spaces" />
         <v-logo icon="7spaces" name="7spaces" color="negative" />
-        <v-logo icon="7spaces" name="7spaces" color="orange" />
+        <v-logo icon="7spaces" name="7spaces" color="colored" />
         <div class="add-bg">
           <v-logo icon="7spaces" name="7spaces" color="white" />
         </div>
-        <v-logo icon="7spaces" name="7spaces" color="orange-only" />
+        <v-logo icon="7spaces" name="7spaces" color="colored-only" />
       </div>
     </components-block>
 

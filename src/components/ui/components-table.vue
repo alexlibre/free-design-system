@@ -15,8 +15,8 @@
           <td class="components-table__attributes">
             <router-link :to="`#${item.attr}`">{{ item.attr }}</router-link>
           </td>
-          <td class="components-table__values">{{ item.values.join(", ") }}</td>
-          <td class="components-table__types">{{ item.types.join(", ") }}</td>
+          <td class="components-table__values" v-html="value(item.values)"></td>
+          <td class="components-table__types">{{ item.types.join(" | ") }}</td>
           <td class="components-table__default">{{ item.default }}</td>
           <td class="components-table__required">
             <span class="components-table__icon" v-if="item.required">
@@ -42,6 +42,11 @@ export default {
   },
   components: {
     SvgIcon,
+  },
+  methods: {
+    value(val) {
+      return val.join(" | ");
+    },
   },
 };
 </script>
@@ -85,7 +90,7 @@ export default {
     color: var(--color-gray-8);
     & {
       #{$c}__icon {
-        color: var(--color-orange-5);
+        color: var(--color-blue-5);
         display: flex;
         align-items: center;
         justify-content: center;

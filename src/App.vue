@@ -63,7 +63,7 @@ export default {
 
     &.router-link-exact-active,
     &.router-link-active {
-      color: var(--color-orange-6);
+      color: var(--color-blue-6);
     }
   }
 }

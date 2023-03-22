@@ -24,10 +24,15 @@ body {
 }
 
 .content {
-  height: calc(100vh - 78px);
+  height: calc(100vh - 50px);
+
   display: flex;
   flex-direction: column;
   overflow: hidden;
+
+  @include lg-block {
+    height: calc(100vh - 78px);
+  }
 
   &__aside {
     max-height: 100%;
@@ -87,7 +92,7 @@ hr {
 }
 
 code {
-  background-color: var(--color-orange-0-5);
+  background-color: var(--color-blue-1);
   padding: 0 4px;
 }
 
@@ -104,7 +109,8 @@ code {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-orange-5);
+  background: var(--color-gray-0);
+  border-radius: 6px;
 }
 
 ::selection {

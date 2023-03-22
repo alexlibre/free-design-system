@@ -9,6 +9,7 @@
               size="l"
               class="modal__close-btn"
               view="text"
+              color="gray"
               @click="close"
               icon="close-circle"
             />
