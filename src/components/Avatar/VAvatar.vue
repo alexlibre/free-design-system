@@ -8,8 +8,22 @@
       avatar_size_l: size === 'l',
     }"
   >
-    <div class="avatar__inner">
-      <img :src="require(`@/assets/img/${image}`)" />
+    <div
+      class="avatar__inner"
+      :class="{
+        'avatar__inner_no-image': !image,
+        'avatar__inner_no-image_1': randomColor === 1,
+        'avatar__inner_no-image_2': randomColor === 2,
+        'avatar__inner_no-image_3': randomColor === 3,
+        'avatar__inner_no-image_4': randomColor === 4,
+      }"
+    >
+      <template v-if="image">
+        <img :src="require(`@/assets/img/${image}`)" />
+      </template>
+      <div v-else :class="`avatar__initials avatar__initials_${randomColor}`">
+        {{ letter }}
+      </div>
     </div>
   </div>
 </template>
@@ -19,7 +33,7 @@ export default {
   props: {
     image: {
       type: String,
-      default: "placeholder.png",
+      default: "",
     },
     size: {
       type: String,
@@ -38,11 +52,27 @@ export default {
     currentImage() {
       return "/assets/img/placeholder.png";
     },
+    letter() {
+      const two = this.name.split(" ");
+      if (two.length >= 2) {
+        return [
+          two[0].split("")[0].toUpperCase(),
+          two[1].split("")[0].toUpperCase(),
+        ].join("");
+      }
+      return this.name.split("")[0].toUpperCase();
+    },
+    randomColor() {
+      return Math.floor(Math.random() * 4) + 1;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+@use "sass:list";
+$randomColors: "blue", "red", "yellow", "green";
+$randomColor: list.nth($randomColors, random(4));
 .avatar {
   $c: &;
   padding: 4px;
@@ -84,11 +114,30 @@ export default {
     align-items: center;
     justify-content: center;
 
+    &_no-image {
+      opacity: 0.5;
+
+      @for $i from 1 through 4 {
+        &_#{$i} {
+          background-color: var(--color-#{list.nth($randomColors, $i)}-0-5);
+        }
+      }
+    }
+
     & img {
       display: block;
       max-width: 100%;
       width: 100%;
       height: auto;
+    }
+  }
+
+  &__initials {
+    font-size: 28px;
+    @for $i from 1 through 4 {
+      &_#{$i} {
+        color: var(--color-#{list.nth($randomColors, $i)}-9);
+      }
     }
   }
 }

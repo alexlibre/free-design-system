@@ -6,7 +6,7 @@
           attr: 'image',
           values: ['any image from <code>/assets/img/</code>'],
           types: ['string'],
-          default: 'placeholder.png',
+          default: '',
         },
         {
           attr: 'name',
@@ -30,10 +30,15 @@
       ]"
     />
 
-    <components-block id="image" title="image">
+    <components-block
+      id="image"
+      title="image"
+      desc="Image for avatar item. If no image provided it will be replaced with initials created from the name. In initials case avatar will be randomly colored in one of 4 predefined colors: red, yellow, green or blue."
+    >
       <div class="flex gap-16">
         <v-avatar image="user-1.png" name="image-1" />
-        <v-avatar name="image-2" />
+        <v-avatar name="Alex" />
+        <v-avatar name="Alex Poskorkov" />
       </div>
     </components-block>
     <components-block id="size" title="size">

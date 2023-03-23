@@ -242,7 +242,7 @@ export default {
 
 .v-enter-active,
 .v-leave-active {
-  transition: all 0.3s linear;
+  transition: all 0.15s linear;
 }
 .v-enter {
   opacity: 0;
@@ -255,7 +255,7 @@ export default {
 
 .slide-fade-enter-active,
 .slide-fade-leave-active {
-  transition: all 0.3s linear;
+  transition: all 0.15s linear;
 }
 .slide-fade-enter {
   transform: translateX(50px);
