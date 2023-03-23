@@ -1,15 +1,22 @@
 <template>
   <div
     class="select"
-    :class="{ select_compact: compact, select_opened: opened }"
+    :class="{
+      select_compact: compact,
+      select_opened: opened,
+      select_disabled: disabled,
+    }"
     @blur="looseFocus"
     tabindex="0"
   >
     <div class="select__inner">
+      <label class="select__label" v-if="label" @click="toggleOptions">{{
+        label
+      }}</label>
       <div
         class="select__box"
         :class="{ select__box_opened: opened }"
-        @click="openOptions"
+        @click="toggleOptions"
       >
         <div
           class="select__value"
@@ -21,18 +28,20 @@
           <svg-icon name="arrow-down" :size="[20]" />
         </div>
       </div>
-      <div class="select__options" v-if="opened">
-        <div
-          class="select__option"
-          v-for="option in options"
-          :key="option"
-          @click="selectOption(option)"
-        >
-          {{ option }}
+      <transition appear>
+        <div class="select__options" v-if="opened" ref="selectList">
+          <div
+            class="select__option"
+            v-for="option in options"
+            :key="option"
+            @click="selectOption(option)"
+          >
+            {{ option }}
+          </div>
         </div>
-      </div>
+      </transition>
     </div>
-    <select>
+    <select aria-hidden="true" v-model="selected">
       <option v-for="option in options" :key="option" :value="option">
         {{ option }}
       </option>
@@ -42,7 +51,7 @@
 
 <script>
 import SvgIcon from "@/components/SvgIcon";
-import { gsap, Elastic } from "gsap";
+import { gsap, Elastic, Bounce } from "gsap";
 
 export default {
   components: {
@@ -59,7 +68,15 @@ export default {
     },
     compact: {
       type: Boolean,
-      defaault: false,
+      default: false,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    label: {
+      type: String,
+      default: "",
     },
   },
   data() {
@@ -71,12 +88,41 @@ export default {
   watch: {
     opened() {
       if (this.opened) {
-        gsap.to(this.$refs.selectArrow, 1, {
-          rotate: "180deg",
-          ease: Elastic.easeOut.config(1, 0.3),
-        });
+        this.animateIn();
         return;
       }
+
+      this.animateOut();
+    },
+  },
+  methods: {
+    selectOption(val) {
+      this.selected = val;
+      this.opened = false;
+    },
+    toggleOptions() {
+      this.opened = !this.opened;
+    },
+    looseFocus() {
+      this.opened = false;
+    },
+    animateIn() {
+      gsap.to(this.$refs.selectArrow, 1, {
+        rotate: "180deg",
+        ease: Elastic.easeOut.config(1, 0.3),
+      });
+
+      this.$nextTick(() => {
+        gsap.from(this.$refs.selectList, 0.2, {
+          opacity: 0,
+        });
+        gsap.from(this.$refs.selectList, 0.5, {
+          y: "-40px",
+          ease: Bounce.easeOut,
+        });
+      });
+    },
+    animateOut() {
       gsap.killTweensOf(this.$refs.selectArrow);
       gsap.fromTo(
         this.$refs.selectArrow,
@@ -88,19 +134,9 @@ export default {
           rotate: "0",
         }
       );
-    },
-  },
-  methods: {
-    selectOption(val) {
-      this.selected = val;
-      this.opened = false;
-    },
-    openOptions() {
-      this.opened = true;
-    },
-    looseFocus() {
-      console.log("got here");
-      this.opened = false;
+      gsap.to(this.$refs.selectList, 0.2, {
+        opacity: 0,
+      });
     },
   },
 };
@@ -115,8 +151,16 @@ export default {
   outline: none;
   -webkit-tap-highlight-color: transparent;
 
-  &:not(&_disabled) {
-    cursor: pointer;
+  &_disabled {
+    pointer-events: none;
+    opacity: 0.66;
+
+    #{$c} {
+      &__box {
+        box-shadow: inset 0 0 0 1px var(--color-gray-0) !important;
+        background: var(--color-gray-0);
+      }
+    }
   }
 
   &_compact {
@@ -134,6 +178,18 @@ export default {
     position: relative;
   }
 
+  &__label {
+    align-self: flex-start;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    line-height: 1;
+    cursor: pointer;
+    margin: 0 0 8px;
+    flex-shrink: 0;
+    height: 16px;
+  }
+
   &__box {
     padding: 10px 14px;
     width: 100%;
@@ -146,6 +202,7 @@ export default {
     color: var(--color-gray-2);
     background: var(--color-white);
     overflow: hidden;
+    cursor: pointer;
 
     &:hover {
       box-shadow: inset 0 0 0 1px var(--color-blue-1-5),
@@ -184,6 +241,7 @@ export default {
   &__option {
     padding: 8px 14px;
     transition: all 0.2s linear;
+    cursor: pointer;
 
     &:hover {
       color: var(--color-blue-8);
@@ -193,6 +251,16 @@ export default {
 
   & select {
     display: none;
+  }
+
+  .v-fade-enter,
+  .v-fade-leave-to {
+    opacity: 0;
+  }
+
+  .v-fade-enter-active,
+  .v-fade-leave-active {
+    transition: opacity 0.5s ease;
   }
 }
 </style>

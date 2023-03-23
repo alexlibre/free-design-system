@@ -192,7 +192,7 @@ export default {
       }
 
       & input {
-        color: var(--color-gray-0) !important;
+        color: var(--color-gray-1) !important;
       }
     }
   }

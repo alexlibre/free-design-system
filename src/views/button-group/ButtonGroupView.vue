@@ -201,7 +201,7 @@
             { name: 'Button 2' },
             { name: 'Button 3' },
           ]"
-          color="blue"
+          color="orange"
         />
         <v-button-group
           :items="[
