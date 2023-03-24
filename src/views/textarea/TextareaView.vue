@@ -45,6 +45,12 @@
           types: ['boolean'],
           default: 'false',
         },
+        {
+          attr: 'compact',
+          values: ['true', 'false'],
+          types: ['boolean'],
+          default: 'false',
+        },
       ]"
     />
 
@@ -108,6 +114,12 @@
       <div class="flex flex-start gap-16">
         <v-textarea label="Fixed" is-fixed />
         <v-textarea label="Not fixed" />
+      </div>
+    </components-block>
+    <components-block id="compact" title="compact">
+      <div class="flex flex-start gap-16">
+        <v-textarea label="Compact" compact />
+        <v-textarea label="Default" />
       </div>
     </components-block>
   </div>

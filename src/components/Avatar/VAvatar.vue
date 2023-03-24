@@ -83,16 +83,34 @@ $randomColor: list.nth($randomColors, random(4));
     &_s {
       width: 56px;
       height: 56px;
+
+      #{$c} {
+        &__initials {
+          font-size: 20px;
+        }
+      }
     }
 
     &_m {
       width: 80px;
       height: 80px;
+
+      #{$c} {
+        &__initials {
+          font-size: 28px;
+        }
+      }
     }
 
     &_l {
       width: 128px;
       height: 128px;
+
+      #{$c} {
+        &__initials {
+          font-size: 44px;
+        }
+      }
     }
   }
 
@@ -115,8 +133,6 @@ $randomColor: list.nth($randomColors, random(4));
     justify-content: center;
 
     &_no-image {
-      opacity: 0.5;
-
       @for $i from 1 through 4 {
         &_#{$i} {
           background-color: var(--color-#{list.nth($randomColors, $i)}-0-5);
@@ -133,7 +149,6 @@ $randomColor: list.nth($randomColors, random(4));
   }
 
   &__initials {
-    font-size: 28px;
     @for $i from 1 through 4 {
       &_#{$i} {
         color: var(--color-#{list.nth($randomColors, $i)}-9);

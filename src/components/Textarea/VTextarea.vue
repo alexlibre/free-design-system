@@ -5,6 +5,7 @@
       textarea_focus: hasFocus,
       textarea_error: hasError,
       textarea_fixed: isFixed,
+      textarea_compact: compact,
     }"
   >
     <div class="textarea__inner">
@@ -90,6 +91,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    compact: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     SvgIcon,
@@ -165,6 +170,10 @@ export default {
         }
       }
     }
+  }
+
+  &_compact {
+    max-width: 308px;
   }
 
   &__inner {

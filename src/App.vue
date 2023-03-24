@@ -70,14 +70,14 @@ export default {
 
 .nested-enter-active,
 .nested-leave-active {
-  transition: all 0.5s linear;
+  transition: all 0.4s linear;
 }
 .nested-enter {
   opacity: 0;
-  transform: translateY(-30px);
+  // transform: translateY(-30px);
 }
 .nested-leave-to {
   opacity: 0;
-  transform: translateY(30px);
+  // transform: translateY(30px);
 }
 </style>

@@ -1,32 +1,29 @@
 <template>
   <label
     :for="guid"
-    class="checkbox"
-    :class="{ checkbox_disabled: disabled, checkbox_checked: checkboxChecked }"
+    class="switch"
+    :class="{ switch_disabled: disabled, switch_checked: switchChecked }"
   >
-    <div class="checkbox__inner">
+    <div class="switch__inner">
       <input
-        class="checkbox__input"
-        :checked="checkboxChecked"
+        class="switch__input"
+        :checked="switchChecked"
         type="checkbox"
         :id="guid"
-        @change="onChecked($event.target.checked)"
+        @change.prevent="onChecked($event.target.checked)"
       />
-      <span class="checkbox__box">
-        <SvgIcon name="check" :size="[10, 8]" />
+      <span class="switch__box">
+        <span class="switch__control" ref="control"></span>
       </span>
-      <span v-if="label" class="checkbox__label">{{ label }}</span>
+      <span v-if="label" class="switch__label">{{ label }}</span>
     </div>
   </label>
 </template>
 
 <script>
-import SvgIcon from "@/components/SvgIcon.vue";
+import { gsap } from "gsap";
 
 export default {
-  components: {
-    SvgIcon,
-  },
   props: {
     label: {
       type: String,
@@ -43,7 +40,7 @@ export default {
   },
   data() {
     return {
-      checkboxChecked: this.checked,
+      switchChecked: this.checked,
     };
   },
   computed: {
@@ -53,7 +50,7 @@ export default {
   },
   methods: {
     onChecked(val) {
-      this.checkboxChecked = val;
+      this.switchChecked = val;
       this.$emit("checked", val);
     },
   },
@@ -61,7 +58,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.checkbox {
+.switch {
   $c: &;
 
   &_disabled {
@@ -79,8 +76,20 @@ export default {
     }
   }
 
-  &:not(&_diabled) {
+  &:not(&_disabled) {
     cursor: pointer;
+  }
+
+  &_checked {
+    #{$c} {
+      &__box {
+        background: var(--color-blue-5);
+      }
+
+      &__control {
+        transform: translateX(100%);
+      }
+    }
   }
 
   &__inner {
@@ -95,17 +104,6 @@ export default {
 
   &__input {
     display: none;
-
-    &:checked + #{$c} {
-      &__box {
-        background: var(--color-blue-5);
-
-        & svg {
-          opacity: 1;
-          transform: rotate(0);
-        }
-      }
-    }
   }
 
   &__box {
@@ -113,17 +111,27 @@ export default {
     align-items: center;
     justify-content: center;
     box-shadow: inset 0 0 0 2px var(--color-blue-5);
-    width: 18px;
-    height: 18px;
+    background: var(--color-gray-0);
+    width: 36px;
+    height: 20px;
     position: relative;
     z-index: 1;
-    border-radius: 4px;
+    border-radius: 10px;
+    position: relative;
+    transition: background 0.2s linear;
+  }
 
-    & svg {
-      opacity: 0;
-      transform: rotate(270deg);
-      transition: opacity 0.2s linear, transform 0.2s linear;
-    }
+  &__control {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    display: block;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: var(--color-white);
+    transform: translate(0);
+    transition: transform 0.2s linear;
   }
 }
 </style>

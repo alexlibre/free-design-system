@@ -26,10 +26,6 @@ export default Vue.extend({
 
 <style lang="scss">
 .rotator {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;

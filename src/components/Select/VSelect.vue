@@ -227,7 +227,7 @@ export default {
   }
 
   &__options {
-    padding: 8px 0;
+    padding: 8px 0 0;
     background-color: var(--color-white);
     position: absolute;
     width: 100%;
@@ -236,10 +236,12 @@ export default {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     box-shadow: 0px 4px 8px rgba(22, 109, 203, 0.08);
+    overflow-y: auto;
+    max-height: 188px;
   }
 
   &__option {
-    padding: 8px 14px;
+    padding: 10px 14px;
     transition: all 0.2s linear;
     cursor: pointer;
 

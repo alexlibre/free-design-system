@@ -113,6 +113,7 @@ export default {
     background: var(--color-white);
     padding: 2rem;
     transform-origin: top center;
+    border-radius: 4px;
   }
 
   &__header {

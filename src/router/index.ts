@@ -113,11 +113,27 @@ const routes: Array<RouteConfig> = [
           ),
       },
       {
+        path: "avatar-group",
+        name: "AvatarGroup",
+        component: () =>
+          import(
+            /* webpackChunkName: "avatar-group" */ "../views/avatar-group/AvatarGroupView.vue"
+          ),
+      },
+      {
         path: "select",
         name: "Select",
         component: () =>
           import(
             /* webpackChunkName: "select" */ "../views/select/SelectView.vue"
+          ),
+      },
+      {
+        path: "switch",
+        name: "Switch",
+        component: () =>
+          import(
+            /* webpackChunkName: "switch" */ "../views/switch/SwitchView.vue"
           ),
       },
     ],

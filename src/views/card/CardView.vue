@@ -13,14 +13,19 @@
                 text="hello.mail.cristian.com"
                 placeholder="hello@mail.com"
               />
-              <v-textarea label="Message" placeholder="Placeholder" isFixed />
+              <v-textarea
+                label="Message"
+                placeholder="Placeholder"
+                isFixed
+                compact
+              />
               <v-button @click="logClick">Continue</v-button>
             </div>
           </div>
         </template>
       </v-card>
 
-      <v-card size="s" theme-dark class="menu-card">
+      <v-card size="s" theme-dark>
         <template #cardHeader>
           <img src="@/assets/img/pizza.jpg" alt="pizza" />
         </template>
@@ -66,7 +71,7 @@ h5 {
   @include h5();
 }
 
-.menu-card {
+.card {
   max-width: 400px;
 }
 </style>

@@ -37,14 +37,23 @@
     />
     <components-block id="options" title="options">
       <div class="flex gap-16">
-        <v-select compact :options="['Option 1', 'Option 2', 'Option 3']" />
+        <v-select
+          :options="[
+            'Option 1',
+            'Option 2',
+            'Option 3',
+            'Option 4',
+            'Option 5',
+            'Option 6',
+            'Option 7',
+          ]"
+        />
       </div>
     </components-block>
     <components-block id="placeholder" title="placeholder">
       <div class="flex gap-16">
-        <v-select compact :options="['Option 1', 'Option 2', 'Option 3']" />
+        <v-select :options="['Option 1', 'Option 2', 'Option 3']" />
         <v-select
-          compact
           :options="['Option 1', 'Option 2', 'Option 3']"
           placeholder="Custom placeholder"
         />
@@ -52,14 +61,20 @@
     </components-block>
     <components-block id="compact" title="compact">
       <div class="flex gap-16">
-        <v-select compact :options="['Option 1', 'Option 2', 'Option 3']" />
-        <v-select :options="['Option 1', 'Option 2', 'Option 3']" />
+        <v-select
+          label="Compact"
+          compact
+          :options="['Option 1', 'Option 2', 'Option 3']"
+        />
+        <v-select
+          label="Default"
+          :options="['Option 1', 'Option 2', 'Option 3']"
+        />
       </div>
     </components-block>
     <components-block id="label" title="label">
       <div class="flex gap-16">
         <v-select
-          compact
           label="Label for select"
           :options="['Option 1', 'Option 2', 'Option 3']"
         />
@@ -68,7 +83,6 @@
     <components-block id="disabled" title="disabled">
       <div class="flex gap-16">
         <v-select
-          compact
           label="Label"
           :options="['Option 1', 'Option 2', 'Option 3']"
           disabled

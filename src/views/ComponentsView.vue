@@ -35,6 +35,9 @@
           <v-menu-item class="content__nav-link" url="/components/avatar"
             >Avatar</v-menu-item
           >
+          <v-menu-item class="content__nav-link" url="/components/avatar-group"
+            >Avatar group</v-menu-item
+          >
           <v-menu-item class="content__nav-link" url="/components/buttons"
             >Button</v-menu-item
           >
@@ -50,14 +53,14 @@
           <v-menu-item class="content__nav-link" url="/components/logo"
             >Logo</v-menu-item
           >
-          <!-- <v-menu-item  class="content__nav-link" url="/components"
-            >Switch</v-menu-item
-          > -->
           <v-menu-item class="content__nav-link" url="/components/rating"
             >Rating</v-menu-item
           >
           <v-menu-item class="content__nav-link" url="/components/select"
             >Select</v-menu-item
+          >
+          <v-menu-item class="content__nav-link" url="/components/switch"
+            >Switch</v-menu-item
           >
           <v-menu-item class="content__nav-link" url="/components/tags"
             >Tag</v-menu-item
@@ -255,14 +258,14 @@ export default {
 
 .slide-fade-enter-active,
 .slide-fade-leave-active {
-  transition: all 0.15s linear;
+  transition: all 0.3s linear;
 }
 .slide-fade-enter {
-  transform: translateX(50px);
+  transform: translateY(-1em);
   opacity: 0;
 }
 .slide-fade-leave-to {
-  transform: translateX(-50px);
+  transform: translateY(-1em);
   opacity: 0;
 }
 </style>

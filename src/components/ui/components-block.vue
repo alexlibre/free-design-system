@@ -2,6 +2,7 @@
   <section class="components-block" :id="id">
     <h2 class="components-block__title">{{ capitalize(title) }}</h2>
     <p class="components-block__desc" v-html="desc"></p>
+
     <slot></slot>
   </section>
 </template>
@@ -20,6 +21,10 @@ export default {
     desc: {
       type: String,
       default: "",
+    },
+    variants: {
+      type: Array,
+      default: () => [],
     },
   },
   methods: {

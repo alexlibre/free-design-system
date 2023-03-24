@@ -107,8 +107,11 @@ export default {
   &__inner {
     display: flex;
     flex-direction: column;
-    border-radius: 10px;
     overflow: hidden;
+
+    & > * {
+      flex-shrink: 0;
+    }
   }
 
   &__header {
