@@ -9,7 +9,7 @@
       input_error: state === 'error',
     }"
   >
-    <div class="input__inner">
+    <label class="input__inner">
       <div class="input__head" v-if="label || labelSecond">
         <label :for="guid" class="input__label" v-if="label">{{ label }}</label>
         <span class="input__label-second" v-if="labelSecond">{{
@@ -43,7 +43,7 @@
         </template>
       </div>
       <span class="input__helper" v-if="helper">{{ helper }}</span>
-    </div>
+    </label>
   </div>
 </template>
 
@@ -149,9 +149,11 @@ export default {
     },
     onFocus() {
       this.hasFocus = true;
+      this.$emit("hasFocus");
     },
     onBlur() {
       this.hasFocus = false;
+      this.$emit("hasBlur");
     },
     switchPasswordVisibility() {
       if (this.type !== "password") return;

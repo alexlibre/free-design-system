@@ -44,6 +44,9 @@
           <v-menu-item class="content__nav-link" url="/components/button-group"
             >Button group</v-menu-item
           >
+          <v-menu-item class="content__nav-link" url="/components/calendar"
+            >Calendar</v-menu-item
+          >
           <v-menu-item class="content__nav-link" url="/components/checkbox"
             >Checkbox</v-menu-item
           >
@@ -236,6 +239,11 @@ export default {
       padding: 24px;
     }
   }
+
+  &__view {
+    transform-origin: right 20vh;
+  }
+
   &__menu-btn {
     @include lg-block {
       display: none !important;
@@ -245,7 +253,7 @@ export default {
 
 .v-enter-active,
 .v-leave-active {
-  transition: all 0.15s linear;
+  transition: all 0.4s linear;
 }
 .v-enter {
   opacity: 0;
@@ -253,6 +261,7 @@ export default {
 }
 .v-leave-to {
   opacity: 0;
+  scale: 0.75;
   transform: translateX(30px);
 }
 

@@ -24,7 +24,7 @@
         >
           {{ selected }}
         </div>
-        <div class="select__open" ref="selectArrow">
+        <div class="select__icon" ref="selectArrow">
           <svg-icon name="arrow-down" :size="[20]" />
         </div>
       </div>
@@ -219,7 +219,7 @@ export default {
     }
   }
 
-  &__open {
+  &__icon {
     flex-shrink: 0;
     transform-origin: center;
     height: 20px;

@@ -136,6 +136,14 @@ const routes: Array<RouteConfig> = [
             /* webpackChunkName: "switch" */ "../views/switch/SwitchView.vue"
           ),
       },
+      {
+        path: "calendar",
+        name: "Calendar",
+        component: () =>
+          import(
+            /* webpackChunkName: "calendar" */ "../views/calendar/CalendarView.vue"
+          ),
+      },
     ],
     component: () =>
       import(
