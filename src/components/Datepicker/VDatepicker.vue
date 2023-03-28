@@ -30,6 +30,7 @@
               :selectedDay="selectedDay"
               @selectedDay="selectDay"
               hasLabel
+              daysSelectable
             />
           </div>
         </transition>

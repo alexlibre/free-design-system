@@ -241,10 +241,6 @@ export default {
     }
   }
 
-  &__view {
-    transform-origin: right 20vh;
-  }
-
   &__menu-btn {
     @include lg-block {
       display: none !important;
@@ -262,7 +258,6 @@ export default {
 }
 .v-leave-to {
   opacity: 0;
-  scale: 0.75;
   transform: translateX(30px);
 }
 
