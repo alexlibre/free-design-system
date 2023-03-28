@@ -27,7 +27,7 @@
     <span v-if="!noText" class="button__text">
       <slot></slot>
     </span>
-    <svg-icon v-if="icon" :name="icon" :size="iconSize" />
+    <svg-icon class="button__icon" v-if="icon" :name="icon" :size="iconSize" />
   </button>
 </template>
 
@@ -273,6 +273,11 @@ $colors: "orange", "red", "yellow", "green", "blue", "violet", "gray";
   &__text {
     margin: 0 auto;
     padding: 2px 0;
+    pointer-events: none;
+  }
+
+  &__icon {
+    pointer-events: none;
   }
 }
 </style>
