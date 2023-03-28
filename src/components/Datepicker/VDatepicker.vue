@@ -28,7 +28,7 @@
           <div class="datepicker__drop" v-if="opened" ref="datepickerDrop">
             <v-calendar
               :selectedDay="selectedDay"
-              @selectedDay="selectDay"
+              @selected="selectDay"
               hasLabel
               daysSelectable
             />
@@ -91,12 +91,8 @@ export default {
     },
     selectDay(val) {
       if (!val) return;
-      this.selectedDay = val;
-      this.selectedDate = new Date(
-        new Date().getFullYear(),
-        new Date().getMonth(),
-        val
-      ).toLocaleDateString();
+      this.selectedDay = val.day;
+      this.selectedDate = val.date;
 
       this.opened = false;
     },

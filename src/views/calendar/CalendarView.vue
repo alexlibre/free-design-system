@@ -37,18 +37,18 @@
     />
     <components-block id="month" title="Month">
       <div class="flex flex-start flex-3 gap-16">
-        <v-calendar compact hasLabel :month="0" />
-        <v-calendar compact hasLabel :month="1" />
-        <v-calendar compact hasLabel :month="2" />
-        <v-calendar compact hasLabel :month="3" />
-        <v-calendar compact hasLabel :month="4" />
-        <v-calendar compact hasLabel :month="5" />
-        <v-calendar compact hasLabel :month="6" />
-        <v-calendar compact hasLabel :month="7" />
-        <v-calendar compact hasLabel :month="8" />
-        <v-calendar compact hasLabel :month="9" />
-        <v-calendar compact hasLabel :month="10" />
-        <v-calendar compact hasLabel :month="11" />
+        <v-calendar hasLabel :month="0" />
+        <v-calendar hasLabel :month="1" />
+        <v-calendar hasLabel :month="2" />
+        <v-calendar hasLabel :month="3" />
+        <v-calendar hasLabel :month="4" />
+        <v-calendar hasLabel :month="5" />
+        <v-calendar hasLabel :month="6" />
+        <v-calendar hasLabel :month="7" />
+        <v-calendar hasLabel :month="8" />
+        <v-calendar hasLabel :month="9" />
+        <v-calendar hasLabel :month="10" />
+        <v-calendar hasLabel :month="11" />
       </div>
     </components-block>
 
@@ -68,7 +68,7 @@
 
     <components-block id="daysSelectable" title="Days selectable">
       <div class="flex flex-start flex-col gap-16">
-        <v-calendar compact daysSelectable @selectedDay="alertDay" />
+        <v-calendar compact daysSelectable @selected="alertDay" />
       </div>
     </components-block>
 
@@ -85,6 +85,7 @@ import VCalendar from "@/components/Calendar/VCalendar";
 
 import ComponentsTable from "@/components/ui/components-table";
 import ComponentsBlock from "@/components/ui/components-block";
+
 export default {
   components: {
     VCalendar,
@@ -93,7 +94,9 @@ export default {
   },
   methods: {
     alertDay(val) {
-      alert(val);
+      // setTimeout(() => {
+      //   alert(val.date);
+      // }, 500);
     },
   },
 };

@@ -76,10 +76,12 @@ body {
   }
 
   &-3 {
-    flex-wrap: wrap;
+    @include md-block {
+      flex-wrap: wrap;
 
-    & > * {
-      width: calc((100% / 3) - (16px / 3 * 2)) !important;
+      & > * {
+        width: calc((100% / 3) - (16px / 3 * 2)) !important;
+      }
     }
   }
 

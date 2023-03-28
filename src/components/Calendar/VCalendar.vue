@@ -30,7 +30,8 @@
               calendar__day_current: todayCase(day),
               calendar__day_selected: day === selectedDayLocal,
             }"
-            @click="selectDay(day)"
+            :ref="day === selectedDayLocal ? 'selected' : ''"
+            @click="selectDay(day, $event)"
             :key="idx"
           >
             {{ day }}
@@ -42,6 +43,8 @@
 </template>
 
 <script>
+import { gsap, Elastic } from "gsap";
+
 export default {
   props: {
     month: {
@@ -134,15 +137,44 @@ export default {
       if (day === 0) day = 7;
       return day - 1;
     },
-    selectDay(val) {
+    selectDay(val, $event) {
       if (!this.daysSelectable || !val) return;
+
       this.selectedDayLocal = val;
       this.selectedDate = new Date(
         new Date().getFullYear(),
         new Date().getMonth(),
         val
       ).toLocaleDateString();
-      this.$emit("selectedDay", val);
+
+      gsap.fromTo(
+        $event.target,
+        0.1,
+        {
+          "--scale": "0%",
+        },
+        {
+          "--scale": "200%",
+        }
+      );
+      gsap.fromTo(
+        $event.target,
+        0.6,
+        {
+          "--scale": "0%",
+        },
+        {
+          "--scale": "100%",
+          delay: 0.1,
+          ease: Elastic.easeOut.config(1, 0.3),
+          onComplete: () => {
+            this.$emit("selected", {
+              day: this.selectedDayLocal,
+              date: this.selectedDate,
+            });
+          },
+        }
+      );
     },
     todayCase(day) {
       return this.month === this.currentMonth && day === this.today;
@@ -176,21 +208,25 @@ export default {
     flex-direction: column;
     padding: 8px;
   }
+
   &__grid {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
+
   &__head {
     padding-top: 8px;
     display: flex;
     justify-content: center;
   }
+
   &__month-label {
     text-align: center;
     font-weight: 700;
     text-align: center;
   }
+
   &__days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -212,11 +248,14 @@ export default {
       }
     }
   }
+
   &__month {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
   }
+
   &__day {
+    --scale: 100%;
     text-align: right;
     display: flex;
     align-items: center;
@@ -227,6 +266,7 @@ export default {
     transition: color 0.2s linear;
     color: var(--color-gray-8);
     cursor: default;
+    font-size: 16px;
 
     &:before {
       content: "";
@@ -238,7 +278,7 @@ export default {
       top: 50%;
       left: 50%;
       border-radius: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) scale(var(--scale));
       transition: background-color 0.2s linear;
     }
 
@@ -253,7 +293,7 @@ export default {
       color: var(--color-white) !important;
 
       &:before {
-        background-color: var(--color-blue-5);
+        background-color: var(--color-blue-5) !important;
       }
     }
 

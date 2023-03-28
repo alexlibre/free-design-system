@@ -61,7 +61,7 @@ export default {
       border: 1px solid var(--color-gray--1);
 
       & legend {
-        padding: 0 24px;
+        padding: 0 16px;
       }
     }
 
