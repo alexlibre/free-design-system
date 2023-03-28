@@ -6,6 +6,7 @@
       textarea_error: hasError,
       textarea_fixed: isFixed,
       textarea_compact: compact,
+      textarea_disabled: disabled,
     }"
   >
     <div class="textarea__inner">
@@ -95,6 +96,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     SvgIcon,
@@ -176,6 +181,26 @@ export default {
     max-width: 308px;
   }
 
+  &_disabled {
+    opacity: 0.66;
+    cursor: not-allowed;
+
+    #{$c} {
+      &__inner {
+        pointer-events: none;
+      }
+      &__box {
+        box-shadow: inset 0 0 0 1px var(--color-gray-0) !important;
+        background: var(--color-gray-0);
+        color: var(--color-gray-0) !important;
+      }
+
+      & textarea {
+        color: var(--color-gray-1) !important;
+      }
+    }
+  }
+
   &__inner {
     display: flex;
     flex-direction: column;
@@ -231,6 +256,7 @@ export default {
       transition: color 0.2s linear;
       resize: vertical;
       flex-grow: 1;
+      background: transparent;
 
       &:focus {
         outline: none;

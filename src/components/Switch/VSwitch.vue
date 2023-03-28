@@ -95,7 +95,7 @@ export default {
   &__inner {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 8px;
   }
 
   &__label {

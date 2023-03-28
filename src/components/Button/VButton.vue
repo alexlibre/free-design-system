@@ -215,8 +215,14 @@ $colors: "orange", "red", "yellow", "green", "blue", "violet", "gray";
   }
 
   &:disabled {
-    pointer-events: none;
     opacity: 0.5;
+    cursor: not-allowed;
+
+    #{$c} {
+      &__inner {
+        pointer-events: none;
+      }
+    }
   }
 
   &_size {

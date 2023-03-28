@@ -152,6 +152,14 @@ const routes: Array<RouteConfig> = [
             /* webpackChunkName: "calendar" */ "../views/calendar/CalendarView.vue"
           ),
       },
+      {
+        path: "radio-group",
+        name: "Radio group",
+        component: () =>
+          import(
+            /* webpackChunkName: "radio-group" */ "../views/radio-group/RadioGroupView.vue"
+          ),
+      },
     ],
     component: () =>
       import(

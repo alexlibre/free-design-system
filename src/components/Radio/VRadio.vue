@@ -1,33 +1,29 @@
 <template>
   <label
-    class="checkbox"
-    :class="{ checkbox_disabled: disabled, checkbox_checked: checkboxChecked }"
+    :for="guid"
+    class="radio"
+    :class="{ radio_disabled: disabled, radio_checked: radioChecked }"
   >
-    <div class="checkbox__inner">
+    <div class="radio__inner">
       <input
-        class="checkbox__input"
-        :checked="checkboxChecked"
-        type="checkbox"
+        class="radio__input"
+        :checked="radioChecked"
+        type="radio"
         :id="guid"
+        :name="name"
+        :value="value"
         @change="onChecked($event.target.checked)"
       />
-      <span class="checkbox__box">
-        <SvgIcon name="check" :size="[10, 8]" />
+      <span class="radio__box">
+        <span class="radio__control"></span>
       </span>
-      <label v-if="label" class="checkbox__label" :for="guid">{{
-        label
-      }}</label>
+      <span v-if="label" class="radio__label">{{ label }}</span>
     </div>
   </label>
 </template>
 
 <script>
-import SvgIcon from "@/components/SvgIcon.vue";
-
 export default {
-  components: {
-    SvgIcon,
-  },
   props: {
     label: {
       type: String,
@@ -41,10 +37,18 @@ export default {
       type: Boolean,
       default: false,
     },
+    name: {
+      type: String,
+      required: true,
+    },
+    value: {
+      type: String,
+      default: "",
+    },
   },
   data() {
     return {
-      checkboxChecked: this.checked,
+      radioChecked: this.checked,
     };
   },
   computed: {
@@ -54,15 +58,15 @@ export default {
   },
   methods: {
     onChecked(val) {
-      this.checkboxChecked = val;
-      this.$emit("checked", val);
+      this.radioChecked = val;
+      this.$emit("checkedRadio", val);
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.checkbox {
+.radio {
   $c: &;
 
   &_disabled {
@@ -80,7 +84,7 @@ export default {
     }
   }
 
-  &:not(&_disabled) {
+  &:not(&_diabled) {
     cursor: pointer;
   }
 
@@ -101,9 +105,10 @@ export default {
       &__box {
         background: var(--color-blue-5);
 
-        & svg {
-          opacity: 1;
-          transform: rotate(0);
+        #{$c} {
+          &__control {
+            opacity: 1;
+          }
         }
       }
     }
@@ -116,15 +121,19 @@ export default {
     box-shadow: inset 0 0 0 2px var(--color-blue-5);
     width: 18px;
     height: 18px;
+    border-radius: 50%;
     position: relative;
     z-index: 1;
-    border-radius: 4px;
+  }
 
-    & svg {
-      opacity: 0;
-      transform: rotate(270deg);
-      transition: opacity 0.2s linear, transform 0.2s linear;
-    }
+  &__control {
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-white);
+    opacity: 0;
+    transition: opacity 0.2s linear, transform 0.2s linear;
   }
 }
 </style>

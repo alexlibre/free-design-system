@@ -94,7 +94,7 @@ export default {
       this.selectedDay = val.day;
       this.selectedDate = val.date;
 
-      this.opened = false;
+      // this.opened = false;
     },
 
     animateIn() {
@@ -135,10 +135,12 @@ export default {
   }
 
   &_disabled {
-    pointer-events: none;
     opacity: 0.66;
-
+    cursor: not-allowed;
     #{$c} {
+      &__inner {
+        pointer-events: none;
+      }
       &__box {
         box-shadow: inset 0 0 0 1px var(--color-gray-0) !important;
         background: var(--color-gray-0);

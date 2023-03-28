@@ -27,9 +27,9 @@
           <v-menu-item class="content__nav-link" url="/components/colors"
             >Colors</v-menu-item
           >
-          <!-- <v-menu-item  class="content__nav-link" url="/components"
+          <v-menu-item class="content__nav-link" url="/components"
             >Typography</v-menu-item
-          > -->
+          >
           <hr class="content__nav-divider" />
           <span class="content__nav-title">Atoms</span>
           <v-menu-item class="content__nav-link" url="/components/avatar"
@@ -58,6 +58,9 @@
           >
           <v-menu-item class="content__nav-link" url="/components/logo"
             >Logo</v-menu-item
+          >
+          <v-menu-item class="content__nav-link" url="/components/radio-group"
+            >Radio group</v-menu-item
           >
           <v-menu-item class="content__nav-link" url="/components/rating"
             >Rating</v-menu-item
