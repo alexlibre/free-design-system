@@ -22,6 +22,7 @@
       button_is_active: active,
       button_empty: empty,
     }"
+    v-ripple
   >
     <span v-if="!noText" class="button__text">
       <slot></slot>
@@ -99,6 +100,8 @@ $colors: "orange", "red", "yellow", "green", "blue", "violet", "gray";
   font-weight: 400;
   white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
+  position: relative;
+  overflow: hidden;
 
   &:focus {
     outline: 2px solid var(--color-orange-0-5);
@@ -134,7 +137,7 @@ $colors: "orange", "red", "yellow", "green", "blue", "violet", "gray";
               }
 
               &:active {
-                background: var(--color-#{$color}-7);
+                // background: var(--color-#{$color}-7);
               }
             }
 
@@ -148,8 +151,8 @@ $colors: "orange", "red", "yellow", "green", "blue", "violet", "gray";
               }
 
               &:active {
-                background: var(--color-#{$color}-1);
-                color: var(--color-#{$color}-7);
+                // background: var(--color-#{$color}-1);
+                // color: var(--color-#{$color}-7);
               }
             }
 
@@ -164,9 +167,9 @@ $colors: "orange", "red", "yellow", "green", "blue", "violet", "gray";
               }
 
               &:active {
-                background: var(--color-#{$color}-1);
-                box-shadow: inset 0 0 0 1px var(--color-#{$color}-7);
-                color: var(--color-#{$color}-7);
+                // background: var(--color-#{$color}-1);
+                // box-shadow: inset 0 0 0 1px var(--color-#{$color}-7);
+                // color: var(--color-#{$color}-7);
               }
             }
 
@@ -175,7 +178,7 @@ $colors: "orange", "red", "yellow", "green", "blue", "violet", "gray";
               color: var(--color-#{$color}-6);
 
               &:active {
-                color: var(--color-#{$color}-7);
+                // color: var(--color-#{$color}-7);
               }
             }
 
@@ -189,7 +192,7 @@ $colors: "orange", "red", "yellow", "green", "blue", "violet", "gray";
               }
 
               &:active {
-                background: var(--color-#{$color}-7);
+                // background: var(--color-#{$color}-7);
               }
             }
 
@@ -202,7 +205,7 @@ $colors: "orange", "red", "yellow", "green", "blue", "violet", "gray";
               }
 
               &:active {
-                background: var(--color-#{$color}-7);
+                // background: var(--color-#{$color}-7);
               }
             }
           }
