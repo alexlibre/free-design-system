@@ -137,6 +137,14 @@ const routes: Array<RouteConfig> = [
           ),
       },
       {
+        path: "datepicker",
+        name: "Datepicker",
+        component: () =>
+          import(
+            /* webpackChunkName: "datepicker" */ "../views/datepicker/DatepickerView.vue"
+          ),
+      },
+      {
         path: "calendar",
         name: "Calendar",
         component: () =>

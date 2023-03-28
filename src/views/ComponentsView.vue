@@ -50,6 +50,9 @@
           <v-menu-item class="content__nav-link" url="/components/checkbox"
             >Checkbox</v-menu-item
           >
+          <v-menu-item class="content__nav-link" url="/components/datepicker"
+            >Datepicker</v-menu-item
+          >
           <v-menu-item class="content__nav-link" url="/components/input"
             >Input</v-menu-item
           >
@@ -229,8 +232,6 @@ export default {
     overflow-y: auto;
     max-height: 100%;
     min-height: 100%;
-    // background: #fefefe;
-    background-color: #f9f9f9;
     background-image: url(data:image/svg;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2IoMTUgMjMgNDIgLyAwLjA0KSI+ICA8cGF0aCBkPSJNMCAuNWgzMS41VjMyIi8+PC9zdmc+);
     background-position: bottom left;
     background-repeat: repeat;

@@ -45,16 +45,22 @@
           types: ['boolean'],
           default: 'false',
         },
+        {
+          attr: 'compact',
+          values: [true, false],
+          types: ['boolean'],
+          default: 'false',
+        },
       ]"
     />
     <components-block title="Label" id="label">
-      <v-input label="Label" compact />
+      <v-input label="Label" />
     </components-block>
     <components-block title="Secondary label" id="labelSecond">
-      <v-input labelSecond="Secondary label" compact />
+      <v-input labelSecond="Secondary label" />
     </components-block>
     <components-block title="Placeholder" id="placeholder">
-      <v-input placeholder="Placeholder" compact />
+      <v-input placeholder="Placeholder" />
     </components-block>
     <components-block
       title="Helper"
@@ -62,76 +68,37 @@
       desc="Can be used as additional label or helper message or as success or error validation message."
     >
       <div class="flex gap-16">
-        <v-input helper="Helper" compact />
-        <v-input helper="Success message" state="success" compact />
-        <v-input helper="Error message" state="error" compact />
+        <v-input helper="Helper" />
+        <v-input helper="Success message" state="success" />
+        <v-input helper="Error message" state="error" />
       </div>
     </components-block>
     <components-block title="State" id="'state'">
       <div class="flex gap-16">
-        <v-input compact />
-        <v-input state="success" compact />
-        <v-input state="error" compact />
+        <v-input />
+        <v-input state="success" />
+        <v-input state="error" />
       </div>
     </components-block>
     <components-block title="Type" id="type">
       <div class="flex gap-16">
-        <v-input label="Name" compact />
-        <v-input label="Email" type="email" compact />
-        <v-input label="Password" type="password" compact />
+        <v-input label="Text" />
+        <v-input label="Email" type="email" />
+        <v-input label="Password" type="password" />
       </div>
     </components-block>
     <components-block title="Disabled" id="disabled">
-      <v-input disabled compact />
+      <div class="flex gap-16">
+        <v-input />
+        <v-input disabled />
+      </div>
     </components-block>
-    <div class="flex flex-start gap-16">
-      <v-input label="Disabled" disabled />
-      <v-input
-        label="Success"
-        state="success"
-        icon="tick-circle"
-        helper="Checked"
-      />
-      <v-input
-        label="Error"
-        state="error"
-        icon="info-circle"
-        helper="Error occured"
-      />
-    </div>
-    <div class="flex flex-start gap-16">
-      <v-input helper="Helper text" />
-      <v-input disabled />
-      <v-input state="success" icon="tick-circle" initial="Good value" />
-      <v-input state="error" icon="info-circle" initial="Bad value" />
-    </div>
-    <div class="flex flex-start gap-16">
-      <v-input
-        label="Label"
-        labelSecond="Second label"
-        helper="Helper text"
-        initial="Initial value"
-        icon="eye"
-      />
-      <v-input
-        initial="supersecret"
-        label="Password"
-        icon="eye"
-        state="error"
-        type="password"
-        helper="Passwords don't match"
-      />
-    </div>
-    <div class="flex flex-start gap-16">
-      <v-input
-        label="Label"
-        labelSecond="Second label"
-        helper="Helper text"
-        initial="Initial value"
-        icon="eye"
-        compact
-      />
-    </div>
+    <components-block title="Compact" id="compact">
+      <div class="flex gap-16">
+        <v-input label="Compact" compact />
+        <v-input label="Default" />
+      </div>
+    </components-block>
   </div>
 </template>
 

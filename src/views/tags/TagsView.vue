@@ -16,13 +16,13 @@
           default: 'primary',
         },
         {
-          attr: 'has-border',
+          attr: 'has-close',
           values: [true, false],
           types: ['boolean'],
           default: 'false',
         },
         {
-          attr: 'has-close',
+          attr: 'has-border',
           values: [true, false],
           types: ['boolean'],
           default: 'false',
@@ -39,18 +39,6 @@
         <v-tag type="disabled">disabled</v-tag>
       </div>
     </components-block>
-
-    <components-block id="hasBorder" title="has-border">
-      <div class="flex gap-16">
-        <v-tag has-border>primary</v-tag>
-        <v-tag has-border type="danger">danger</v-tag>
-        <v-tag has-border type="info">info</v-tag>
-        <v-tag has-border type="success">success</v-tag>
-        <v-tag has-border type="warning">warning</v-tag>
-        <v-tag has-border type="disabled">disabled</v-tag>
-      </div>
-    </components-block>
-
     <components-block id="hsaClose" title="has-close">
       <div class="flex gap-16">
         <v-tag has-close>primary</v-tag>
@@ -59,6 +47,16 @@
         <v-tag has-close type="success">success</v-tag>
         <v-tag has-close type="warning">warning</v-tag>
         <v-tag has-close type="disabled">disabled</v-tag>
+      </div>
+    </components-block>
+    <components-block id="hasBorder" title="has-border">
+      <div class="flex gap-16">
+        <v-tag has-border>primary</v-tag>
+        <v-tag has-border type="danger">danger</v-tag>
+        <v-tag has-border type="info">info</v-tag>
+        <v-tag has-border type="success">success</v-tag>
+        <v-tag has-border type="warning">warning</v-tag>
+        <v-tag has-border type="disabled">disabled</v-tag>
       </div>
     </components-block>
   </div>

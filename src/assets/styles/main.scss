@@ -59,6 +59,10 @@ body {
     align-items: flex-start;
   }
 
+  &-end {
+    align-items: flex-end;
+  }
+
   &-col {
     flex-direction: column;
   }
@@ -67,7 +71,7 @@ body {
     flex-wrap: wrap;
 
     & > * {
-      width: calc(25% - 12px);
+      width: calc(25% - 12px) !important;
     }
   }
 
@@ -75,7 +79,7 @@ body {
     flex-wrap: wrap;
 
     & > * {
-      width: calc((100% / 3) - (16px / 3 * 2));
+      width: calc((100% / 3) - (16px / 3 * 2)) !important;
     }
   }
 
