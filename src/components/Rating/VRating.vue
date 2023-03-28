@@ -19,7 +19,11 @@
               :name="guid"
               @change="select(idx + 1)"
             />
-            <div class="rating__control" :class="{ checked: idx + 1 <= rate }">
+            <div
+              class="rating__control"
+              :class="{ checked: idx + 1 <= rate }"
+              v-ripple
+            >
               <svg-icon :name="view" :size="[size]" />
             </div>
           </label>
@@ -198,6 +202,8 @@ export default {
     align-items: center;
     justify-content: center;
     -webkit-tap-highlight-color: transparent;
+    position: relative;
+    overflow: hidden;
   }
 
   &__qty {
