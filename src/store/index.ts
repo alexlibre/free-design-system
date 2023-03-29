@@ -1,10 +1,11 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import modal from "./modules/modal";
+import modal, { IModalState } from "./modules/modal";
 Vue.use(Vuex);
-
-export default new Vuex.Store({
-  state: {},
+export interface State {
+  modal: IModalState;
+}
+export default new Vuex.Store<State>({
   modules: {
     modal,
   },

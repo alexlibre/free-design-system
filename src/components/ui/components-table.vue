@@ -53,12 +53,13 @@ export default {
 
 <style lang="scss" scoped>
 .wrap {
-  max-width: 100%;
   overflow-x: auto;
   margin-bottom: 48px;
 }
 .components-table {
   $c: &;
+
+  max-width: 1140px;
 
   width: 100%;
   border-collapse: collapse;

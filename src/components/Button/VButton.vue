@@ -135,10 +135,6 @@ $colors: "orange", "red", "yellow", "green", "blue", "violet", "gray";
               &:hover {
                 background: var(--color-#{$color}-4);
               }
-
-              &:active {
-                // background: var(--color-#{$color}-7);
-              }
             }
 
             &_secondary {
@@ -148,11 +144,6 @@ $colors: "orange", "red", "yellow", "green", "blue", "violet", "gray";
 
               &:hover {
                 background: var(--color-#{$color}-1-5);
-              }
-
-              &:active {
-                // background: var(--color-#{$color}-1);
-                // color: var(--color-#{$color}-7);
               }
             }
 
@@ -165,21 +156,11 @@ $colors: "orange", "red", "yellow", "green", "blue", "violet", "gray";
               &:hover {
                 background: var(--color-#{$color}-1-5);
               }
-
-              &:active {
-                // background: var(--color-#{$color}-1);
-                // box-shadow: inset 0 0 0 1px var(--color-#{$color}-7);
-                // color: var(--color-#{$color}-7);
-              }
             }
 
             &_text {
               background: transparent;
               color: var(--color-#{$color}-6);
-
-              &:active {
-                // color: var(--color-#{$color}-7);
-              }
             }
 
             &_rounded {
@@ -190,10 +171,6 @@ $colors: "orange", "red", "yellow", "green", "blue", "violet", "gray";
               &:hover {
                 background: var(--color-#{$color}-4);
               }
-
-              &:active {
-                // background: var(--color-#{$color}-7);
-              }
             }
 
             &_square {
@@ -202,10 +179,6 @@ $colors: "orange", "red", "yellow", "green", "blue", "violet", "gray";
 
               &:hover {
                 background: var(--color-#{$color}-4);
-              }
-
-              &:active {
-                // background: var(--color-#{$color}-7);
               }
             }
           }

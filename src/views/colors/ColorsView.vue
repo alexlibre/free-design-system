@@ -31,7 +31,6 @@
 
 <script>
 import ColorSample from "@/components/ui/color-sample.vue";
-import { gsap } from "gsap";
 
 export default {
   components: {

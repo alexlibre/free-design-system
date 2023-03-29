@@ -66,7 +66,7 @@ export default {
     }
 
     @include lg-block {
-      max-width: 900px;
+      max-width: 1140px;
       padding: 24px;
     }
   }

@@ -1,6 +1,11 @@
-interface modalState {
+import { State } from "../index";
+import { ActionContext } from "vuex";
+
+export interface IModalState {
   showModal: boolean;
 }
+
+type Context = ActionContext<IModalState, State>;
 
 export default {
   namespaced: true,
@@ -8,12 +13,12 @@ export default {
     showModal: false,
   },
   mutations: {
-    changeModal(state: modalState): void {
+    changeModal(state: IModalState): void {
       state.showModal = !state.showModal;
     },
   },
   actions: {
-    updateModal(context: any) {
+    updateModal(context: Context) {
       context.commit("changeModal");
       return;
     },

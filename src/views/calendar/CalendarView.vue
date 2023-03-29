@@ -93,7 +93,7 @@ export default {
     ComponentsBlock,
   },
   methods: {
-    alertDay(val) {
+    alertDay() {
       // setTimeout(() => {
       //   alert(val.date);
       // }, 500);
