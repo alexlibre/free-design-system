@@ -14,9 +14,7 @@
       <span class="checkbox__box">
         <SvgIcon name="check" :size="[10, 8]" />
       </span>
-      <label v-if="label" class="checkbox__label" :for="guid">{{
-        label
-      }}</label>
+      <span v-if="label" class="checkbox__label" :for="guid">{{ label }}</span>
     </div>
   </label>
 </template>

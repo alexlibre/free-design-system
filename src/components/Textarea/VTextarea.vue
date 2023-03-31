@@ -3,7 +3,8 @@
     class="textarea"
     :class="{
       textarea_focus: hasFocus,
-      textarea_error: hasError,
+      textarea_error: error,
+      textarea_success: success,
       textarea_fixed: isFixed,
       textarea_compact: compact,
       textarea_disabled: disabled,
@@ -84,7 +85,11 @@ export default {
       type: Array,
       default: () => [],
     },
-    hasError: {
+    error: {
+      type: Boolean,
+      default: false,
+    },
+    success: {
       type: Boolean,
       default: false,
     },
@@ -146,7 +151,7 @@ export default {
   &_focus {
     #{$c} {
       &__box {
-        box-shadow: inset 0 0 0 1px var(--color-blue-3) !important;
+        box-shadow: inset 0 0 0 1px var(--color-blue-3);
       }
 
       &__control {
@@ -161,8 +166,44 @@ export default {
 
   &_error {
     #{$c} {
+      &__box {
+        box-shadow: inset 0 0 0 1px var(--color-red-6);
+        color: var(--color-red-6);
+
+        &:hover {
+          box-shadow: inset 0 0 0 1px var(--color-red-6),
+            0px 4px 8px rgba(203, 22, 22, 0.16);
+        }
+      }
+
+      & textarea {
+        color: var(--color-gray-4) !important;
+      }
+
       &__footer {
         color: var(--color-red-6);
+      }
+    }
+  }
+
+  &_success {
+    #{$c} {
+      &__box {
+        box-shadow: inset 0 0 0 1px var(--color-green-7);
+        color: var(--color-green-7);
+
+        &:hover {
+          box-shadow: inset 0 0 0 1px var(--color-green-7),
+            0px 4px 8px rgba(34, 203, 22, 0.16);
+        }
+      }
+
+      & input {
+        color: var(--color-gray-4) !important;
+      }
+
+      &__helper {
+        color: var(--color-green-7);
       }
     }
   }

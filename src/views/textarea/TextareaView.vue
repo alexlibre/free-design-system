@@ -34,7 +34,13 @@
           default: 'empty Array',
         },
         {
-          attr: 'has-error',
+          attr: 'error',
+          values: ['true', 'false'],
+          types: ['boolean'],
+          default: 'false',
+        },
+        {
+          attr: 'success',
           values: ['true', 'false'],
           types: ['boolean'],
           default: 'false',
@@ -104,9 +110,15 @@
       />
     </components-block>
 
-    <components-block id="hasError" title="has-error">
+    <components-block id="error" title="error">
       <div class="flex flex-start gap-16">
-        <v-textarea has-error helper="Error" />
+        <v-textarea error helper="Error" />
+      </div>
+    </components-block>
+
+    <components-block id="success" title="success">
+      <div class="flex flex-start gap-16">
+        <v-textarea success helper="Success" />
       </div>
     </components-block>
 

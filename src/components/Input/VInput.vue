@@ -210,7 +210,7 @@ export default {
 
         &:hover {
           box-shadow: inset 0 0 0 1px var(--color-green-7),
-            0px 4px 8px rgba(34, 203, 22, 0.08);
+            0px 4px 8px rgba(34, 203, 22, 0.16);
         }
       }
 
@@ -240,7 +240,7 @@ export default {
 
         &:hover {
           box-shadow: inset 0 0 0 1px var(--color-red-6),
-            0px 4px 8px rgba(203, 22, 22, 0.08);
+            0px 4px 8px rgba(203, 22, 22, 0.16);
         }
       }
 

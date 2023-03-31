@@ -276,15 +276,11 @@ export default {
       background-color: transparent;
       height: 32px;
       width: 32px;
-      top: 16px;
-      left: 16px;
-      border-radius: 8px;
-      transform: translate(-16px, -16px) scale(var(--scale));
+      top: 50%;
+      left: 50%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(var(--scale));
       transition: background-color 0.2s linear;
-
-      @include mobile-remove {
-        display: none;
-      }
     }
 
     &_current {
@@ -307,6 +303,10 @@ export default {
 
       &:before {
         background-color: var(--color-blue-0-5);
+
+        @include mobile-remove {
+          display: none;
+        }
       }
     }
 
