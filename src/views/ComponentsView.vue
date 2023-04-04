@@ -47,6 +47,9 @@
           <v-menu-item class="content__nav-link" url="/components/calendar"
             >Calendar</v-menu-item
           >
+          <!-- <v-menu-item class="content__nav-link" url="/components/canvas"
+            >Canvas</v-menu-item
+          > -->
           <v-menu-item class="content__nav-link" url="/components/checkbox"
             >Checkbox</v-menu-item
           >
@@ -93,6 +96,14 @@
           >
           <hr class="content__nav-divider" />
           <span class="content__nav-title">Organisms</span>
+          <hr class="content__nav-divider" />
+          <span class="content__nav-title">Games</span>
+          <v-menu-item class="content__nav-link" url="/components/tetris"
+            >Tetris</v-menu-item
+          >
+          <v-menu-item class="content__nav-link" url="/components/conway"
+            >Game of Life</v-menu-item
+          >
           <!-- <v-menu-item  class="content__nav-link" url="/components"
             >Hero</v-menu-item
           > -->

@@ -153,6 +153,30 @@ const routes: Array<RouteConfig> = [
           ),
       },
       {
+        path: "tetris",
+        name: "Tetris",
+        component: () =>
+          import(
+            /* webpackChunkName: "canvas" */ "../views/games/TertisGameView.vue"
+          ),
+      },
+      {
+        path: "canvas",
+        name: "Canvas",
+        component: () =>
+          import(
+            /* webpackChunkName: "canvas" */ "../views/canvas/CanvasView.vue"
+          ),
+      },
+      {
+        path: "conway",
+        name: "Game of Life",
+        component: () =>
+          import(
+            /* webpackChunkName: "conway" */ "../views/conway/ConwayLifeView.vue"
+          ),
+      },
+      {
         path: "radio-group",
         name: "Radio group",
         component: () =>
