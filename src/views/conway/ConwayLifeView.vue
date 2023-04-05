@@ -13,8 +13,8 @@ export default {
   },
   data() {
     return {
-      width: 920,
-      height: 650,
+      width: 1280,
+      height: 640,
     };
   },
 };
