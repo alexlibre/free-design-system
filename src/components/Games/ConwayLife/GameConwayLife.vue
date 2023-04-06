@@ -46,8 +46,8 @@ export default {
   data() {
     return {
       ctx: null,
-      cellWidth: 8,
-      cellHeight: 8,
+      cellWidth: 10,
+      cellHeight: 10,
       gameObjects: [],
       frame: null,
       evolution: false,
@@ -64,13 +64,16 @@ export default {
   },
   methods: {
     draw(alive, gridX, gridY) {
-      this.ctx.fillStyle = alive ? "#42a5f0" : "#fff";
-      this.ctx.fillRect(
-        gridX * this.cellWidth,
-        gridY * this.cellHeight,
-        this.cellWidth,
-        this.cellHeight
+      this.ctx.fillStyle = alive ? "rgb(127,127,127)" : "#fff";
+      this.ctx.beginPath();
+      this.ctx.arc(
+        gridX * this.cellWidth + this.cellWidth / 2,
+        gridY * this.cellHeight + this.cellHeight / 2,
+        this.cellWidth / 2,
+        0,
+        this.cellWidth * Math.PI
       );
+      this.ctx.fill();
     },
     makeCell(gridX, gridY, alreadyAlive) {
       let alive = false;
@@ -99,7 +102,6 @@ export default {
     makeGrid(allDead) {
       this.gameObjects = [];
 
-      console.log("makeGrid(), allDead", allDead);
       this.evolution = false;
       clearTimeout(this.frame);
 
@@ -128,9 +130,9 @@ export default {
     stop() {
       this.evolution = false;
 
-      //   this.$nextTick(() => {
-      cancelAnimationFrame(this.frame);
-      //   });
+      this.$nextTick(() => {
+        cancelAnimationFrame(this.frame);
+      });
     },
     gameLoop() {
       this.checkSurrounding();
@@ -203,15 +205,19 @@ export default {
     },
 
     createLife($event) {
+      const rect = this.$refs.conwayCanvas.getBoundingClientRect();
+      this.canvasCoords = {
+        left: rect.left,
+        top: rect.top,
+      };
       const x = Math.floor(
-        ($event.clientX - this.canvasCoords.left) / this.cellWidth
+        ($event.x - this.canvasCoords.left) / this.cellWidth
       );
       const y = Math.floor(
-        ($event.clientY - this.canvasCoords.top) / this.cellHeight
+        ($event.y - this.canvasCoords.top) / this.cellHeight
       );
 
       const born = this.isAlive(x, y);
-      console.log(x, y);
 
       this.gameObjects[this.gridToIndex(x, y)] = this.makeCell(
         x,
@@ -224,12 +230,6 @@ export default {
     this.ctx = this.$refs.conwayCanvas.getContext("2d");
 
     this.makeGrid(true);
-
-    const rect = this.$refs.conwayCanvas.getBoundingClientRect();
-    this.canvasCoords = {
-      left: rect.left,
-      top: rect.top,
-    };
   },
 };
 </script>

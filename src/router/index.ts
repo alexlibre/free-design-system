@@ -177,6 +177,14 @@ const routes: Array<RouteConfig> = [
           ),
       },
       {
+        path: "asteroids",
+        name: "",
+        component: () =>
+          import(
+            /* webpackChunkName: "asteroids" */ "../views/asteroids/AsteroidsView.vue"
+          ),
+      },
+      {
         path: "radio-group",
         name: "Radio group",
         component: () =>
