@@ -63,8 +63,11 @@ export default {
     },
   },
   methods: {
-    draw(alive, gridX, gridY) {
-      this.ctx.fillStyle = alive ? "rgb(127,127,127)" : "#fff";
+    draw({ alive, gridX, gridY, strength }) {
+      if (strength > 1) strength = 1;
+      this.ctx.fillStyle = alive
+        ? `rgb(${Math.floor(255 * strength)},127,127)`
+        : "#fff";
       this.ctx.beginPath();
       this.ctx.arc(
         gridX * this.cellWidth + this.cellWidth / 2,
@@ -75,22 +78,28 @@ export default {
       );
       this.ctx.fill();
     },
-    makeCell(gridX, gridY, alreadyAlive) {
+    makeCell({ gridX, gridY, alreadyAlive, strength }) {
       let alive = false;
+      let strengthNext = strength || 0.5;
+
       if (alreadyAlive === "alive") {
         alive = true;
+        strengthNext += 0.01;
       } else if (alreadyAlive === "dead") {
         alive = false;
+        strengthNext -= 0.01;
       } else {
-        alive = Math.random() > 0.5;
+        alive = Math.random() < strengthNext;
       }
 
-      this.draw(alive, gridX, gridY);
+      this.draw({ alive, gridX, gridY, strength });
+
       return {
         alive,
         gridX,
         gridY,
         nextAlive: null,
+        strength: strengthNext,
       };
     },
     clean() {
@@ -108,13 +117,22 @@ export default {
       if (allDead) {
         for (let y = 0; y < this.numRows; y++) {
           for (let x = 0; x < this.numColumns; x++) {
-            this.gameObjects.push(this.makeCell(x, y, "dead"));
+            this.gameObjects.push(
+              this.makeCell({
+                gridX: x,
+                gridY: y,
+                alreadyAlive: "dead",
+                strength: 0.5,
+              })
+            );
           }
         }
       } else {
         for (let y = 0; y < this.numRows; y++) {
           for (let x = 0; x < this.numColumns; x++) {
-            this.gameObjects.push(this.makeCell(x, y));
+            this.gameObjects.push(
+              this.makeCell({ gridX: x, gridY: y, strength: 0.5 })
+            );
           }
         }
       }
@@ -140,8 +158,13 @@ export default {
       this.ctx.clearRect(0, 0, this.width, this.height);
 
       for (let i = 0; i < this.gameObjects.length; i++) {
-        const { alive, gridX, gridY, nextAlive } = this.gameObjects[i];
-        this.draw(alive, gridX, gridY, nextAlive);
+        const { alive, gridX, gridY, strength } = this.gameObjects[i];
+        this.draw({
+          alive,
+          gridX,
+          gridY,
+          strength,
+        });
       }
 
       this.frame = requestAnimationFrame(this.runLoop);
@@ -164,10 +187,13 @@ export default {
           if (numAlive === 2) {
             this.gameObjects[centerIndex].nextAlive =
               this.gameObjects[centerIndex].alive;
+            this.gameObjects[centerIndex].strength += 0.002;
           } else if (numAlive === 3) {
             this.gameObjects[centerIndex].nextAlive = true;
+            this.gameObjects[centerIndex].strength += 0.001;
           } else {
             this.gameObjects[centerIndex].nextAlive = false;
+            this.gameObjects[centerIndex].strength = 0.5;
           }
         }
       }
@@ -219,11 +245,12 @@ export default {
 
       const born = this.isAlive(x, y);
 
-      this.gameObjects[this.gridToIndex(x, y)] = this.makeCell(
-        x,
-        y,
-        born ? "dead" : "alive"
-      );
+      this.gameObjects[this.gridToIndex(x, y)] = this.makeCell({
+        gridX: x,
+        gridY: y,
+        alreadyAlive: born ? "dead" : "alive",
+        strength: 0.5,
+      });
     },
   },
   mounted() {

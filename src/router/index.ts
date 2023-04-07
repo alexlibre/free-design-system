@@ -192,6 +192,12 @@ const routes: Array<RouteConfig> = [
             /* webpackChunkName: "radio-group" */ "../views/radio-group/RadioGroupView.vue"
           ),
       },
+      {
+        path: "ai",
+        name: "AI",
+        component: () =>
+          import(/* webpackChunkName: "ai" */ "../views/ai/AIView.vue"),
+      },
     ],
     component: () =>
       import(

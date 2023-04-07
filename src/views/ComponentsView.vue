@@ -96,6 +96,9 @@
           >
           <hr class="content__nav-divider" />
           <span class="content__nav-title">Organisms</span>
+          <v-menu-item class="content__nav-link" url="/components/ai"
+            >AI</v-menu-item
+          >
           <hr class="content__nav-divider" />
           <span class="content__nav-title">Games</span>
           <v-menu-item class="content__nav-link" url="/components/asteroids"
