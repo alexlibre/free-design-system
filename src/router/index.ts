@@ -198,6 +198,14 @@ const routes: Array<RouteConfig> = [
         component: () =>
           import(/* webpackChunkName: "ai" */ "../views/ai/AIView.vue"),
       },
+      {
+        path: "gallery",
+        name: "Gallery",
+        component: () =>
+          import(
+            /* webpackChunkName: "gallery" */ "../views/gallery/GalleryView.vue"
+          ),
+      },
     ],
     component: () =>
       import(

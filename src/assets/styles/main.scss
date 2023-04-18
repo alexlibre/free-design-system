@@ -226,3 +226,19 @@ h4 {
     opacity: 0;
   }
 }
+
+.grid {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  @for $i from 1 through 12 {
+    &-#{$i} {
+      @include cols($i);
+    }
+  }
+
+  & + & {
+    margin-top: 1rem;
+  }
+}
