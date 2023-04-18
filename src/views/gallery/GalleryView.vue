@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-gallery
-      class="mb-48 grid grid-9"
+      class="mb-48 gallery-view"
       :images="images"
       :height="100"
       id="gallery-2"
@@ -96,4 +96,18 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+@import "@/assets/styles/mixins";
+
+.gallery-view {
+  @include cols(4);
+
+  @include sm-block {
+    @include cols(6);
+  }
+
+  @include md-block {
+    @include cols(8);
+  }
+}
+</style>

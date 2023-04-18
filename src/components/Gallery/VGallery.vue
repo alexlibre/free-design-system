@@ -140,9 +140,9 @@ export default {
 
 <style lang="scss">
 .gallery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   gap: 1rem;
 
   &__image {
     display: flex;
