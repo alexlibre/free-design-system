@@ -187,7 +187,6 @@ export default {
     }
   }
   &__thumb_active {
-    background: green;
     box-shadow: 0 0 0 2px white;
   }
 }
