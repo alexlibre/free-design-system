@@ -94,6 +94,15 @@ body {
   }
 }
 
+.self {
+  &-start {
+    align-self: flex-start;
+  }
+  &-end {
+    align-self: flex-end;
+  }
+}
+
 hr {
   border: 0;
   border-bottom: 1px solid var(--color-gray--1);

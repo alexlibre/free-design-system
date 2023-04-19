@@ -109,5 +109,8 @@ export default {
   @include md-block {
     @include cols(8);
   }
+  @include lg-block {
+    @include cols(12);
+  }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex gap-16 flex-start">
-      <v-card size="m">
+      <v-card style="flex: 1" size="m" has-border has-shadow>
         <template #cardBody>
           <div class="form">
             <div class="form__inner">
@@ -13,13 +13,10 @@
                 text="hello.mail.cristian.com"
                 placeholder="hello@mail.com"
               />
-              <v-textarea
-                label="Message"
-                placeholder="Placeholder"
-                isFixed
-                compact
-              />
-              <v-button @click="logClick">Continue</v-button>
+              <v-textarea label="Message" placeholder="Placeholder" isFixed />
+              <v-button view="text" condensed class="self-end" @click="logClick"
+                >Continue</v-button
+              >
             </div>
           </div>
         </template>

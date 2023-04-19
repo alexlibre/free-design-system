@@ -268,9 +268,11 @@ export default {
     color: var(--color-gray-8);
     cursor: default;
     font-size: 16px;
+    -webkit-tap-highlight-color: transparent;
 
     &:before {
       content: "";
+      display: block;
       position: absolute;
       z-index: -1;
       background-color: transparent;
@@ -279,8 +281,10 @@ export default {
       top: 50%;
       left: 50%;
       border-radius: 50%;
-      transform: translate(-50%, -50%) scale(var(--scale));
+      translate: -16px -16px;
+      scale: var(--scale);
       transition: background-color 0.2s linear;
+      pointer-events: none;
     }
 
     &_current {
@@ -303,10 +307,6 @@ export default {
 
       &:before {
         background-color: var(--color-blue-0-5);
-
-        @include mobile-remove {
-          display: none;
-        }
       }
     }
 

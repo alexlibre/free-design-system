@@ -21,6 +21,7 @@
       button_size_l: size === 'l',
       button_is_active: active,
       button_empty: empty,
+      button_condensed: condensed,
     }"
     v-ripple
   >
@@ -53,6 +54,10 @@ export default {
       default: false,
     },
     empty: {
+      type: Boolean,
+      default: false,
+    },
+    condensed: {
       type: Boolean,
       default: false,
     },
@@ -247,6 +252,11 @@ $colors: "orange", "red", "yellow", "green", "blue", "violet", "gray";
 
   &_empty {
     padding: 0 !important;
+  }
+
+  &_condensed {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 
   &__text {

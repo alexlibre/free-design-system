@@ -3,7 +3,9 @@
     class="card"
     :class="`${size ? 'card_size_' + size : ''} card_theme_${
       themeDark ? 'dark' : 'light'
-    } ${shadow ? 'card_has_shadow' : ''}`"
+    } ${hasShadow ? 'card_has_shadow' : ''} ${
+      hasBorder ? 'card_has_border' : ''
+    } ${hasRound ? 'card_has_round' : ''}`"
   >
     <div class="card__inner">
       <div v-if="hasHeader" class="card__header">
@@ -34,7 +36,15 @@ export default {
       type: Boolean,
       default: false,
     },
-    shadow: {
+    hasShadow: {
+      type: Boolean,
+      default: false,
+    },
+    hasBorder: {
+      type: Boolean,
+      default: false,
+    },
+    hasRound: {
       type: Boolean,
       default: false,
     },
@@ -60,8 +70,22 @@ export default {
   &_has {
     &_shadow {
       #{$c} {
+        box-shadow: 0px 4px 8px var(--color-shadow-light-gray);
+      }
+    }
+
+    &_border {
+      #{$c} {
         &__inner {
-          box-shadow: 0px 4px 8px rgba(41, 41, 41, 0.08);
+          border: 1px solid var(--color-shadow-light-gray);
+        }
+      }
+    }
+    &_round {
+      #{$c} {
+        &__inner {
+          border-radius: 4px;
+          overflow: hidden;
         }
       }
     }

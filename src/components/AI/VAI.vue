@@ -9,6 +9,10 @@
     ></canvas>
     <br />
     <p>Alive: {{ alive }}</p>
+    <p>Total collisions: {{ collisions.toLocaleString() }}</p>
+    <p>Heavy collisions: {{ heavyCollisions.toLocaleString() }}</p>
+    <p>Heavy percent: {{ heavyPercent }}</p>
+    <p>Last heavy: {{ lastHeavy.toFixed(3) }}</p>
   </div>
 </template>
 
@@ -23,6 +27,10 @@ export default {
       type: Number,
       default: 100,
     },
+    particles: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
     return {
@@ -33,6 +41,9 @@ export default {
       fps: 60,
       timer: null,
       cells: [],
+      collisions: 0,
+      heavyCollisions: 0,
+      lastHeavy: 0,
     };
   },
   methods: {
@@ -51,7 +62,7 @@ export default {
       return rotatedVelocities;
     },
     resolveCollision(particle, otherParticle) {
-      console.log("resolver");
+      this.collisions += 1;
       const xVelocityDiff = particle.velocity.x - otherParticle.velocity.x;
       const yVelocityDiff = particle.velocity.y - otherParticle.velocity.y;
 
@@ -87,6 +98,37 @@ export default {
         // Final velocity after rotating axis back to original location
         const vFinal1 = this.rotate(v1, -angle);
         const vFinal2 = this.rotate(v2, -angle);
+
+        if (
+          otherParticle.mass < particle.mass &&
+          Math.abs(otherParticle.velocity.x) < Math.abs(particle.velocity.x) &&
+          Math.abs(otherParticle.velocity.y) < Math.abs(particle.velocity.y)
+        ) {
+          otherParticle.mass -=
+            otherParticle.mass > 0.03 ? otherParticle.mass / 10 : 0;
+          particle.mass += particle.mass < 50 ? otherParticle.mass / 10 : 0;
+          particle.color = "purple";
+
+          this.heavyCollisions += 1;
+          this.lastHeavy = Math.round(particle.mass * 10000) / 10000;
+        } else if (
+          otherParticle.mass > particle.mass &&
+          Math.abs(otherParticle.velocity.x) > Math.abs(particle.velocity.x) &&
+          Math.abs(otherParticle.velocity.y) > Math.abs(particle.velocity.y)
+        ) {
+          particle.mass -= particle.mass > 0.03 ? particle.mass / 10 : 0;
+          otherParticle.mass +=
+            otherParticle.mass < 50 ? particle.mass / 10 : 0;
+          otherParticle.color = "purple";
+
+          this.heavyCollisions += 1;
+          this.lastHeavy = Math.round(otherParticle.mass * 10000) / 10000;
+        } else {
+          particle.mass -= particle.mass > 0.03 ? 0.01 : 0;
+          otherParticle.mass += otherParticle.mass < 3 ? 0.002 : 0;
+          particle.color = particle.mass < 0.5 ? "red" : "#888888";
+          otherParticle.color = otherParticle.mass < 0.5 ? "red" : "#888888";
+        }
 
         // Swap particle velocities for realistic bounce effect
         particle.velocity.x = vFinal1.x;
@@ -163,14 +205,6 @@ export default {
             ) {
               this.resolveCollision(particleA, particleB);
 
-              if (particleA.mass < particleB.mass) {
-                particleA.mass -= particleA.mass > 0.03 ? 0.002 : 0;
-                particleB.mass += particleB.mass < 3 ? 0.002 : 0;
-              } else {
-                particleB.mass -= particleB.mass > 0.03 ? 0.002 : 0;
-                particleA.mass += particleA.mass < 3 ? 0.002 : 0;
-              }
-
               particleA.radius = particleA.mass * 2;
               particleB.radius = particleB.mass * 2;
             }
@@ -210,9 +244,11 @@ export default {
           cell.y = newY;
           cell.velocity.x = cell.velocity.x > 3 ? 3 : cell.velocity.x;
           cell.velocity.y = cell.velocity.y > 3 ? 3 : cell.velocity.y;
+
           this.fill(cell);
 
           if (cell.mass < 0.3) {
+            console.log(cell.id);
             this.cells = this.cells.filter((item) => item !== cell);
           }
         });
@@ -245,6 +281,7 @@ export default {
           },
           mass,
           radius,
+          id: i,
         };
 
         if (x < radius || x >= this.width - radius) {
@@ -262,12 +299,17 @@ export default {
   mounted() {
     this.ctx = this.$refs.canvasAI.getContext("2d");
 
-    this.generateRandom(200);
+    this.generateRandom(this.particles);
     this.render();
   },
   computed: {
     alive() {
       return this.cells.length;
+    },
+    heavyPercent() {
+      return (
+        Math.round((this.heavyCollisions / this.collisions) * 100) / 100 + "%"
+      );
     },
   },
 };

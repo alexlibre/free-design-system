@@ -162,12 +162,14 @@ export default {
     align-items: center;
     justify-content: center;
     gap: 1vw;
+    padding: 0 2vw;
 
     position: absolute;
     bottom: 15px;
     left: 0;
     right: 0;
   }
+
   &__thumb {
     flex: 0 1 auto;
     max-width: 50px;

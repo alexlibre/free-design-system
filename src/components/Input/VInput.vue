@@ -9,7 +9,7 @@
       input_error: state === 'error',
     }"
   >
-    <label class="input__inner">
+    <div class="input__inner">
       <div class="input__head" v-if="label || labelSecond">
         <label :for="guid" class="input__label" v-if="label">{{ label }}</label>
         <span class="input__label-second" v-if="labelSecond">{{
@@ -43,7 +43,7 @@
         </template>
       </div>
       <span class="input__helper" v-if="helper">{{ helper }}</span>
-    </label>
+    </div>
   </div>
 </template>
 
@@ -280,6 +280,7 @@ export default {
     @include p1();
     line-height: 1;
     cursor: pointer;
+    align-self: flex-start;
   }
 
   &__label-second {
