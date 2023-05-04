@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-ai :width="350" :height="550" :particles="300" />
+    <v-ai :width="350" :height="450" :particles="10" />
   </div>
 </template>
 

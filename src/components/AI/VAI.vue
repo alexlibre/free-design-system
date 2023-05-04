@@ -8,11 +8,14 @@
       @click="clickCell"
     ></canvas>
     <br />
-    <p>Alive: {{ alive }}</p>
+    <p>
+      Alive: {{ alive }} / Born: {{ born }} / Dead: {{ dead }}
+      <span v-if="ratio">/ Ratio: {{ ratio }}</span>
+    </p>
     <p>Total collisions: {{ collisions.toLocaleString() }}</p>
     <p>Heavy collisions: {{ heavyCollisions.toLocaleString() }}</p>
     <p>Heavy percent: {{ heavyPercent }}</p>
-    <p>Last heavy: {{ lastHeavy.toFixed(3) }}</p>
+    <p>Most heavy: {{ mostHeavy.toFixed(3) }}</p>
   </div>
 </template>
 
@@ -43,7 +46,11 @@ export default {
       cells: [],
       collisions: 0,
       heavyCollisions: 0,
-      lastHeavy: 0,
+      mostHeavy: 0,
+      maxMass: 10,
+      newId: 0,
+      born: 0,
+      dead: 0,
     };
   },
   methods: {
@@ -62,6 +69,8 @@ export default {
       return rotatedVelocities;
     },
     resolveCollision(particle, otherParticle) {
+      particle.peace = 1;
+      otherParticle.peace = 1;
       this.collisions += 1;
       const xVelocityDiff = particle.velocity.x - otherParticle.velocity.x;
       const yVelocityDiff = particle.velocity.y - otherParticle.velocity.y;
@@ -101,33 +110,56 @@ export default {
 
         if (
           otherParticle.mass < particle.mass &&
-          Math.abs(otherParticle.velocity.x) < Math.abs(particle.velocity.x) &&
-          Math.abs(otherParticle.velocity.y) < Math.abs(particle.velocity.y)
+          Math.sqrt(
+            Math.pow(otherParticle.velocity.x, 2) +
+              Math.pow(otherParticle.velocity.y, 2)
+          ) <
+            Math.sqrt(
+              Math.pow(particle.velocity.x, 2) +
+                Math.pow(particle.velocity.y, 2)
+            )
         ) {
           otherParticle.mass -=
             otherParticle.mass > 0.03 ? otherParticle.mass / 10 : 0;
-          particle.mass += particle.mass < 50 ? otherParticle.mass / 10 : 0;
-          particle.color = "purple";
+          particle.mass +=
+            particle.mass < this.maxMass ? otherParticle.mass / 20 : 0;
+
+          if (vFinal2.x < 0) vFinal2.x -= (1 / otherParticle.mass) * 2;
+          if (vFinal2.x > 0) vFinal2.x += (1 / otherParticle.mass) * 2;
+          if (vFinal2.y < 0) vFinal2.y -= (1 / otherParticle.mass) * 2;
+          if (vFinal2.y > 0) vFinal2.y += (1 / otherParticle.mass) * 2;
 
           this.heavyCollisions += 1;
-          this.lastHeavy = Math.round(particle.mass * 10000) / 10000;
         } else if (
           otherParticle.mass > particle.mass &&
-          Math.abs(otherParticle.velocity.x) > Math.abs(particle.velocity.x) &&
-          Math.abs(otherParticle.velocity.y) > Math.abs(particle.velocity.y)
+          Math.sqrt(
+            Math.pow(otherParticle.velocity.x, 2) +
+              Math.pow(otherParticle.velocity.y, 2)
+          ) >
+            Math.sqrt(
+              Math.pow(particle.velocity.x, 2) +
+                Math.pow(particle.velocity.y, 2)
+            )
         ) {
           particle.mass -= particle.mass > 0.03 ? particle.mass / 10 : 0;
           otherParticle.mass +=
-            otherParticle.mass < 50 ? particle.mass / 10 : 0;
-          otherParticle.color = "purple";
+            otherParticle.mass < this.maxMass ? particle.mass / 20 : 0;
+          if (vFinal1.x < 0) vFinal1.x -= (1 / particle.mass) * 2;
+          if (vFinal1.x > 0) vFinal1.x += (1 / particle.mass) * 2;
+          if (vFinal1.y < 0) vFinal1.y -= (1 / particle.mass) * 2;
+          if (vFinal1.y > 0) vFinal1.y += (1 / particle.mass) * 2;
 
           this.heavyCollisions += 1;
-          this.lastHeavy = Math.round(otherParticle.mass * 10000) / 10000;
+          this.mostHeavy = Math.max(
+            Math.round(otherParticle.mass * 10000) / 10000,
+            this.mostHeavy
+          );
         } else {
           particle.mass -= particle.mass > 0.03 ? 0.01 : 0;
           otherParticle.mass += otherParticle.mass < 3 ? 0.002 : 0;
-          particle.color = particle.mass < 0.5 ? "red" : "#888888";
-          otherParticle.color = otherParticle.mass < 0.5 ? "red" : "#888888";
+          particle.color = particle.mass < 1 ? "red" : particle.color;
+          otherParticle.color =
+            otherParticle.mass < 1 ? "red" : otherParticle.color;
         }
 
         // Swap particle velocities for realistic bounce effect
@@ -136,6 +168,12 @@ export default {
 
         otherParticle.velocity.x = vFinal2.x;
         otherParticle.velocity.y = vFinal2.y;
+
+        const heaviest = Math.max(particle.mass, otherParticle.mass);
+        this.mostHeavy = Math.max(
+          Math.round(heaviest * 10000) / 10000,
+          this.mostHeavy
+        );
       }
     },
     fill({ x, y, color, radius }) {
@@ -150,6 +188,7 @@ export default {
     },
 
     clickCell($event) {
+      this.newId += 1;
       const rect = this.$refs.canvasAI.getBoundingClientRect();
       const canvasCoords = {
         left: rect.left,
@@ -169,6 +208,8 @@ export default {
         },
         mass,
         radius,
+        id: this.newId,
+        peace: 1,
       };
 
       if (x < radius || x >= this.width - radius) {
@@ -182,13 +223,29 @@ export default {
       this.cells.push(newCell);
     },
     render() {
+      clearTimeout(this.timer);
       this.timer = setTimeout(() => {
         this.ctx.fillStyle = "#fff";
         this.ctx.fillRect(0, 0, this.width, this.height);
 
         for (let i = 0; i < this.cells.length; i++) {
+          const cell = this.cells[i];
+          cell.peace += 1;
+
+          if (cell.mass >= 1) cell.color = "#888888";
+          if (cell.peace > 500 * cell.mass) {
+            cell.peace = 1;
+            const newX = cell.x;
+            const newY = cell.y;
+            const newVelocity = {
+              x: cell.velocity.x * -1 + Math.random(),
+              y: cell.velocity.y * -1 + Math.random(),
+            };
+            this.createNewCell(cell.mass, newVelocity, newX, newY);
+            this.born += 1;
+          }
           for (let j = 0; j < this.cells.length; j++) {
-            const particleA = this.cells[i];
+            const particleA = cell;
             const particleB = this.cells[j];
 
             if (particleA === particleB) {
@@ -247,9 +304,16 @@ export default {
 
           this.fill(cell);
 
-          if (cell.mass < 0.3) {
-            console.log(cell.id);
+          if (cell.mass < 0.5) {
             this.cells = this.cells.filter((item) => item !== cell);
+            this.dead += 1;
+          }
+
+          if (cell.mass > 5) {
+            cell.mass /= 2;
+            this.createNewCell(cell.mass);
+            this.born += 1;
+            this.mostHeavy = Math.max(...this.cells.map((o) => o.mass));
           }
         });
 
@@ -259,40 +323,56 @@ export default {
     randomIntFromInterval(min, max) {
       return Math.floor(Math.random() * (max - min + 1) + min);
     },
+    createNewCell(mass, settedVelocity, settedX, settedY) {
+      this.newId += 1;
+
+      const peace = 1;
+
+      const radius = mass * 2;
+
+      const velocity = settedVelocity
+        ? settedVelocity
+        : {
+            x: Math.random() * 2 - 1,
+            y: Math.random() * 2 - 1,
+          };
+
+      const x = settedX
+        ? settedX
+        : this.randomIntFromInterval(
+            this.cellWidth,
+            this.width - this.cellWidth
+          );
+      const y = settedY
+        ? settedY
+        : this.randomIntFromInterval(
+            this.cellHeight,
+            this.height - this.cellHeight
+          );
+      const newCell = {
+        x,
+        y,
+        color: this.newId > this.particles ? "green" : "#888888",
+        velocity,
+        mass,
+        radius,
+        id: this.newId,
+        peace,
+      };
+
+      if (x < radius || x >= this.width - radius) {
+        return false;
+      }
+      if (y < radius || y >= this.height - radius) {
+        return false;
+      }
+
+      this.fill(newCell);
+      this.cells.push(newCell);
+    },
     generateRandom(num) {
       for (let i = 0; i < num; i++) {
-        const mass = 1;
-        const radius = mass * 2;
-        const x = this.randomIntFromInterval(
-          this.cellWidth,
-          this.width - this.cellWidth
-        );
-        const y = this.randomIntFromInterval(
-          this.cellHeight,
-          this.height - this.cellHeight
-        );
-        const newCell = {
-          x,
-          y,
-          color: "#888888",
-          velocity: {
-            x: Math.random() * 10 - 5,
-            y: Math.random() * 10 - 5,
-          },
-          mass,
-          radius,
-          id: i,
-        };
-
-        if (x < radius || x >= this.width - radius) {
-          return false;
-        }
-        if (y < radius || y >= this.height - radius) {
-          return false;
-        }
-
-        this.fill(newCell);
-        this.cells.push(newCell);
+        this.createNewCell(2);
       }
     },
   },
@@ -307,9 +387,13 @@ export default {
       return this.cells.length;
     },
     heavyPercent() {
-      return (
-        Math.round((this.heavyCollisions / this.collisions) * 100) / 100 + "%"
-      );
+      return Math.round((this.heavyCollisions / this.collisions) * 100) + "%";
+    },
+    ratio() {
+      if (this.dead > 0) {
+        return (this.born / this.dead).toFixed(4);
+      }
+      return null;
     },
   },
 };
