@@ -19,7 +19,7 @@
       >
       <div class="datepicker__box" @click="onFocus" ref="box">
         <div class="datepicker__value">
-          {{ selectedDate }}
+          {{ selectedDates }}
         </div>
         <div class="datepicker__icon">
           <svg-icon name="calendar" :size="[20]" />
@@ -27,7 +27,7 @@
         <transition appear>
           <div class="datepicker__drop" v-if="opened" ref="datepickerDrop">
             <v-calendar
-              :selectedDay="selectedDay"
+              :selectedDays="selectedDays"
               @selected="selectDay"
               hasLabel
               daysSelectable
@@ -63,8 +63,8 @@ export default {
   data() {
     return {
       opened: false,
-      selectedDate: "",
-      selectedDay: null,
+      selectedDates: [],
+      selectedDays: [],
     };
   },
   watch: {

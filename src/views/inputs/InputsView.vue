@@ -81,9 +81,9 @@
     </components-block>
     <components-block title="State" id="'state'">
       <div class="flex gap-16">
-        <v-input />
-        <v-input state="success" />
-        <v-input state="error" />
+        <v-input helper="Default" />
+        <v-input helper="Success" state="success" />
+        <v-input helper="Error" state="error" />
       </div>
     </components-block>
     <components-block title="Type" id="type">
@@ -115,8 +115,8 @@
     </components-block>
     <components-block title="Disabled" id="disabled">
       <div class="flex gap-16">
-        <v-input />
-        <v-input disabled />
+        <v-input label="Enabled" />
+        <v-input label="Disabled" disabled />
       </div>
     </components-block>
     <components-block title="Compact" id="compact">

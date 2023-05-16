@@ -28,9 +28,9 @@
             :class="{
               calendar__day: day,
               calendar__day_current: todayCase(day),
-              calendar__day_selected: day === selectedDayLocal,
+              calendar__day_selected: selectedDaysLocal.includes(day),
             }"
-            :ref="day === selectedDayLocal ? 'selected' : ''"
+            :ref="selectedDaysLocal.includes(day) ? 'selected' : ''"
             @click="selectDay(day, $event)"
             :key="idx"
           >
@@ -63,15 +63,15 @@ export default {
       type: Boolean,
       default: false,
     },
-    selectedDay: {
-      type: Number,
-      default: null,
+    selectedDays: {
+      type: Array,
+      default: () => [],
     },
   },
   data() {
     return {
-      selectedDate: "",
-      selectedDayLocal: this.selectedDay,
+      selectedDates: [],
+      selectedDaysLocal: this.selectedDays,
       monthArr: [],
     };
   },
@@ -140,12 +140,23 @@ export default {
     selectDay(val, $event) {
       if (!this.daysSelectable || !val) return;
 
-      this.selectedDayLocal = val;
-      this.selectedDate = new Date(
+      const dateVal = new Date(
         new Date().getFullYear(),
         new Date().getMonth(),
         val
       ).toLocaleDateString();
+
+      if (this.selectedDaysLocal.includes(val)) {
+        this.selectedDaysLocal = this.selectedDaysLocal.filter((item) => {
+          return item !== val;
+        });
+        this.selectedDates = this.selectedDates.filter((item) => {
+          return item !== dateVal;
+        });
+      } else {
+        this.selectedDaysLocal.push(val);
+        this.selectedDates.push(dateVal);
+      }
 
       gsap.fromTo(
         $event.target,
@@ -169,8 +180,8 @@ export default {
           ease: Elastic.easeOut.config(1, 0.3),
           onComplete: () => {
             this.$emit("selected", {
-              day: this.selectedDayLocal,
-              date: this.selectedDate,
+              days: this.selectedDaysLocal,
+              dates: this.selectedDates,
             });
           },
         }
@@ -294,7 +305,6 @@ export default {
     }
 
     &_selected {
-      pointer-events: none;
       color: var(--color-white) !important;
 
       &:before {

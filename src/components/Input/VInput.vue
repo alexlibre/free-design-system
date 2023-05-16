@@ -353,6 +353,12 @@ export default {
     display: flex;
     align-items: flex-end;
     height: 16px;
+
+    @include mobile-remove {
+      flex-direction: column;
+      align-items: stretch;
+      height: auto;
+    }
   }
 
   &__label {
@@ -367,6 +373,10 @@ export default {
     line-height: 1;
     margin-left: auto;
     color: var(--color-gray-0);
+
+    @include mobile-remove {
+      margin: 4px 0 0 0;
+    }
   }
 
   &__box {
