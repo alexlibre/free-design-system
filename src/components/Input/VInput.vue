@@ -194,6 +194,10 @@ export default {
         "ArrowRight",
         "Tab",
         "Control",
+        "Home",
+        "End",
+        "PageUp",
+        "PageDown",
       ]);
 
       const int = new Set([

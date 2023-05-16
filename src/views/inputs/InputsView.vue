@@ -102,11 +102,13 @@
         <v-input
           restrict="int"
           label="Accept only digits"
+          label-second="Keyboard controls also allowed"
           helper="Add only digits"
         />
         <v-input
           restrict="float"
           label="Accept floats"
+          label-second="Keyboard controls also allowed"
           helper="Add floating number"
         />
       </div>
