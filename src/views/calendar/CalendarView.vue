@@ -37,18 +37,23 @@
     />
     <components-block id="month" title="Month">
       <div class="flex flex-start flex-3 gap-16">
-        <v-calendar hasLabel :month="0" />
-        <v-calendar hasLabel :month="1" />
-        <v-calendar hasLabel :month="2" />
-        <v-calendar hasLabel :month="3" />
-        <v-calendar hasLabel :month="4" />
-        <v-calendar hasLabel :month="5" />
-        <v-calendar hasLabel :month="6" />
-        <v-calendar hasLabel :month="7" />
-        <v-calendar hasLabel :month="8" />
-        <v-calendar hasLabel :month="9" />
-        <v-calendar hasLabel :month="10" />
-        <v-calendar hasLabel :month="11" />
+        <v-calendar
+          hasLabel
+          daysSelectable
+          :month="0"
+          :selectedDays="[1, 2, 3, 4, 5, 6]"
+        />
+        <v-calendar hasLabel daysSelectable :month="1" />
+        <v-calendar hasLabel daysSelectable :month="2" />
+        <v-calendar hasLabel daysSelectable :month="3" />
+        <v-calendar hasLabel daysSelectable :month="4" />
+        <v-calendar hasLabel daysSelectable :month="5" />
+        <v-calendar hasLabel daysSelectable :month="6" />
+        <v-calendar hasLabel daysSelectable :month="7" />
+        <v-calendar hasLabel daysSelectable :month="8" />
+        <v-calendar hasLabel daysSelectable :month="9" />
+        <v-calendar hasLabel daysSelectable :month="10" />
+        <v-calendar hasLabel daysSelectable :month="11" />
       </div>
     </components-block>
 
