@@ -31,7 +31,7 @@
           attr: 'color',
           values: ['red', 'orange', 'yellow', 'green', 'orange', 'violet'],
           types: ['string'],
-          default: 'orange',
+          default: 'blue',
         },
         {
           attr: 'disabled',

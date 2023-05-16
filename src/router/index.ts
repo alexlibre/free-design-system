@@ -89,6 +89,14 @@ const routes: Array<RouteConfig> = [
           ),
       },
       {
+        path: "progress",
+        name: "Progress",
+        component: () =>
+          import(
+            /* webpackChunkName: "progress" */ "../views/progress/ProgressView.vue"
+          ),
+      },
+      {
         path: "button-group",
         name: "Button group",
         component: () =>

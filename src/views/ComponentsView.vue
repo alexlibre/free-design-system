@@ -62,6 +62,9 @@
           <v-menu-item class="content__nav-link" url="/components/logo"
             >Logo</v-menu-item
           >
+          <v-menu-item class="content__nav-link" url="/components/progress"
+            >Progress</v-menu-item
+          >
           <v-menu-item class="content__nav-link" url="/components/radio-group"
             >Radio group</v-menu-item
           >
