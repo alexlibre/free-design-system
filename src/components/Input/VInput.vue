@@ -5,8 +5,8 @@
       input_disabled: disabled,
       input_focus: hasFocus,
       input_compact: compact,
-      input_success: state === 'success',
-      input_error: state === 'error',
+      input_success: dataState === 'success',
+      input_error: dataState === 'error' || dataError,
     }"
   >
     <div class="input__inner">
@@ -26,6 +26,7 @@
           @input="updateValue"
           @focus="onFocus"
           @blur="onBlur"
+          @keydown="keydown"
         />
         <template v-if="type === 'password'">
           <v-button
@@ -42,7 +43,7 @@
           <svg-icon v-if="icon" class="input__icon" :name="icon" :size="[16]" />
         </template>
       </div>
-      <span class="input__helper" v-if="helper">{{ helper }}</span>
+      <span class="input__helper" v-if="dataHelper">{{ dataHelper }}</span>
     </div>
   </div>
 </template>
@@ -105,6 +106,10 @@ export default {
       type: String,
       default: "",
     },
+    restrict: {
+      type: String,
+      default: "",
+    },
   },
   components: {
     SvgIcon,
@@ -117,6 +122,10 @@ export default {
       hasFocus: false,
       showPassword: false,
       currentIcon: this.icon || "eye",
+      dataState: this.state,
+      dataError: this.hasError,
+      dataHelper: this.helper,
+      dataHelperTemp: this.helper,
     };
   },
   watch: {
@@ -158,6 +167,72 @@ export default {
     switchPasswordVisibility() {
       if (this.type !== "password") return;
       this.showPassword = !this.showPassword;
+    },
+    keydown($event) {
+      this.$emit("keydown", $event);
+
+      if (this.restrict === "") return;
+
+      const baseKeys = new Set([
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9",
+        "F10",
+        "F11",
+        "F12",
+        "Backspace",
+        "Enter",
+        "Escape",
+        "Delete",
+        "ArrowLeft",
+        "ArrowRight",
+        "Tab",
+        "Control",
+      ]);
+
+      const int = new Set([
+        ...baseKeys,
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+      ]);
+
+      const float = new Set([...int, "."]);
+
+      if (this.restrict === "int") {
+        if (!int.has($event.key) && $event.ctrlKey === false) {
+          $event.preventDefault();
+          this.dataError = true;
+          this.dataHelper = "Restricted input";
+        } else {
+          this.dataError = false;
+          this.dataHelper = this.dataHelperTemp;
+        }
+      }
+
+      if (this.restrict === "float") {
+        if (!float.has($event.key) && $event.ctrlKey === false) {
+          $event.preventDefault();
+          this.dataError = true;
+          this.dataHelper = "Restricted input";
+        } else {
+          this.dataError = false;
+          this.dataHelper = this.dataHelperTemp;
+        }
+      }
     },
   },
 };

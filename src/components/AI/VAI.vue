@@ -180,6 +180,18 @@ export default {
       if (radius < 0) {
         return;
       }
+      this.ctx.fillStyle = "rgba(12,52,202,0.1)";
+      this.ctx.beginPath();
+      this.ctx.arc(
+        x,
+        y,
+        radius + 10 * (1 / radius),
+        0,
+        2 * (radius + 10 * (1 / radius)) * Math.PI
+      );
+      this.ctx.fill();
+      this.ctx.closePath();
+
       this.ctx.fillStyle = color;
       this.ctx.beginPath();
       this.ctx.arc(x, y, radius, 0, 2 * radius * Math.PI);
@@ -189,6 +201,7 @@ export default {
 
     clickCell($event) {
       this.newId += 1;
+      this.born += 1;
       const rect = this.$refs.canvasAI.getBoundingClientRect();
       const canvasCoords = {
         left: rect.left,
@@ -233,13 +246,13 @@ export default {
           cell.peace += 1;
 
           if (cell.mass >= 1) cell.color = "#888888";
-          if (cell.peace > 500 * cell.mass) {
+          if (cell.peace > 100 * cell.mass) {
             cell.peace = 1;
             const newX = cell.x;
             const newY = cell.y;
             const newVelocity = {
-              x: cell.velocity.x * -1 + Math.random(),
-              y: cell.velocity.y * -1 + Math.random(),
+              x: cell.velocity.x * -1 + Math.random() / 10,
+              y: cell.velocity.y * -1 + Math.random() / 10,
             };
             this.createNewCell(cell.mass, newVelocity, newX, newY);
             this.born += 1;
@@ -333,8 +346,8 @@ export default {
       const velocity = settedVelocity
         ? settedVelocity
         : {
-            x: Math.random() * 2 - 1,
-            y: Math.random() * 2 - 1,
+            x: Math.random() * 0.2 - 0.1,
+            y: Math.random() * 0.2 - 0.1,
           };
 
       const x = settedX

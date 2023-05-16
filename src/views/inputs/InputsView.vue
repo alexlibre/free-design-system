@@ -46,6 +46,12 @@
           default: 'false',
         },
         {
+          attr: 'restrict',
+          values: ['int'],
+          types: ['string'],
+          default: '',
+        },
+        {
           attr: 'compact',
           values: [true, false],
           types: ['boolean'],
@@ -87,6 +93,25 @@
         <v-input label="Password" type="password" />
       </div>
     </components-block>
+    <components-block
+      title="Restrict"
+      id="restrict"
+      desc="Input values can be restricted to integer or floating numbers by filtering pressed keys. Besides any ctrl actions and navigation is allowed."
+    >
+      <div class="flex gap-16">
+        <v-input
+          restrict="int"
+          @keydown="check"
+          label="Accept only digits"
+          helper="Add only digits"
+        />
+        <v-input
+          restrict="float"
+          label="Accept floats"
+          helper="Add floating number"
+        />
+      </div>
+    </components-block>
     <components-block title="Disabled" id="disabled">
       <div class="flex gap-16">
         <v-input />
@@ -113,5 +138,6 @@ export default {
     ComponentsTable,
     ComponentsBlock,
   },
+  methods: {},
 };
 </script>
