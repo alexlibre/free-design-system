@@ -47,7 +47,7 @@
         },
         {
           attr: 'restrict',
-          values: ['int'],
+          values: ['int', 'float'],
           types: ['string'],
           default: '',
         },
@@ -101,7 +101,6 @@
       <div class="flex gap-16">
         <v-input
           restrict="int"
-          @keydown="check"
           label="Accept only digits"
           helper="Add only digits"
         />
