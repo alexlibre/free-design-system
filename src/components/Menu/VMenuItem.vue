@@ -4,15 +4,14 @@
   </router-link>
 </template>
 
-<script>
-export default {
-  props: {
-    url: {
-      type: String,
-      default: "",
-    },
-  },
-};
+<script setup lang="ts">
+interface Props {
+  url?: string;
+}
+
+withDefaults(defineProps<Props>(), {
+  url: "",
+});
 </script>
 
 <style lang="scss" scoped>

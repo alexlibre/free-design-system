@@ -19,43 +19,35 @@
   </label>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref, computed } from "vue";
 import SvgIcon from "@/components/SvgIcon.vue";
 
-export default {
-  components: {
-    SvgIcon,
-  },
-  props: {
-    label: {
-      type: String,
-      default: "",
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    checked: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  data() {
-    return {
-      checkboxChecked: this.checked,
-    };
-  },
-  computed: {
-    guid() {
-      return (Math.random() + 1).toString(36).substring(2);
-    },
-  },
-  methods: {
-    onChecked(val) {
-      this.checkboxChecked = val;
-      this.$emit("checked", val);
-    },
-  },
+interface Props {
+  label?: string;
+  disabled?: boolean;
+  checked?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  label: "",
+  disabled: false,
+  checked: false,
+});
+
+const emit = defineEmits<{
+  checked: [val: boolean];
+}>();
+
+const checkboxChecked = ref(props.checked);
+
+const guid = computed(() => {
+  return (Math.random() + 1).toString(36).substring(2);
+});
+
+const onChecked = (val: boolean) => {
+  checkboxChecked.value = val;
+  emit("checked", val);
 };
 </script>
 

@@ -57,17 +57,8 @@
   </div>
 </template>
 
-<script>
-import VAvatar from "@/components/Avatar/VAvatar";
-
+<script setup lang="ts">
+import VAvatar from "@/components/Avatar/VAvatar.vue";
 import ComponentsTable from "@/components/ui/components-table.vue";
 import ComponentsBlock from "@/components/ui/components-block.vue";
-
-export default {
-  components: {
-    VAvatar,
-    ComponentsTable,
-    ComponentsBlock,
-  },
-};
 </script>

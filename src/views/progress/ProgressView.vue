@@ -62,18 +62,10 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import VProgress from "@/components/Progress/VProgress.vue";
 import ComponentsTable from "@/components/ui/components-table.vue";
 import ComponentsBlock from "@/components/ui/components-block.vue";
-
-export default {
-  components: {
-    VProgress,
-    ComponentsTable,
-    ComponentsBlock,
-  },
-};
 </script>
 
 <style lang="scss" scoped></style>

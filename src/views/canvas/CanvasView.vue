@@ -4,14 +4,8 @@
   </div>
 </template>
 
-<script>
-import VCanvas from "@/components/Canvas/VCanvas";
-
-export default {
-  components: {
-    VCanvas,
-  },
-};
+<script setup lang="ts">
+import VCanvas from "@/components/Canvas/VCanvas.vue";
 </script>
 
 <style lang="scss" scoped></style>

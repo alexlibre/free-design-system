@@ -5,15 +5,12 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  props: {
-    cols: {
-      type: Number,
-      required: true,
-    },
-  },
-};
+<script setup lang="ts">
+interface Props {
+  cols: number;
+}
+
+defineProps<Props>();
 </script>
 
 <style lang="scss">

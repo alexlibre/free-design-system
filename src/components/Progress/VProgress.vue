@@ -19,35 +19,25 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    percent: {
-      type: Number,
-      required: true,
-    },
-    view: {
-      type: String,
-      default: "primary",
-    },
-    color: {
-      type: String,
-      default: "blue",
-    },
-    showPercent: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  data() {
-    return {};
-  },
-  computed: {
-    fillPercent() {
-      return "width: " + this.percent + "%";
-    },
-  },
-};
+<script setup lang="ts">
+import { computed } from "vue";
+
+interface Props {
+  percent: number;
+  view?: "primary" | "rounded" | "blob";
+  color?: "red" | "orange" | "yellow" | "green" | "blue" | "violet" | "gray";
+  showPercent?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  view: "primary",
+  color: "blue",
+  showPercent: false,
+});
+
+const fillPercent = computed(() => {
+  return `width: ${props.percent}%`;
+});
 </script>
 
 <style lang="scss" scoped>

@@ -29,59 +29,47 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import ColorSample from "@/components/ui/color-sample.vue";
 
-export default {
-  components: {
-    ColorSample,
-  },
-  data() {
-    return {
-      colorNames: ["red", "orange", "yellow", "green", "blue", "violet"],
-      colorWeights: [
-        "10",
-        "9-5",
-        "9",
-        "8-5",
-        "8",
-        "7",
-        "6",
-        "5",
-        "4",
-        "3",
-        "2",
-        "1-5",
-        "1",
-        "0-5",
-      ],
-      grayWeights: [
-        "10",
-        "9-5",
-        "9",
-        "8-5",
-        "8",
-        "7",
-        "6",
-        "5",
-        "4",
-        "3",
-        "2",
-        "1-5",
-        "1",
-        "0-5",
-        "0",
-        "-1",
-      ],
-    };
-  },
-  methods: {
-    getCSSVariableValue(variable) {
-      return getComputedStyle(document.documentElement).getPropertyValue(
-        variable
-      );
-    },
-  },
+const colorNames = ["red", "orange", "yellow", "green", "blue", "violet"];
+const colorWeights = [
+  "10",
+  "9-5",
+  "9",
+  "8-5",
+  "8",
+  "7",
+  "6",
+  "5",
+  "4",
+  "3",
+  "2",
+  "1-5",
+  "1",
+  "0-5",
+];
+const grayWeights = [
+  "10",
+  "9-5",
+  "9",
+  "8-5",
+  "8",
+  "7",
+  "6",
+  "5",
+  "4",
+  "3",
+  "2",
+  "1-5",
+  "1",
+  "0-5",
+  "0",
+  "-1",
+];
+
+const getCSSVariableValue = (variable: string) => {
+  return getComputedStyle(document.documentElement).getPropertyValue(variable);
 };
 </script>
 

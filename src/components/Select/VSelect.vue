@@ -20,9 +20,9 @@
       >
         <div
           class="select__value"
-          :class="{ select__value_selected: selected !== placeholder }"
+          :class="{ select__value_selected: selectedValue !== undefined && selectedValue !== placeholder }"
         >
-          {{ selected }}
+          {{ selectedLabel }}
         </div>
         <div class="select__icon" ref="selectArrow">
           <svg-icon name="arrow-down" :size="[20]" />
@@ -33,112 +33,140 @@
           <div
             class="select__option"
             v-for="option in options"
-            :key="option"
+            :key="option.value"
             @click="selectOption(option)"
           >
-            {{ option }}
+            {{ option.label }}
           </div>
         </div>
       </transition>
     </div>
-    <select aria-hidden="true" v-model="selected">
-      <option v-for="option in options" :key="option" :value="option">
-        {{ option }}
+    <select aria-hidden="true" v-model="selectedValue">
+      <option v-for="option in options" :key="option.value" :value="option.value">
+        {{ option.label }}
       </option>
     </select>
   </div>
 </template>
 
-<script>
-import SvgIcon from "@/components/SvgIcon";
+<script setup lang="ts">
+import { ref, watch, nextTick, computed } from "vue";
+import SvgIcon from "@/components/SvgIcon.vue";
 import { gsap, Elastic, Bounce } from "gsap";
 
-export default {
-  components: {
-    SvgIcon,
-  },
-  props: {
-    options: {
-      type: Array,
-      default: () => [],
-    },
-    placeholder: {
-      type: String,
-      default: "Select option",
-    },
-    compact: {
-      type: Boolean,
-      default: false,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    label: {
-      type: String,
-      default: "",
-    },
-  },
-  data() {
-    return {
-      selected: this.placeholder,
-      opened: false,
-    };
-  },
-  watch: {
-    opened() {
-      if (this.opened) {
-        this.animateIn();
-        return;
-      }
+interface SelectOption {
+  value: string;
+  label: string;
+}
 
-      this.animateOut();
-    },
-  },
-  methods: {
-    selectOption(val) {
-      this.selected = val;
-      this.opened = false;
-    },
-    toggleOptions() {
-      this.opened = !this.opened;
-    },
-    looseFocus() {
-      this.opened = false;
-    },
-    animateIn() {
-      gsap.to(this.$refs.selectArrow, 1, {
-        rotate: "180deg",
-        ease: Elastic.easeOut.config(1, 0.3),
-      });
+interface Props {
+  options?: SelectOption[];
+  placeholder?: string;
+  compact?: boolean;
+  disabled?: boolean;
+  label?: string;
+  modelValue?: string;
+}
 
-      this.$nextTick(() => {
-        gsap.from(this.$refs.selectList, 0.2, {
-          opacity: 0,
-        });
-        gsap.from(this.$refs.selectList, 0.5, {
-          y: "-40px",
-          ease: Bounce.easeOut,
-        });
-      });
-    },
-    animateOut() {
-      gsap.killTweensOf(this.$refs.selectArrow);
-      gsap.fromTo(
-        this.$refs.selectArrow,
-        0.2,
-        {
-          rotate: "180deg",
-        },
-        {
-          rotate: "0",
-        }
-      );
-      gsap.to(this.$refs.selectList, 0.2, {
+const props = withDefaults(defineProps<Props>(), {
+  options: () => [],
+  placeholder: "Select option",
+  compact: false,
+  disabled: false,
+  label: "",
+  modelValue: undefined,
+});
+
+const emit = defineEmits<{
+  "update:modelValue": [value: string];
+}>();
+
+const selectedValue = ref<string | undefined>(props.modelValue);
+const opened = ref(false);
+const selectArrow = ref<HTMLElement | null>(null);
+const selectList = ref<HTMLElement | null>(null);
+
+// Вычисляем отображаемый label на основе выбранного value
+const selectedLabel = computed(() => {
+  if (selectedValue.value === undefined) {
+    return props.placeholder;
+  }
+  const option = props.options.find(opt => opt.value === selectedValue.value);
+  return option ? option.label : props.placeholder;
+});
+
+// Синхронизация с modelValue
+watch(() => props.modelValue, (newValue) => {
+  if (newValue !== undefined && newValue !== selectedValue.value) {
+    selectedValue.value = newValue;
+  }
+}, { immediate: true });
+
+watch(opened, () => {
+  if (opened.value) {
+    animateIn();
+    return;
+  }
+
+  animateOut();
+});
+
+const selectOption = (option: SelectOption) => {
+  selectedValue.value = option.value;
+  if (props.modelValue !== undefined) {
+    emit("update:modelValue", option.value);
+  }
+  opened.value = false;
+};
+
+const toggleOptions = () => {
+  opened.value = !opened.value;
+};
+
+const looseFocus = () => {
+  opened.value = false;
+};
+
+const animateIn = () => {
+  if (selectArrow.value) {
+    gsap.to(selectArrow.value, 1, {
+      rotate: "180deg",
+      ease: Elastic.easeOut.config(1, 0.3),
+    });
+  }
+
+  nextTick(() => {
+    if (selectList.value) {
+      gsap.from(selectList.value, 0.2, {
         opacity: 0,
       });
-    },
-  },
+      gsap.from(selectList.value, 0.5, {
+        y: "-40px",
+        ease: Bounce.easeOut,
+      });
+    }
+  });
+};
+
+const animateOut = () => {
+  if (selectArrow.value) {
+    gsap.killTweensOf(selectArrow.value);
+    gsap.fromTo(
+      selectArrow.value,
+      0.2,
+      {
+        rotate: "180deg",
+      },
+      {
+        rotate: "0",
+      }
+    );
+  }
+  if (selectList.value) {
+    gsap.to(selectList.value, 0.2, {
+      opacity: 0,
+    });
+  }
 };
 </script>
 
@@ -235,10 +263,12 @@ export default {
     background-color: var(--color-white);
     position: absolute;
     width: 100%;
-    z-index: -1;
+    z-index: 10;
     top: calc(100% - 8px);
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
     box-shadow: 0px 4px 8px rgba(22, 109, 203, 0.08);
     overflow-y: auto;
     max-height: 188px;

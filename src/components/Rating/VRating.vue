@@ -43,58 +43,37 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref, computed } from "vue";
 import SvgIcon from "@/components/SvgIcon.vue";
 
-export default {
-  props: {
-    static: {
-      type: Boolean,
-      default: false,
-    },
-    view: {
-      type: String,
-      default: "star",
-    },
-    small: {
-      type: Boolean,
-      default: false,
-    },
-    range: {
-      type: Number,
-      default: 5,
-    },
-    size: {
-      type: Number,
-      default: 20,
-    },
-    color: {
-      type: String,
-      default: "yellow",
-    },
-    initial: {
-      type: Number,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      rate: this.initial,
-    };
-  },
-  components: {
-    SvgIcon,
-  },
-  computed: {
-    guid() {
-      return (Math.random() + 1).toString(36).substring(2);
-    },
-  },
-  methods: {
-    select(val) {
-      this.rate = val;
-    },
-  },
+interface Props {
+  static?: boolean;
+  view?: string;
+  small?: boolean;
+  range?: number;
+  size?: number;
+  color?: "yellow" | "red" | "blue" | "green" | "orange";
+  initial: number;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  static: false,
+  view: "star",
+  small: false,
+  range: 5,
+  size: 20,
+  color: "yellow",
+});
+
+const rate = ref(props.initial);
+
+const guid = computed(() => {
+  return (Math.random() + 1).toString(36).substring(2);
+});
+
+const select = (val: number) => {
+  rate.value = val;
 };
 </script>
 

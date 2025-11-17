@@ -4,18 +4,12 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref } from "vue";
 import GameAsteroids from "@/components/Games/Asteroids/GameAsteroids.vue";
 
-export default {
-  components: { GameAsteroids },
-  data() {
-    return {
-      width: 800,
-      height: 600,
-    };
-  },
-};
+const width = ref(800);
+const height = ref(600);
 </script>
 
 <style lang="scss" scoped></style>

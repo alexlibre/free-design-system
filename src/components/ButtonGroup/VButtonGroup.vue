@@ -16,74 +16,73 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref, watch } from "vue";
 import VButton from "@/components/Button/VButton.vue";
 
-export default {
-  components: {
-    VButton,
-  },
-  props: {
-    items: {
-      type: Array,
-      default: () => [],
-    },
-    size: {
-      type: String,
-      default: "m",
-    },
-    multiple: {
-      type: Boolean,
-      default: false,
-    },
-    mandatory: {
-      type: Boolean,
-      default: false,
-    },
-    color: {
-      type: String,
-      default: "blue",
-    },
-    activeView: {
-      type: String,
-      default: "primary",
-    },
-    inactiveView: {
-      type: String,
-      default: "secondary",
-    },
-  },
-  data() {
-    return {
-      list: this.items,
-    };
-  },
-  methods: {
-    selectItem(val) {
-      const arr = this.items.map((item) => {
-        if (!this.multiple) item.active = false;
-        return item;
-      });
+interface ButtonItem {
+  name: string;
+  icon?: string;
+  active?: boolean;
+}
 
-      if (this.mandatory) {
-        const actives = arr.filter((item) => item.active === true).length > 1;
-        if (!actives) {
-          arr[val].active = true;
-        } else {
-          arr[val].active = !arr[val].active;
-        }
-      } else {
-        arr[val].active = !arr[val].active;
-      }
+interface Props {
+  items: ButtonItem[];
+  size?: "s" | "m" | "l";
+  multiple?: boolean;
+  mandatory?: boolean;
+  color?: string;
+  activeView?: string;
+  inactiveView?: string;
+}
 
-      this.list = arr;
+const props = withDefaults(defineProps<Props>(), {
+  items: () => [],
+  size: "m",
+  multiple: false,
+  mandatory: false,
+  color: "blue",
+  activeView: "primary",
+  inactiveView: "secondary",
+});
 
-      this.$emit(
-        "selected",
-        arr.filter((item) => item.active === true)
-      );
-    },
+const emit = defineEmits<{
+  selected: [items: ButtonItem[]];
+}>();
+
+const list = ref([...props.items]);
+
+watch(
+  () => props.items,
+  (newItems) => {
+    list.value = [...newItems];
   },
+  { deep: true }
+);
+
+const selectItem = (idx: number) => {
+  const arr = props.items.map((item) => {
+    if (!props.multiple) item.active = false;
+    return { ...item };
+  });
+
+  if (props.mandatory) {
+    const actives = arr.filter((item) => item.active === true).length > 1;
+    if (!actives) {
+      arr[idx].active = true;
+    } else {
+      arr[idx].active = !arr[idx].active;
+    }
+  } else {
+    arr[idx].active = !arr[idx].active;
+  }
+
+  list.value = arr;
+
+  emit(
+    "selected",
+    arr.filter((item) => item.active === true)
+  );
 };
 </script>
 

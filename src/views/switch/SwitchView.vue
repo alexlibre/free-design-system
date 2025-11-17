@@ -47,13 +47,10 @@
   </div>
 </template>
 
-<script>
-import VSwitch from "@/components/Switch/VSwitch";
-import ComponentsTable from "@/components/ui/components-table";
-import ComponentsBlock from "@/components/ui/components-block";
-export default {
-  components: { VSwitch, ComponentsTable, ComponentsBlock },
-};
+<script setup lang="ts">
+import VSwitch from "@/components/Switch/VSwitch.vue";
+import ComponentsTable from "@/components/ui/components-table.vue";
+import ComponentsBlock from "@/components/ui/components-block.vue";
 </script>
 
 <style lang="scss" scoped></style>

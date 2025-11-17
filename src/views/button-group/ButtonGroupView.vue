@@ -363,21 +363,12 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import VButtonGroup from "@/components/ButtonGroup/VButtonGroup.vue";
 import ComponentsTable from "@/components/ui/components-table.vue";
 import ComponentsBlock from "@/components/ui/components-block.vue";
 
-export default {
-  components: {
-    VButtonGroup,
-    ComponentsTable,
-    ComponentsBlock,
-  },
-  methods: {
-    check(val) {
-      console.log(val);
-    },
-  },
+const check = (val: any) => {
+  console.log(val);
 };
 </script>

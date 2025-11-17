@@ -7,44 +7,33 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { computed } from "vue";
 import SvgIcon from "@/components/SvgIcon.vue";
 
-export default {
-  props: {
-    icon: {
-      type: String,
-      required: true,
-    },
-    size: {
-      type: String,
-      default: "l",
-    },
-    name: {
-      type: String,
-      default: "",
-    },
-    color: {
-      type: String,
-      default: "positive",
-    },
-  },
-  components: {
-    SvgIcon,
-  },
-  computed: {
-    iconSize() {
-      switch (this.size) {
-        case "m":
-          return 32;
-        case "s":
-          return 16;
-        default:
-          return 48;
-      }
-    },
-  },
-};
+interface Props {
+  icon: string;
+  size?: "s" | "m" | "l";
+  name?: string;
+  color?: "positive" | "negative" | "colored" | "white" | "colored-only";
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  size: "l",
+  name: "",
+  color: "positive",
+});
+
+const iconSize = computed(() => {
+  switch (props.size) {
+    case "m":
+      return 32;
+    case "s":
+      return 16;
+    default:
+      return 48;
+  }
+});
 </script>
 
 <style lang="scss" scoped>

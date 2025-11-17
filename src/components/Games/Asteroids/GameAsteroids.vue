@@ -9,125 +9,136 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    width: {
-      type: Number,
-      default: 300,
-    },
-    height: {
-      type: Number,
-      default: 150,
-    },
-  },
-  data() {
-    return {
-      ctx: null,
-      game: false,
-      lives: 1,
-      asteroids: [],
-      thrusting: false,
-      thrustSpeed: 0.1,
-      thrust: {
-        x: 0,
-        y: 0,
-      },
-      ship: {
-        x: this.width / 2,
-        y: this.height / 2,
-        radius: 15,
-        angle: (90 / 180) * Math.PI,
-      },
-    };
-  },
-  methods: {
-    init() {
-      this.ctx.fillStyle = "#fff";
-      this.ctx.fillRect(0, 0, this.width, this.height);
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from "vue";
 
-      this.ctx.strokeStyle = "#42a5f0";
-      this.ctx.linewidth = 1;
-      this.ctx.beginPath();
-      this.ctx.moveTo(
-        this.ship.x + (4 / 3) * this.ship.radius * Math.cos(this.ship.angle),
-        this.ship.y - (4 / 3) * this.ship.radius * Math.sin(this.ship.angle)
-      );
-      this.ctx.lineTo(
-        this.ship.x -
-          this.ship.radius *
-            ((2 / 3) * Math.cos(this.ship.angle) + Math.sin(this.ship.angle)),
-        this.ship.y +
-          this.ship.radius *
-            ((2 / 3) * Math.sin(this.ship.angle) - Math.cos(this.ship.angle))
-      );
-      this.ctx.lineTo(
-        this.ship.x -
-          this.ship.radius *
-            ((2 / 3) * Math.cos(this.ship.angle) - Math.sin(this.ship.angle)),
-        this.ship.y +
-          this.ship.radius *
-            ((2 / 3) * Math.sin(this.ship.angle) + Math.cos(this.ship.angle))
-      );
-      this.ctx.closePath();
-      this.ctx.stroke();
+interface Props {
+  width?: number;
+  height?: number;
+}
 
-      this.ctx.fillStyle = "#42a5f0";
-      this.ctx.fillRect(this.ship.x - 0.5, this.ship.y - 0.5, 1, 1);
+const props = withDefaults(defineProps<Props>(), {
+  width: 300,
+  height: 150,
+});
 
-      this.addBorderless(this.ship);
+interface Ship {
+  x: number;
+  y: number;
+  radius: number;
+  angle: number;
+}
 
-      //   this,
-      //     asteroids.forEach((asteroid) => {
-      //       this.addBorderless(asteroid);
-      //     });
+const canvasAsteroids = ref<HTMLCanvasElement | null>(null);
+const ctx = ref<CanvasRenderingContext2D | null>(null);
+const game = ref(false);
+const lives = ref(1);
+const asteroids = ref<unknown[]>([]);
+const thrusting = ref(false);
+const thrustSpeed = 0.1;
+const thrust = ref({ x: 0, y: 0 });
+const ship = ref<Ship>({
+  x: props.width / 2,
+  y: props.height / 2,
+  radius: 15,
+  angle: (90 / 180) * Math.PI,
+});
 
-      window.requestAnimationFrame(this.init);
-    },
-    addBorderless(obj) {
-      if (obj.y < 0) {
-        obj.y = this.height + obj.y;
-      }
+const addBorderless = (obj: Ship) => {
+  if (obj.y < 0) {
+    obj.y = props.height + obj.y;
+  }
 
-      if (obj.x < 0) {
-        obj.x = this.width + obj.x;
-      }
+  if (obj.x < 0) {
+    obj.x = props.width + obj.x;
+  }
 
-      if (obj.y >= this.height) {
-        obj.y = obj.y - this.height;
-      }
+  if (obj.y >= props.height) {
+    obj.y = obj.y - props.height;
+  }
 
-      if (obj.x >= this.width) {
-        obj.x = obj.x - this.width;
-      }
-    },
-    keyDown(char) {
-      if (char === "d") {
-        this.ship.angle -= 0.2;
-      }
-      if (char === "a") {
-        this.ship.angle += 0.2;
-      }
-      if (char === "w") {
-        this.thrusting = true;
-      }
-      if (char === "s") {
-        this.thrusting = false;
-      }
-    },
-  },
-  mounted() {
-    const canv = this.$refs.canvasAsteroids;
-    this.ctx = canv.getContext("2d");
-
-    document.addEventListener("keydown", (e) => {
-      this.keyDown(e.key);
-    });
-
-    // this.addBorderless(this.ship);
-    window.requestAnimationFrame(this.init);
-  },
+  if (obj.x >= props.width) {
+    obj.x = obj.x - props.width;
+  }
 };
+
+const init = () => {
+  if (!ctx.value) return;
+  ctx.value.fillStyle = "#fff";
+  ctx.value.fillRect(0, 0, props.width, props.height);
+
+  ctx.value.strokeStyle = "#42a5f0";
+  ctx.value.lineWidth = 1;
+  ctx.value.beginPath();
+  ctx.value.moveTo(
+    ship.value.x + (4 / 3) * ship.value.radius * Math.cos(ship.value.angle),
+    ship.value.y - (4 / 3) * ship.value.radius * Math.sin(ship.value.angle)
+  );
+  ctx.value.lineTo(
+    ship.value.x -
+      ship.value.radius *
+        ((2 / 3) * Math.cos(ship.value.angle) + Math.sin(ship.value.angle)),
+    ship.value.y +
+      ship.value.radius *
+        ((2 / 3) * Math.sin(ship.value.angle) - Math.cos(ship.value.angle))
+  );
+  ctx.value.lineTo(
+    ship.value.x -
+      ship.value.radius *
+        ((2 / 3) * Math.cos(ship.value.angle) - Math.sin(ship.value.angle)),
+    ship.value.y +
+      ship.value.radius *
+        ((2 / 3) * Math.sin(ship.value.angle) + Math.cos(ship.value.angle))
+  );
+  ctx.value.closePath();
+  ctx.value.stroke();
+
+  ctx.value.fillStyle = "#42a5f0";
+  ctx.value.fillRect(ship.value.x - 0.5, ship.value.y - 0.5, 1, 1);
+
+  addBorderless(ship.value);
+
+  window.requestAnimationFrame(init);
+};
+
+const keyDown = (char: string) => {
+  if (char === "d") {
+    ship.value.angle -= 0.2;
+  }
+  if (char === "a") {
+    ship.value.angle += 0.2;
+  }
+  if (char === "w") {
+    thrusting.value = true;
+  }
+  if (char === "s") {
+    thrusting.value = false;
+  }
+};
+
+let keyDownHandler: ((e: KeyboardEvent) => void) | null = null;
+
+onMounted(() => {
+  if (canvasAsteroids.value) {
+    ctx.value = canvasAsteroids.value.getContext("2d");
+  }
+
+  keyDownHandler = (e: KeyboardEvent) => {
+    keyDown(e.key);
+  };
+
+  document.addEventListener("keydown", keyDownHandler);
+
+  if (ctx.value) {
+    window.requestAnimationFrame(init);
+  }
+});
+
+onUnmounted(() => {
+  if (keyDownHandler) {
+    document.removeEventListener("keydown", keyDownHandler);
+  }
+});
 </script>
 
 <style lang="scss" scoped></style>

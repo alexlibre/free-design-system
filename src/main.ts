@@ -1,21 +1,18 @@
-import Vue from "vue";
+import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
-import store from "./store";
+import { createPinia } from "pinia";
 
-Vue.config.productionTip = false;
+const app = createApp(App);
 
-new Vue({
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount("#app");
+app.use(router);
+app.use(createPinia());
 
-Vue.directive("ripple", {
-  inserted: function (el: HTMLElement): void {
+app.directive("ripple", {
+  mounted(el: HTMLElement): void {
     el.addEventListener(
       "click",
-      function (e): void {
+      function (e: MouseEvent): void {
         const target = el.getBoundingClientRect();
         const buttonSize =
           target.width > target.height ? target.width : target.height;
@@ -40,3 +37,5 @@ Vue.directive("ripple", {
     );
   },
 });
+
+app.mount("#app");

@@ -1,26 +1,16 @@
-import { State } from "../index";
-import { ActionContext } from "vuex";
+import { defineStore } from "pinia";
 
 export interface IModalState {
   showModal: boolean;
 }
 
-type Context = ActionContext<IModalState, State>;
-
-export default {
-  namespaced: true,
-  state: {
+export const useModalStore = defineStore("modal", {
+  state: (): IModalState => ({
     showModal: false,
-  },
-  mutations: {
-    changeModal(state: IModalState): void {
-      state.showModal = !state.showModal;
-    },
-  },
+  }),
   actions: {
-    updateModal(context: Context) {
-      context.commit("changeModal");
-      return;
+    updateModal() {
+      this.showModal = !this.showModal;
     },
   },
-};
+});

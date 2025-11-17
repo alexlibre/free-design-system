@@ -21,17 +21,24 @@
   </div>
 </template>
 
-<script>
-import VAvatar from "@/components/Avatar/VAvatar";
+<script setup lang="ts">
+import VAvatar from "@/components/Avatar/VAvatar.vue";
 
-export default {
-  components: { VAvatar },
-  props: {
-    list: { type: Array, required: true },
-    size: { type: String, default: "m" },
-    rounded: { type: Boolean, default: true },
-  },
-};
+interface AvatarItem {
+  name: string;
+  image?: string;
+}
+
+interface Props {
+  list: AvatarItem[];
+  size?: "s" | "m" | "l";
+  rounded?: boolean;
+}
+
+withDefaults(defineProps<Props>(), {
+  size: "m",
+  rounded: true,
+});
 </script>
 
 <style lang="scss" scoped>

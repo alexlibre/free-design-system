@@ -48,17 +48,8 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import VCheckbox from "@/components/Checkbox/VCheckbox.vue";
-
 import ComponentsTable from "@/components/ui/components-table.vue";
 import ComponentsBlock from "@/components/ui/components-block.vue";
-
-export default {
-  components: {
-    VCheckbox,
-    ComponentsTable,
-    ComponentsBlock,
-  },
-};
 </script>

@@ -126,11 +126,11 @@
       </div>
 
       <div class="content__wrapper">
-        <transition mode="out-in" appear>
-          <router-view class="content__view">
-            <p>Components page</p>
-          </router-view>
-        </transition>
+        <router-view v-slot="{ Component }">
+          <transition mode="out-in" appear>
+            <component :is="Component" class="content__view" />
+          </transition>
+        </router-view>
         <div class="content__view" v-if="isRoot">
           <p>In progress</p>
         </div>
@@ -139,55 +139,49 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref, computed, watch } from "vue";
+import { useRoute } from "vue-router";
 import VMenuItem from "@/components/Menu/VMenuItem.vue";
 import VButton from "@/components/Button/VButton.vue";
-
 import { gsap } from "gsap";
 
-export default {
-  components: {
-    VMenuItem,
-    VButton,
-  },
-  data() {
-    return {
-      menuOpened: false,
-    };
-  },
-  computed: {
-    currentRouteName() {
-      return this.$route.name;
-    },
-    isRoot() {
-      return this.$route.name === "Components";
-    },
-  },
-  watch: {
-    $route() {
-      this.closeAside();
-    },
-  },
-  methods: {
-    toggleAside() {
-      if (!this.menuOpened) {
-        this.menuOpened = true;
-        gsap.to(this.$refs.aside, 0.2, {
-          x: "0",
-        });
-        return;
-      }
+const route = useRoute();
+const menuOpened = ref(false);
+const aside = ref<HTMLElement | null>(null);
 
-      this.closeAside();
-    },
-    closeAside() {
-      this.menuOpened = false;
-      gsap.to(this.$refs.aside, 0.2, {
-        x: "-120%",
+const currentRouteName = computed(() => route.name);
+const isRoot = computed(() => route.name === "Components");
+
+const toggleAside = () => {
+  if (!menuOpened.value) {
+    menuOpened.value = true;
+    if (aside.value) {
+      gsap.to(aside.value, 0.2, {
+        x: "0",
       });
-    },
-  },
+    }
+    return;
+  }
+
+  closeAside();
 };
+
+const closeAside = () => {
+  menuOpened.value = false;
+  if (aside.value) {
+    gsap.to(aside.value, 0.2, {
+      x: "-120%",
+    });
+  }
+};
+
+watch(
+  () => route.path,
+  () => {
+    closeAside();
+  }
+);
 </script>
 
 <style lang="scss" scoped>
@@ -231,6 +225,7 @@ export default {
     gap: 24px;
     height: calc(100% - 48px);
     position: relative;
+    width: 100%;
   }
 
   &__nav {
@@ -253,6 +248,7 @@ export default {
 
   &__wrapper {
     flex: 1;
+    width: 100%;
     padding: 16px;
     overflow-x: hidden;
     overflow-y: auto;

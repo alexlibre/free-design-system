@@ -58,38 +58,30 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    color: {
-      type: String,
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      show: false,
-      timer: null,
-      copy: null,
-    };
-  },
-  methods: {
-    copyToClipboard(val) {
-      clearTimeout(this.timer);
-      navigator.clipboard.writeText(val);
-      this.show = true;
-      this.copy = val;
+<script setup lang="ts">
+import { ref } from "vue";
 
-      this.timer = setTimeout(() => {
-        this.show = false;
-        clearTimeout(this.timer);
-      }, 2000);
-    },
-  },
+interface Props {
+  color: string;
+  name: string;
+}
+
+defineProps<Props>();
+
+const show = ref(false);
+const copy = ref<string | null>(null);
+let timer: ReturnType<typeof setTimeout> | null = null;
+
+const copyToClipboard = (val: string) => {
+  if (timer) clearTimeout(timer);
+  navigator.clipboard.writeText(val);
+  show.value = true;
+  copy.value = val;
+
+  timer = setTimeout(() => {
+    show.value = false;
+    if (timer) clearTimeout(timer);
+  }, 2000);
 };
 </script>
 

@@ -125,17 +125,10 @@
   </div>
 </template>
 
-<script>
-import VAvatarGroup from "@/components/AvatarGroup/VAvatarGroup";
-import ComponentsTable from "@/components/ui/components-table";
-import ComponentsBlock from "@/components/ui/components-block";
-export default {
-  components: {
-    VAvatarGroup,
-    ComponentsTable,
-    ComponentsBlock,
-  },
-};
+<script setup lang="ts">
+import VAvatarGroup from "@/components/AvatarGroup/VAvatarGroup.vue";
+import ComponentsTable from "@/components/ui/components-table.vue";
+import ComponentsBlock from "@/components/ui/components-block.vue";
 </script>
 
 <style lang="scss" scoped></style>

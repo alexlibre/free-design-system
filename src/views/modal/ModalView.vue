@@ -37,46 +37,28 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref, computed } from "vue";
 import VModal from "@/components/Modal/VModal.vue";
-import { mapState, mapActions } from "vuex";
-
+import { useModalStore } from "@/store/modules/modal";
 import VButton from "@/components/Button/VButton.vue";
 import VSwitch from "@/components/Switch/VSwitch.vue";
 import VInput from "@/components/Input/VInput.vue";
 import VCard from "@/components/Card/VCard.vue";
 import VTextarea from "@/components/Textarea/VTextarea.vue";
 
-export default {
-  components: {
-    VModal,
-    VButton,
-    VSwitch,
-    VInput,
-    VCard,
-    VTextarea,
-  },
-  data() {
-    return {
-      name: "modal-1",
-      stateEnabled: true,
-    };
-  },
-  computed: {
-    ...mapState({
-      showModal: (state) => state.modal.showModal,
-    }),
-  },
-  methods: {
-    ...mapActions("modal", ["updateModal"]),
-    toggleModal() {
-      this.updateModal();
-    },
-    onChecked(val) {
-      console.log(val);
-      this.stateEnabled = !val;
-    },
-  },
+const modalStore = useModalStore();
+const stateEnabled = ref(true);
+
+const showModal = computed(() => modalStore.showModal);
+
+const toggleModal = () => {
+  modalStore.updateModal();
+};
+
+const onChecked = (val: boolean) => {
+  console.log(val);
+  stateEnabled.value = !val;
 };
 </script>
 

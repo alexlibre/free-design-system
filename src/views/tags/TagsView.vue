@@ -61,16 +61,8 @@
     </components-block>
   </div>
 </template>
-<script lang="ts">
+<script setup lang="ts">
 import VTag from "@/components/Tag/VTag.vue";
 import ComponentsTable from "@/components/ui/components-table.vue";
 import ComponentsBlock from "@/components/ui/components-block.vue";
-
-export default {
-  components: {
-    VTag,
-    ComponentsTable,
-    ComponentsBlock,
-  },
-};
 </script>

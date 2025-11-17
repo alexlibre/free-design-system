@@ -10,39 +10,27 @@
   </svg>
 </template>
 
-<script>
-export default {
-  props: {
-    name: {
-      type: String,
-      required: true,
-    },
-    title: {
-      type: String,
-      default: null,
-    },
-    size: {
-      type: Array,
-      default: () => [18, 18],
-    },
-  },
+<script setup lang="ts">
+import { computed } from "vue";
 
-  computed: {
-    iconPath() {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      let icon = require(`@/assets/icons/${this.name}.svg`);
-      if (Object.hasOwnProperty.call(icon, "default")) {
-        icon = icon.default;
-      }
+interface Props {
+  name: string;
+  title?: string;
+  size?: [number, number?];
+}
 
-      return icon.url;
-    },
+const props = withDefaults(defineProps<Props>(), {
+  title: null,
+  size: () => [18, 18],
+});
 
-    className() {
-      return "icon icon_" + this.name;
-    },
-  },
-};
+const iconPath = computed(() => {
+  return `#icon-${props.name}`;
+});
+
+const className = computed(() => {
+  return "icon icon_" + props.name;
+});
 </script>
 
 <style>

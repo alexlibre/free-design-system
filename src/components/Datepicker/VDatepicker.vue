@@ -13,13 +13,13 @@
       <label
         class="datepicker__label"
         ref="label"
-        v-if="label"
+        v-if="props.label"
         @click="onFocus"
-        >{{ label }}</label
+        >{{ props.label }}</label
       >
       <div class="datepicker__box" @click="onFocus" ref="box">
         <div class="datepicker__value">
-          {{ selectedDates }}
+          {{ selectedDates.join(", ") || "Select date" }}
         </div>
         <div class="datepicker__icon">
           <svg-icon name="calendar" :size="[20]" />
@@ -39,81 +39,80 @@
   </div>
 </template>
 
-<script>
-import VCalendar from "@/components/Calendar/VCalendar";
-import SvgIcon from "@/components/SvgIcon";
+<script setup lang="ts">
+import { ref, watch, nextTick } from "vue";
+import VCalendar from "@/components/Calendar/VCalendar.vue";
+import SvgIcon from "@/components/SvgIcon.vue";
 import { gsap, Bounce } from "gsap";
 
-export default {
-  components: { VCalendar, SvgIcon },
-  props: {
-    compact: {
-      type: Boolean,
-      default: false,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    label: {
-      type: String,
-      default: "",
-    },
-  },
-  data() {
-    return {
-      opened: false,
-      selectedDates: [],
-      selectedDays: [],
-    };
-  },
-  watch: {
-    opened() {
-      if (this.opened) {
-        this.animateIn();
-        return;
-      }
+interface Props {
+  compact?: boolean;
+  disabled?: boolean;
+  label?: string;
+}
 
-      this.animateOut();
-    },
-  },
-  methods: {
-    onFocus(event) {
-      if (
-        event.target === this.$refs.label ||
-        event.target === this.$refs.box
-      ) {
-        this.opened = !this.opened;
-      }
-    },
-    onBlur() {
-      this.opened = false;
-    },
-    selectDay(val) {
-      if (!val) return;
-      this.selectedDay = val.day;
-      this.selectedDate = val.date;
+const props = withDefaults(defineProps<Props>(), {
+  compact: false,
+  disabled: false,
+  label: "",
+});
 
-      // this.opened = false;
-    },
+const opened = ref(false);
+const selectedDates = ref<string[]>([]);
+const selectedDays = ref<number[]>([]);
+const label = ref<HTMLElement | null>(null);
+const box = ref<HTMLElement | null>(null);
+const datepickerDrop = ref<HTMLElement | null>(null);
 
-    animateIn() {
-      this.$nextTick(() => {
-        gsap.from(this.$refs.datepickerDrop, 0.2, {
-          opacity: 0,
-        });
-        gsap.from(this.$refs.datepickerDrop, 0.5, {
-          y: "-40px",
-          ease: Bounce.easeOut,
-        });
-      });
-    },
-    animateOut() {
-      gsap.to(this.$refs.datepickerDrop, 0.2, {
+watch(opened, () => {
+  if (opened.value) {
+    animateIn();
+    return;
+  }
+
+  animateOut();
+});
+
+const onFocus = (event: Event) => {
+  if (event.target === label.value || event.target === box.value) {
+    opened.value = !opened.value;
+  }
+};
+
+const onBlur = () => {
+  opened.value = false;
+};
+
+const selectDay = (val: { day?: number; date?: string }) => {
+  if (!val) return;
+  if (val.day !== undefined) {
+    selectedDays.value = [val.day];
+  }
+  if (val.date) {
+    selectedDates.value = [val.date];
+  }
+};
+
+const animateIn = () => {
+  nextTick(() => {
+    if (datepickerDrop.value) {
+      gsap.from(datepickerDrop.value, 0.2, {
         opacity: 0,
       });
-    },
-  },
+      gsap.from(datepickerDrop.value, 0.5, {
+        y: "-40px",
+        ease: Bounce.easeOut,
+      });
+    }
+  });
+};
+
+const animateOut = () => {
+  if (datepickerDrop.value) {
+    gsap.to(datepickerDrop.value, 0.2, {
+      opacity: 0,
+    });
+  }
 };
 </script>
 

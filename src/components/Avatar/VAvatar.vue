@@ -19,7 +19,7 @@
       }"
     >
       <template v-if="image">
-        <img :src="require(`@/assets/img/${image}`)" />
+        <img :src="getImageUrl(image)" />
       </template>
       <div v-else :class="`avatar__initials avatar__initials_${randomColor}`">
         {{ letter }}
@@ -28,44 +28,38 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    image: {
-      type: String,
-      default: "",
-    },
-    size: {
-      type: String,
-      default: "m",
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    rounded: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  computed: {
-    currentImage() {
-      return "/assets/img/placeholder.png";
-    },
-    letter() {
-      const two = this.name.split(" ");
-      if (two.length >= 2) {
-        return [
-          two[0].split("")[0].toUpperCase(),
-          two[1].split("")[0].toUpperCase(),
-        ].join("");
-      }
-      return this.name.split("")[0].toUpperCase();
-    },
-    randomColor() {
-      return Math.floor(Math.random() * 4) + 1;
-    },
-  },
+<script setup lang="ts">
+import { computed, ref } from "vue";
+
+interface Props {
+  image?: string;
+  size?: "s" | "m" | "l";
+  name: string;
+  rounded?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  image: "",
+  size: "m",
+  rounded: true,
+});
+
+const randomColor = ref(Math.floor(Math.random() * 4) + 1);
+
+const letter = computed(() => {
+  const two = props.name.split(" ");
+  if (two.length >= 2) {
+    return [
+      two[0].split("")[0].toUpperCase(),
+      two[1].split("")[0].toUpperCase(),
+    ].join("");
+  }
+  return props.name.split("")[0].toUpperCase();
+});
+
+const getImageUrl = (imageName: string) => {
+  // Vite handles dynamic imports from assets
+  return new URL(`../../assets/img/${imageName}`, import.meta.url).href;
 };
 </script>
 

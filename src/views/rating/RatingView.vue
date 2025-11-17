@@ -108,17 +108,8 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import VRating from "@/components/Rating/VRating.vue";
-
 import ComponentsTable from "@/components/ui/components-table.vue";
 import ComponentsBlock from "@/components/ui/components-block.vue";
-
-export default {
-  components: {
-    VRating,
-    ComponentsTable,
-    ComponentsBlock,
-  },
-};
 </script>

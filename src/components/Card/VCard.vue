@@ -25,42 +25,30 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    size: {
-      type: String,
-      default: "",
-    },
-    themeDark: {
-      type: Boolean,
-      default: false,
-    },
-    hasShadow: {
-      type: Boolean,
-      default: false,
-    },
-    hasBorder: {
-      type: Boolean,
-      default: false,
-    },
-    hasRound: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  computed: {
-    hasHeader() {
-      return !!this.$scopedSlots.cardHeader;
-    },
-    hasBody() {
-      return !!this.$scopedSlots.cardBody;
-    },
-    hasFooter() {
-      return !!this.$scopedSlots.cardFooter;
-    },
-  },
-};
+<script setup lang="ts">
+import { computed, useSlots } from "vue";
+
+interface Props {
+  size?: "s" | "m";
+  themeDark?: boolean;
+  hasShadow?: boolean;
+  hasBorder?: boolean;
+  hasRound?: boolean;
+}
+
+withDefaults(defineProps<Props>(), {
+  size: undefined,
+  themeDark: false,
+  hasShadow: false,
+  hasBorder: false,
+  hasRound: false,
+});
+
+const slots = useSlots();
+
+const hasHeader = computed(() => !!slots.cardHeader);
+const hasBody = computed(() => !!slots.cardBody);
+const hasFooter = computed(() => !!slots.cardFooter);
 </script>
 
 <style lang="scss" scoped>

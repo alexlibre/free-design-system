@@ -30,24 +30,23 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import SvgIcon from "@/components/SvgIcon.vue";
 
-export default {
-  props: {
-    items: {
-      type: Array,
-      required: true,
-    },
-  },
-  components: {
-    SvgIcon,
-  },
-  methods: {
-    value(val) {
-      return val.join(" | ");
-    },
-  },
+interface TableItem {
+  attr: string;
+  values: string[];
+  types: string[];
+  default: string;
+  required?: boolean;
+}
+
+defineProps<{
+  items: TableItem[];
+}>();
+
+const value = (val: string[]) => {
+  return val.join(" | ");
 };
 </script>
 

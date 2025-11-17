@@ -17,14 +17,8 @@
   </div>
 </template>
 
-<script>
-import VRadioGroup from "@/components/RadioGroup/VRadioGroup";
-
-export default {
-  components: {
-    VRadioGroup,
-  },
-};
+<script setup lang="ts">
+import VRadioGroup from "@/components/RadioGroup/VRadioGroup.vue";
 </script>
 
 <style lang="scss" scoped></style>

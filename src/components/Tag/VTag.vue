@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="tagRef"
     class="tag"
     :class="{
       tag_has_close: hasClose,
@@ -19,51 +20,52 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref } from "vue";
 import SvgIcon from "@/components/SvgIcon.vue";
-
 import { gsap } from "gsap";
 
-export default {
-  props: {
-    type: {
-      type: String,
-      default: "primary",
-    },
-    hasClose: {
-      type: Boolean,
-      default: false,
-    },
-    hasBorder: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  components: { SvgIcon },
-  methods: {
-    close() {
-      this.$destroy();
+interface Props {
+  type?: "primary" | "danger" | "info" | "success" | "warning" | "disabled";
+  hasClose?: boolean;
+  hasBorder?: boolean;
+}
 
-      if (this.$el !== null && this.$el.parentNode !== null) {
-        this.$el.style = "position: absolute; z-index: 1000";
+const props = withDefaults(defineProps<Props>(), {
+  type: "primary",
+  hasClose: false,
+  hasBorder: false,
+});
 
-        gsap.to(this.$el, {
-          scale: 0.5,
-          opacity: 0,
-          y: this.getRandomDirection(),
-          x: this.getRandomDirection(),
-          rotation: "720deg",
-          duration: 0.85,
-          onComplete: () => {
-            this.$el.parentNode.removeChild(this.$el);
-          },
-        });
-      }
-    },
-    getRandomDirection() {
-      return Math.round(Math.random() * 1000 - 500);
-    },
-  },
+const emit = defineEmits<{
+  close: [];
+}>();
+
+const tagRef = ref<HTMLElement | null>(null);
+
+const getRandomDirection = () => {
+  return Math.round(Math.random() * 1000 - 500);
+};
+
+const close = () => {
+  if (tagRef.value && tagRef.value.parentNode) {
+    tagRef.value.style.cssText = "position: absolute; z-index: 1000";
+
+    gsap.to(tagRef.value, {
+      scale: 0.5,
+      opacity: 0,
+      y: getRandomDirection(),
+      x: getRandomDirection(),
+      rotation: "720deg",
+      duration: 0.85,
+      onComplete: () => {
+        if (tagRef.value && tagRef.value.parentNode) {
+          tagRef.value.parentNode.removeChild(tagRef.value);
+        }
+        emit("close");
+      },
+    });
+  }
 };
 </script>
 

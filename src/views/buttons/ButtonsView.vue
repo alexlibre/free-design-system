@@ -360,24 +360,16 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import vButton from "@/components/Button/VButton.vue";
 import ComponentsTable from "@/components/ui/components-table.vue";
 import ComponentsBlock from "@/components/ui/components-block.vue";
 
-export default {
-  components: {
-    vButton,
-    ComponentsTable,
-    ComponentsBlock,
-  },
-  methods: {
-    logClick() {
-      console.log("click");
-    },
-    alertClick() {
-      alert("Clicked!");
-    },
-  },
+const logClick = () => {
+  console.log("click");
+};
+
+const alertClick = () => {
+  alert("Clicked!");
 };
 </script>

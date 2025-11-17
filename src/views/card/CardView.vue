@@ -38,26 +38,15 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import VButton from "@/components/Button/VButton.vue";
 import VInput from "@/components/Input/VInput.vue";
 import VCard from "@/components/Card/VCard.vue";
 import VTextarea from "@/components/Textarea/VTextarea.vue";
 import VRating from "@/components/Rating/VRating.vue";
 
-export default {
-  components: {
-    VButton,
-    VInput,
-    VCard,
-    VTextarea,
-    VRating,
-  },
-  methods: {
-    logClick() {
-      console.log("click");
-    },
-  },
+const logClick = () => {
+  console.log("click");
 };
 </script>
 

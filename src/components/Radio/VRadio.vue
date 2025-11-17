@@ -22,46 +22,37 @@
   </label>
 </template>
 
-<script>
-export default {
-  props: {
-    label: {
-      type: String,
-      default: "",
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    checked: {
-      type: Boolean,
-      default: false,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    value: {
-      type: String,
-      default: "",
-    },
-  },
-  data() {
-    return {
-      radioChecked: this.checked,
-    };
-  },
-  computed: {
-    guid() {
-      return (Math.random() + 1).toString(36).substring(2);
-    },
-  },
-  methods: {
-    onChecked(val) {
-      this.radioChecked = val;
-      this.$emit("checkedRadio", val);
-    },
-  },
+<script setup lang="ts">
+import { ref, computed } from "vue";
+
+interface Props {
+  label?: string;
+  disabled?: boolean;
+  checked?: boolean;
+  name: string;
+  value?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  label: "",
+  disabled: false,
+  checked: false,
+  value: "",
+});
+
+const emit = defineEmits<{
+  checkedRadio: [val: boolean];
+}>();
+
+const radioChecked = ref(props.checked);
+
+const guid = computed(() => {
+  return (Math.random() + 1).toString(36).substring(2);
+});
+
+const onChecked = (val: boolean) => {
+  radioChecked.value = val;
+  emit("checkedRadio", val);
 };
 </script>
 

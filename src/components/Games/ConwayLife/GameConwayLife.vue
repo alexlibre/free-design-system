@@ -28,237 +28,267 @@
   </div>
 </template>
 
-<script>
-import VButton from "@/components/Button/VButton";
+<script setup lang="ts">
+import { ref, computed, onMounted, nextTick } from "vue";
+import VButton from "@/components/Button/VButton.vue";
 
-export default {
-  components: { VButton },
-  props: {
-    width: {
-      type: Number,
-      default: 300,
-    },
-    height: {
-      type: Number,
-      default: 150,
-    },
-  },
-  data() {
-    return {
-      ctx: null,
-      cellWidth: 10,
-      cellHeight: 10,
-      gameObjects: [],
-      frame: null,
-      evolution: false,
-      canvasCoords: {},
-    };
-  },
-  computed: {
-    numRows() {
-      return this.height / this.cellHeight;
-    },
-    numColumns() {
-      return this.width / this.cellWidth;
-    },
-  },
-  methods: {
-    draw({ alive, gridX, gridY, strength }) {
-      if (strength > 1) strength = 1;
-      this.ctx.fillStyle = alive
-        ? `rgb(${Math.floor(255 * strength)},127,127)`
-        : "#fff";
-      this.ctx.beginPath();
-      this.ctx.arc(
-        gridX * this.cellWidth + this.cellWidth / 2,
-        gridY * this.cellHeight + this.cellHeight / 2,
-        this.cellWidth / 2,
-        0,
-        this.cellWidth * Math.PI
-      );
-      this.ctx.fill();
-    },
-    makeCell({ gridX, gridY, alreadyAlive, strength }) {
-      let alive = false;
-      let strengthNext = strength || 0.5;
+interface Props {
+  width?: number;
+  height?: number;
+}
 
-      if (alreadyAlive === "alive") {
-        alive = true;
-        strengthNext += 0.01;
-      } else if (alreadyAlive === "dead") {
-        alive = false;
-        strengthNext -= 0.01;
-      } else {
-        alive = Math.random() < strengthNext;
-      }
+const props = withDefaults(defineProps<Props>(), {
+  width: 300,
+  height: 150,
+});
 
-      this.draw({ alive, gridX, gridY, strength });
+interface GameObject {
+  alive: boolean;
+  gridX: number;
+  gridY: number;
+  nextAlive: boolean | null;
+  strength: number;
+}
 
-      return {
-        alive,
-        gridX,
-        gridY,
-        nextAlive: null,
-        strength: strengthNext,
-      };
-    },
-    clean() {
-      this.gameObjects = [];
-      this.ctx.clearRect(0, 0, this.width, this.height);
+const conwayCanvas = ref<HTMLCanvasElement | null>(null);
+const ctx = ref<CanvasRenderingContext2D | null>(null);
+const cellWidth = 10;
+const cellHeight = 10;
+const gameObjects = ref<GameObject[]>([]);
+let frame: number | null = null;
+const evolution = ref(false);
+const canvasCoords = ref<{ left: number; top: number }>({ left: 0, top: 0 });
 
-      this.makeGrid(true);
-    },
-    makeGrid(allDead) {
-      this.gameObjects = [];
+const numRows = computed(() => {
+  return props.height / cellHeight;
+});
 
-      this.evolution = false;
-      clearTimeout(this.frame);
+const numColumns = computed(() => {
+  return props.width / cellWidth;
+});
 
-      if (allDead) {
-        for (let y = 0; y < this.numRows; y++) {
-          for (let x = 0; x < this.numColumns; x++) {
-            this.gameObjects.push(
-              this.makeCell({
-                gridX: x,
-                gridY: y,
-                alreadyAlive: "dead",
-                strength: 0.5,
-              })
-            );
-          }
-        }
-      } else {
-        for (let y = 0; y < this.numRows; y++) {
-          for (let x = 0; x < this.numColumns; x++) {
-            this.gameObjects.push(
-              this.makeCell({ gridX: x, gridY: y, strength: 0.5 })
-            );
-          }
-        }
-      }
-    },
-    start() {
-      if (this.evolution) return;
-      this.evolution = true;
-      this.runLoop();
-    },
-    runLoop() {
-      window.requestAnimationFrame(this.gameLoop);
-    },
-    stop() {
-      this.evolution = false;
-
-      this.$nextTick(() => {
-        cancelAnimationFrame(this.frame);
-      });
-    },
-    gameLoop() {
-      this.checkSurrounding();
-
-      this.ctx.clearRect(0, 0, this.width, this.height);
-
-      for (let i = 0; i < this.gameObjects.length; i++) {
-        const { alive, gridX, gridY, strength } = this.gameObjects[i];
-        this.draw({
-          alive,
-          gridX,
-          gridY,
-          strength,
-        });
-      }
-
-      this.frame = requestAnimationFrame(this.runLoop);
-    },
-    checkSurrounding() {
-      for (let x = 0; x < this.numColumns; x++) {
-        for (let y = 0; y < this.numRows; y++) {
-          let numAlive =
-            this.isAlive(x - 1, y - 1) +
-            this.isAlive(x, y - 1) +
-            this.isAlive(x + 1, y - 1) +
-            this.isAlive(x - 1, y) +
-            this.isAlive(x + 1, y) +
-            this.isAlive(x - 1, y + 1) +
-            this.isAlive(x, y + 1) +
-            this.isAlive(x + 1, y + 1);
-
-          let centerIndex = this.gridToIndex(x, y);
-
-          if (numAlive === 2) {
-            this.gameObjects[centerIndex].nextAlive =
-              this.gameObjects[centerIndex].alive;
-            this.gameObjects[centerIndex].strength += 0.002;
-          } else if (numAlive === 3) {
-            this.gameObjects[centerIndex].nextAlive = true;
-            this.gameObjects[centerIndex].strength += 0.001;
-          } else {
-            this.gameObjects[centerIndex].nextAlive = false;
-            this.gameObjects[centerIndex].strength = 0.5;
-          }
-        }
-      }
-
-      for (let i = 0; i < this.gameObjects.length; i++) {
-        this.gameObjects[i].alive = this.gameObjects[i].nextAlive;
-      }
-    },
-
-    isAlive(x, y) {
-      let newX = x;
-      let newY = y;
-
-      if (x < 0) {
-        newX = this.numColumns + x;
-      }
-
-      if (x >= this.numColumns) {
-        newX = x - this.numColumns;
-      }
-
-      if (y < 0) {
-        newY = this.numRows + y;
-      }
-
-      if (y >= this.numRows) {
-        newY = y - this.numRows;
-      }
-
-      return this.gameObjects[this.gridToIndex(newX, newY)].alive ? 1 : 0;
-    },
-
-    gridToIndex(x, y) {
-      return x + y * this.numColumns;
-    },
-
-    createLife($event) {
-      const rect = this.$refs.conwayCanvas.getBoundingClientRect();
-      this.canvasCoords = {
-        left: rect.left,
-        top: rect.top,
-      };
-      const x = Math.floor(
-        ($event.x - this.canvasCoords.left) / this.cellWidth
-      );
-      const y = Math.floor(
-        ($event.y - this.canvasCoords.top) / this.cellHeight
-      );
-
-      const born = this.isAlive(x, y);
-
-      this.gameObjects[this.gridToIndex(x, y)] = this.makeCell({
-        gridX: x,
-        gridY: y,
-        alreadyAlive: born ? "dead" : "alive",
-        strength: 0.5,
-      });
-    },
-  },
-  mounted() {
-    this.ctx = this.$refs.conwayCanvas.getContext("2d");
-
-    this.makeGrid(true);
-  },
+const draw = ({ alive, gridX, gridY, strength }: { alive: boolean; gridX: number; gridY: number; strength: number }) => {
+  if (!ctx.value) return;
+  let s = strength;
+  if (s > 1) s = 1;
+  ctx.value.fillStyle = alive
+    ? `rgb(${Math.floor(255 * s)},127,127)`
+    : "#fff";
+  ctx.value.beginPath();
+  ctx.value.arc(
+    gridX * cellWidth + cellWidth / 2,
+    gridY * cellHeight + cellHeight / 2,
+    cellWidth / 2,
+    0,
+    cellWidth * Math.PI
+  );
+  ctx.value.fill();
 };
+
+const makeCell = ({ gridX, gridY, alreadyAlive, strength }: { gridX: number; gridY: number; alreadyAlive?: string; strength?: number }): GameObject => {
+  let alive = false;
+  let strengthNext = strength || 0.5;
+
+  if (alreadyAlive === "alive") {
+    alive = true;
+    strengthNext += 0.01;
+  } else if (alreadyAlive === "dead") {
+    alive = false;
+    strengthNext -= 0.01;
+  } else {
+    alive = Math.random() < strengthNext;
+  }
+
+  draw({ alive, gridX, gridY, strength: strengthNext });
+
+  return {
+    alive,
+    gridX,
+    gridY,
+    nextAlive: null,
+    strength: strengthNext,
+  };
+};
+
+const clean = () => {
+  gameObjects.value = [];
+  if (ctx.value) {
+    ctx.value.clearRect(0, 0, props.width, props.height);
+  }
+
+  makeGrid(true);
+};
+
+const makeGrid = (allDead: boolean) => {
+  gameObjects.value = [];
+
+  evolution.value = false;
+  if (frame !== null) {
+    cancelAnimationFrame(frame);
+  }
+
+  if (allDead) {
+    for (let y = 0; y < numRows.value; y++) {
+      for (let x = 0; x < numColumns.value; x++) {
+        gameObjects.value.push(
+          makeCell({
+            gridX: x,
+            gridY: y,
+            alreadyAlive: "dead",
+            strength: 0.5,
+          })
+        );
+      }
+    }
+  } else {
+    for (let y = 0; y < numRows.value; y++) {
+      for (let x = 0; x < numColumns.value; x++) {
+        gameObjects.value.push(makeCell({ gridX: x, gridY: y, strength: 0.5 }));
+      }
+    }
+  }
+};
+
+const start = () => {
+  if (evolution.value) return;
+  evolution.value = true;
+  runLoop();
+};
+
+const runLoop = () => {
+  if (frame !== null) {
+    cancelAnimationFrame(frame);
+  }
+  frame = requestAnimationFrame(gameLoop);
+};
+
+const stop = () => {
+  evolution.value = false;
+
+  nextTick(() => {
+    if (frame !== null) {
+      cancelAnimationFrame(frame);
+      frame = null;
+    }
+  });
+};
+
+const gameLoop = () => {
+  checkSurrounding();
+
+  if (ctx.value) {
+    ctx.value.clearRect(0, 0, props.width, props.height);
+  }
+
+  for (let i = 0; i < gameObjects.value.length; i++) {
+    const { alive, gridX, gridY, strength } = gameObjects.value[i];
+    draw({
+      alive,
+      gridX,
+      gridY,
+      strength,
+    });
+  }
+
+  if (evolution.value) {
+    frame = requestAnimationFrame(runLoop);
+  }
+};
+
+const checkSurrounding = () => {
+  for (let x = 0; x < numColumns.value; x++) {
+    for (let y = 0; y < numRows.value; y++) {
+      let numAlive =
+        isAlive(x - 1, y - 1) +
+        isAlive(x, y - 1) +
+        isAlive(x + 1, y - 1) +
+        isAlive(x - 1, y) +
+        isAlive(x + 1, y) +
+        isAlive(x - 1, y + 1) +
+        isAlive(x, y + 1) +
+        isAlive(x + 1, y + 1);
+
+      let centerIndex = gridToIndex(x, y);
+
+      if (numAlive === 2) {
+        gameObjects.value[centerIndex].nextAlive =
+          gameObjects.value[centerIndex].alive;
+        gameObjects.value[centerIndex].strength += 0.002;
+      } else if (numAlive === 3) {
+        gameObjects.value[centerIndex].nextAlive = true;
+        gameObjects.value[centerIndex].strength += 0.001;
+      } else {
+        gameObjects.value[centerIndex].nextAlive = false;
+        gameObjects.value[centerIndex].strength = 0.5;
+      }
+    }
+  }
+
+  for (let i = 0; i < gameObjects.value.length; i++) {
+    gameObjects.value[i].alive = gameObjects.value[i].nextAlive as boolean;
+  }
+};
+
+const isAlive = (x: number, y: number) => {
+  let newX = x;
+  let newY = y;
+
+  if (x < 0) {
+    newX = numColumns.value + x;
+  }
+
+  if (x >= numColumns.value) {
+    newX = x - numColumns.value;
+  }
+
+  if (y < 0) {
+    newY = numRows.value + y;
+  }
+
+  if (y >= numRows.value) {
+    newY = y - numRows.value;
+  }
+
+  return gameObjects.value[gridToIndex(newX, newY)].alive ? 1 : 0;
+};
+
+const gridToIndex = (x: number, y: number) => {
+  return x + y * numColumns.value;
+};
+
+const createLife = ($event: MouseEvent) => {
+  if (!conwayCanvas.value) return;
+  const rect = conwayCanvas.value.getBoundingClientRect();
+  canvasCoords.value = {
+    left: rect.left,
+    top: rect.top,
+  };
+  const x = Math.floor(
+    ($event.x - canvasCoords.value.left) / cellWidth
+  );
+  const y = Math.floor(
+    ($event.y - canvasCoords.value.top) / cellHeight
+  );
+
+  const born = isAlive(x, y);
+
+  gameObjects.value[gridToIndex(x, y)] = makeCell({
+    gridX: x,
+    gridY: y,
+    alreadyAlive: born ? "dead" : "alive",
+    strength: 0.5,
+  });
+};
+
+onMounted(() => {
+  if (conwayCanvas.value) {
+    ctx.value = conwayCanvas.value.getContext("2d");
+    if (ctx.value) {
+      makeGrid(true);
+    }
+  }
+});
+</script>
 </script>
 
 <style lang="scss" scoped>

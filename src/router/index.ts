@@ -1,10 +1,7 @@
-import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
+import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 
-Vue.use(VueRouter);
-
-const routes: Array<RouteConfig> = [
+const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "home",
@@ -17,214 +14,140 @@ const routes: Array<RouteConfig> = [
       {
         path: "buttons",
         name: "Button",
-        component: () =>
-          import(
-            /* webpackChunkName: "buttons" */ "../views/buttons/ButtonsView.vue"
-          ),
+        component: () => import("../views/buttons/ButtonsView.vue"),
       },
       {
         path: "tags",
         name: "Tag",
-        component: () =>
-          import(/* webpackChunkName: "tags" */ "../views/tags/TagsView.vue"),
+        component: () => import("../views/tags/TagsView.vue"),
       },
       {
         path: "input",
         name: "Input",
-        component: () =>
-          import(
-            /* webpackChunkName: "inputs" */ "../views/inputs/InputsView.vue"
-          ),
+        component: () => import("../views/inputs/InputsView.vue"),
       },
       {
         path: "checkbox",
         name: "Checkbox",
-        component: () =>
-          import(
-            /* webpackChunkName: "checkbox" */ "../views/checkbox/CheckboxView.vue"
-          ),
+        component: () => import("../views/checkbox/CheckboxView.vue"),
       },
       {
         path: "textarea",
         name: "Textarea",
-        component: () =>
-          import(
-            /* webpackChunkName: "textareas" */ "../views/textarea/TextareaView.vue"
-          ),
+        component: () => import("../views/textarea/TextareaView.vue"),
       },
       {
         path: "card",
         name: "Card",
-        component: () =>
-          import(/* webpackChunkName: "card" */ "../views/card/CardView.vue"),
+        component: () => import("../views/card/CardView.vue"),
       },
       {
         path: "colors",
         name: "Colors",
-        component: () =>
-          import(
-            /* webpackChunkName: "colors" */ "../views/colors/ColorsView.vue"
-          ),
+        component: () => import("../views/colors/ColorsView.vue"),
       },
       {
         path: "grids",
         name: "Grids",
-        component: () =>
-          import(
-            /* webpackChunkName: "colors" */ "../views/grids/GridsView.vue"
-          ),
+        component: () => import("../views/grids/GridsView.vue"),
       },
       {
         path: "logo",
         name: "Logo",
-        component: () =>
-          import(/* webpackChunkName: "logo" */ "../views/logo/LogoView.vue"),
+        component: () => import("../views/logo/LogoView.vue"),
       },
       {
         path: "rating",
         name: "Rating",
-        component: () =>
-          import(
-            /* webpackChunkName: "rating" */ "../views/rating/RatingView.vue"
-          ),
+        component: () => import("../views/rating/RatingView.vue"),
       },
       {
         path: "progress",
         name: "Progress",
-        component: () =>
-          import(
-            /* webpackChunkName: "progress" */ "../views/progress/ProgressView.vue"
-          ),
+        component: () => import("../views/progress/ProgressView.vue"),
       },
       {
         path: "button-group",
         name: "Button group",
-        component: () =>
-          import(
-            /* webpackChunkName: "button-group" */ "../views/button-group/ButtonGroupView.vue"
-          ),
+        component: () => import("../views/button-group/ButtonGroupView.vue"),
       },
       {
         path: "modal",
         name: "Modal",
-        component: () =>
-          import(
-            /* webpackChunkName: "modal" */ "../views/modal/ModalView.vue"
-          ),
+        component: () => import("../views/modal/ModalView.vue"),
       },
       {
         path: "avatar",
         name: "Avatar",
-        component: () =>
-          import(
-            /* webpackChunkName: "avatar" */ "../views/avatar/AvatarView.vue"
-          ),
+        component: () => import("../views/avatar/AvatarView.vue"),
       },
       {
         path: "avatar-group",
         name: "AvatarGroup",
-        component: () =>
-          import(
-            /* webpackChunkName: "avatar-group" */ "../views/avatar-group/AvatarGroupView.vue"
-          ),
+        component: () => import("../views/avatar-group/AvatarGroupView.vue"),
       },
       {
         path: "select",
         name: "Select",
-        component: () =>
-          import(
-            /* webpackChunkName: "select" */ "../views/select/SelectView.vue"
-          ),
+        component: () => import("../views/select/SelectView.vue"),
       },
       {
         path: "switch",
         name: "Switch",
-        component: () =>
-          import(
-            /* webpackChunkName: "switch" */ "../views/switch/SwitchView.vue"
-          ),
+        component: () => import("../views/switch/SwitchView.vue"),
       },
       {
         path: "datepicker",
         name: "Datepicker",
-        component: () =>
-          import(
-            /* webpackChunkName: "datepicker" */ "../views/datepicker/DatepickerView.vue"
-          ),
+        component: () => import("../views/datepicker/DatepickerView.vue"),
       },
       {
         path: "calendar",
         name: "Calendar",
-        component: () =>
-          import(
-            /* webpackChunkName: "calendar" */ "../views/calendar/CalendarView.vue"
-          ),
+        component: () => import("../views/calendar/CalendarView.vue"),
       },
       {
         path: "tetris",
         name: "Tetris",
-        component: () =>
-          import(
-            /* webpackChunkName: "canvas" */ "../views/games/TertisGameView.vue"
-          ),
+        component: () => import("../views/games/TertisGameView.vue"),
       },
       {
         path: "canvas",
         name: "Canvas",
-        component: () =>
-          import(
-            /* webpackChunkName: "canvas" */ "../views/canvas/CanvasView.vue"
-          ),
+        component: () => import("../views/canvas/CanvasView.vue"),
       },
       {
         path: "conway",
         name: "Game of Life",
-        component: () =>
-          import(
-            /* webpackChunkName: "conway" */ "../views/conway/ConwayLifeView.vue"
-          ),
+        component: () => import("../views/conway/ConwayLifeView.vue"),
       },
       {
         path: "asteroids",
         name: "",
-        component: () =>
-          import(
-            /* webpackChunkName: "asteroids" */ "../views/asteroids/AsteroidsView.vue"
-          ),
+        component: () => import("../views/asteroids/AsteroidsView.vue"),
       },
       {
         path: "radio-group",
         name: "Radio group",
-        component: () =>
-          import(
-            /* webpackChunkName: "radio-group" */ "../views/radio-group/RadioGroupView.vue"
-          ),
+        component: () => import("../views/radio-group/RadioGroupView.vue"),
       },
       {
         path: "ai",
         name: "AI",
-        component: () =>
-          import(/* webpackChunkName: "ai" */ "../views/ai/AIView.vue"),
+        component: () => import("../views/ai/AIView.vue"),
       },
       {
         path: "gallery",
         name: "Gallery",
-        component: () =>
-          import(
-            /* webpackChunkName: "gallery" */ "../views/gallery/GalleryView.vue"
-          ),
+        component: () => import("../views/gallery/GalleryView.vue"),
       },
     ],
-    component: () =>
-      import(
-        /* webpackChunkName: "components" */ "../views/ComponentsView.vue"
-      ),
+    component: () => import("../views/ComponentsView.vue"),
   },
 ];
 
-const router = new VueRouter({
-  mode: "hash",
-  base: process.env.BASE_URL,
+const router = createRouter({
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes,
 });
 

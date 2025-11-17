@@ -128,17 +128,8 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import VInput from "@/components/Input/VInput.vue";
 import ComponentsTable from "@/components/ui/components-table.vue";
 import ComponentsBlock from "@/components/ui/components-block.vue";
-
-export default {
-  components: {
-    VInput,
-    ComponentsTable,
-    ComponentsBlock,
-  },
-  methods: {},
-};
 </script>

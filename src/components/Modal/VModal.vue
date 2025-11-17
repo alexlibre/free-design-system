@@ -26,36 +26,37 @@
   </div>
 </template>
 
-<script>
-import VButton from "@/components/Button/VButton";
-
+<script setup lang="ts">
+import { computed, onMounted, ref, useSlots } from "vue";
+import VButton from "@/components/Button/VButton.vue";
 import { gsap, Bounce } from "gsap";
 
-export default {
-  components: {
-    VButton,
-  },
-  methods: {
-    close() {
-      this.$emit("closeModal");
-    },
-  },
-  computed: {
-    body() {
-      return this.$slots.body;
-    },
-    footer() {
-      return this.$slots.footer;
-    },
-  },
-  mounted() {
-    gsap.from(this.$refs.cloak, {
+const emit = defineEmits<{
+  closeModal: [];
+}>();
+
+const slots = useSlots();
+const cloak = ref<HTMLElement | null>(null);
+const modal = ref<HTMLElement | null>(null);
+
+const body = computed(() => slots.body);
+const footer = computed(() => slots.footer);
+
+const close = () => {
+  emit("closeModal");
+};
+
+onMounted(() => {
+  if (cloak.value) {
+    gsap.from(cloak.value, {
       opacity: 0,
       duration: 0.5,
     });
+  }
 
+  if (modal.value) {
     gsap.fromTo(
-      this.$refs.modal,
+      modal.value,
       0.5,
       {
         opacity: 0,
@@ -68,7 +69,7 @@ export default {
       }
     );
     gsap.fromTo(
-      this.$refs.modal,
+      modal.value,
       0.9,
       {
         y: "-100%",
@@ -79,8 +80,8 @@ export default {
         ease: Bounce.easeOut,
       }
     );
-  },
-};
+  }
+});
 </script>
 
 <style lang="scss" scoped>

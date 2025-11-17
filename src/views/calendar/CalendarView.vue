@@ -85,25 +85,15 @@
   </div>
 </template>
 
-<script>
-import VCalendar from "@/components/Calendar/VCalendar";
+<script setup lang="ts">
+import VCalendar from "@/components/Calendar/VCalendar.vue";
+import ComponentsTable from "@/components/ui/components-table.vue";
+import ComponentsBlock from "@/components/ui/components-block.vue";
 
-import ComponentsTable from "@/components/ui/components-table";
-import ComponentsBlock from "@/components/ui/components-block";
-
-export default {
-  components: {
-    VCalendar,
-    ComponentsTable,
-    ComponentsBlock,
-  },
-  methods: {
-    alertDay() {
-      // setTimeout(() => {
-      //   alert(val.date);
-      // }, 500);
-    },
-  },
+const alertDay = () => {
+  // setTimeout(() => {
+  //   alert(val.date);
+  // }, 500);
 };
 </script>
 

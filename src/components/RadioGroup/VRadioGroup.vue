@@ -17,36 +17,33 @@
   </div>
 </template>
 
-<script>
-import VRadio from "@/components/Radio/VRadio";
+<script setup lang="ts">
+import { ref, computed } from "vue";
+import VRadio from "@/components/Radio/VRadio.vue";
 
-export default {
-  components: { VRadio },
-  props: {
-    items: {
-      type: Array,
-      required: true,
-    },
-    isRow: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  data() {
-    return {
-      value: "",
-    };
-  },
-  computed: {
-    guid() {
-      return (Math.random() + 1).toString(36).substring(2);
-    },
-  },
-  methods: {
-    onChecked(val) {
-      this.value = val;
-    },
-  },
+interface RadioItem {
+  label: string;
+  checked?: boolean;
+  disabled?: boolean;
+}
+
+interface Props {
+  items: RadioItem[];
+  isRow?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  isRow: false,
+});
+
+const value = ref("");
+
+const guid = computed(() => {
+  return (Math.random() + 1).toString(36).substring(2);
+});
+
+const onChecked = (val: boolean) => {
+  value.value = String(val);
 };
 </script>
 

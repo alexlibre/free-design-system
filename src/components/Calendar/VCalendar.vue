@@ -30,7 +30,6 @@
               calendar__day_current: todayCase(day),
               calendar__day_selected: selectedDaysLocal.includes(day),
             }"
-            :ref="selectedDaysLocal.includes(day) ? 'selected' : ''"
             @click="selectDay(day, $event)"
             :key="idx"
           >
@@ -42,159 +41,153 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref, computed, onMounted } from "vue";
 import { gsap, Elastic } from "gsap";
 
-export default {
-  props: {
-    month: {
-      type: Number,
-      default: new Date().getMonth(),
-    },
-    hasLabel: {
-      type: Boolean,
-      default: false,
-    },
-    compact: {
-      type: Boolean,
-      default: false,
-    },
-    daysSelectable: {
-      type: Boolean,
-      default: false,
-    },
-    selectedDays: {
-      type: Array,
-      default: () => [],
-    },
-  },
-  data() {
-    return {
-      selectedDates: [],
-      selectedDaysLocal: this.selectedDays,
-      monthArr: [],
-    };
-  },
-  computed: {
-    monthName() {
-      const monthNamesArr = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ];
+interface Props {
+  month?: number;
+  hasLabel?: boolean;
+  compact?: boolean;
+  daysSelectable?: boolean;
+  selectedDays?: number[];
+}
 
-      return monthNamesArr[this.month];
-    },
-    currentMonth() {
-      return new Date().getMonth();
-    },
-    date() {
-      return new Date(new Date().getFullYear(), this.month);
-    },
-    firstDay() {
-      return (
-        new Date(new Date().getFullYear(), new Date().getMonth(), 0).getDay() +
-        1
-      );
-    },
-    daysInMonth() {
-      return new Date(new Date().getFullYear(), this.month + 1, 0).getDate();
-    },
-    today() {
-      return new Date().getDate();
-    },
-  },
-  methods: {
-    buildMonth() {
-      let arr = [];
+const props = withDefaults(defineProps<Props>(), {
+  month: new Date().getMonth(),
+  hasLabel: false,
+  compact: false,
+  daysSelectable: false,
+  selectedDays: () => [],
+});
 
-      for (let i = 0; i < this.getDay(this.date); i++) {
-        arr.push(undefined);
-      }
+const emit = defineEmits<{
+  selected: [data: { days: number[]; dates: string[] }];
+}>();
 
-      for (let i = 1; i <= this.daysInMonth; i++) {
-        arr.push(i);
-      }
+const selectedDates = ref<string[]>([]);
+const selectedDaysLocal = ref<number[]>([...props.selectedDays]);
+const monthArr = ref<(number | undefined)[]>([]);
 
-      const fullWeeks = Math.ceil(arr.length / 7);
-      const rest = fullWeeks * 7 - arr.length;
+const monthName = computed(() => {
+  const monthNamesArr = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
-      arr.push(...Array(rest));
+  return monthNamesArr[props.month];
+});
 
-      this.monthArr = arr;
-    },
-    getDay(date) {
-      let day = date.getDay();
-      if (day === 0) day = 7;
-      return day - 1;
-    },
-    selectDay(val, $event) {
-      if (!this.daysSelectable || !val) return;
+const currentMonth = computed(() => {
+  return new Date().getMonth();
+});
 
-      const dateVal = new Date(
-        new Date().getFullYear(),
-        new Date().getMonth(),
-        val
-      ).toLocaleDateString();
+const date = computed(() => {
+  return new Date(new Date().getFullYear(), props.month);
+});
 
-      if (this.selectedDaysLocal.includes(val)) {
-        this.selectedDaysLocal = this.selectedDaysLocal.filter((item) => {
-          return item !== val;
-        });
-        this.selectedDates = this.selectedDates.filter((item) => {
-          return item !== dateVal;
-        });
-      } else {
-        this.selectedDaysLocal.push(val);
-        this.selectedDates.push(dateVal);
-      }
+const daysInMonth = computed(() => {
+  return new Date(new Date().getFullYear(), props.month + 1, 0).getDate();
+});
 
-      gsap.fromTo(
-        $event.target,
-        0.1,
-        {
-          "--scale": "0%",
-        },
-        {
-          "--scale": "200%",
-        }
-      );
-      gsap.fromTo(
-        $event.target,
-        0.6,
-        {
-          "--scale": "0%",
-        },
-        {
-          "--scale": "100%",
-          delay: 0.1,
-          ease: Elastic.easeOut.config(1, 0.3),
-          onComplete: () => {
-            this.$emit("selected", {
-              days: this.selectedDaysLocal,
-              dates: this.selectedDates,
-            });
-          },
-        }
-      );
-    },
-    todayCase(day) {
-      return this.month === this.currentMonth && day === this.today;
-    },
-  },
-  mounted() {
-    this.buildMonth();
-  },
+const today = computed(() => {
+  return new Date().getDate();
+});
+
+const getDay = (date: Date) => {
+  let day = date.getDay();
+  if (day === 0) day = 7;
+  return day - 1;
 };
+
+const buildMonth = () => {
+  let arr: (number | undefined)[] = [];
+
+  for (let i = 0; i < getDay(date.value); i++) {
+    arr.push(undefined);
+  }
+
+  for (let i = 1; i <= daysInMonth.value; i++) {
+    arr.push(i);
+  }
+
+  const fullWeeks = Math.ceil(arr.length / 7);
+  const rest = fullWeeks * 7 - arr.length;
+
+  arr.push(...Array(rest));
+
+  monthArr.value = arr;
+};
+
+const selectDay = (val: number | undefined, event: MouseEvent) => {
+  if (!props.daysSelectable || !val) return;
+
+  const dateVal = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    val
+  ).toLocaleDateString();
+
+  if (selectedDaysLocal.value.includes(val)) {
+    selectedDaysLocal.value = selectedDaysLocal.value.filter((item) => {
+      return item !== val;
+    });
+    selectedDates.value = selectedDates.value.filter((item) => {
+      return item !== dateVal;
+    });
+  } else {
+    selectedDaysLocal.value.push(val);
+    selectedDates.value.push(dateVal);
+  }
+
+  const target = event.target as HTMLElement;
+  gsap.fromTo(
+    target,
+    0.1,
+    {
+      "--scale": "0%",
+    },
+    {
+      "--scale": "200%",
+    }
+  );
+  gsap.fromTo(
+    target,
+    0.6,
+    {
+      "--scale": "0%",
+    },
+    {
+      "--scale": "100%",
+      delay: 0.1,
+      ease: Elastic.easeOut.config(1, 0.3),
+      onComplete: () => {
+        emit("selected", {
+          days: selectedDaysLocal.value,
+          dates: selectedDates.value,
+        });
+      },
+    }
+  );
+};
+
+const todayCase = (day: number | undefined) => {
+  return props.month === currentMonth.value && day === today.value;
+};
+
+onMounted(() => {
+  buildMonth();
+});
 </script>
 
 <style lang="scss" scoped>

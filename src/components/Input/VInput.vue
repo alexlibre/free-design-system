@@ -48,197 +48,188 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref, computed, watch } from "vue";
 import SvgIcon from "@/components/SvgIcon.vue";
 import VButton from "@/components/Button/VButton.vue";
 
-export default {
-  props: {
-    label: {
-      type: String,
-      default: "",
-    },
-    labelSecond: {
-      type: String,
-      default: "",
-    },
-    placeholder: {
-      type: String,
-      default: "",
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    helper: {
-      type: String,
-      default: "",
-    },
-    state: {
-      type: String,
-      default: "default",
-    },
-    type: {
-      type: String,
-      default: "text",
-    },
-    controls: {
-      type: Array,
-      default: () => [],
-    },
-    hasError: {
-      type: Boolean,
-      default: false,
-    },
-    isFixed: {
-      type: Boolean,
-      default: false,
-    },
-    compact: {
-      type: Boolean,
-      default: false,
-    },
-    icon: {
-      type: String,
-      default: "",
-    },
-    initial: {
-      type: String,
-      default: "",
-    },
-    restrict: {
-      type: String,
-      default: "",
-    },
+interface Props {
+  label?: string;
+  labelSecond?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  helper?: string;
+  state?: "default" | "success" | "error";
+  type?: string;
+  controls?: unknown[];
+  hasError?: boolean;
+  isFixed?: boolean;
+  compact?: boolean;
+  icon?: string;
+  initial?: string;
+  restrict?: string;
+  modelValue?: string | number;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  label: "",
+  labelSecond: "",
+  placeholder: "",
+  disabled: false,
+  helper: "",
+  state: "default",
+  type: "text",
+  controls: () => [],
+  hasError: false,
+  isFixed: false,
+  compact: false,
+  icon: "",
+  initial: "",
+  restrict: "",
+  modelValue: undefined,
+});
+
+const emit = defineEmits<{
+  "update:modelValue": [value: string | number];
+  hasFocus: [];
+  hasBlur: [];
+  keydown: [event: KeyboardEvent];
+}>();
+
+// Используем modelValue если передан, иначе initial
+const text = computed({
+  get: () => {
+    if (props.modelValue !== undefined) {
+      return props.type === "number" ? String(props.modelValue) : String(props.modelValue);
+    }
+    return props.initial;
   },
-  components: {
-    SvgIcon,
-    VButton,
+  set: (value: string) => {
+    if (props.modelValue !== undefined) {
+      const emitValue = props.type === "number" ? Number(value) || 0 : value;
+      emit("update:modelValue", emitValue);
+    }
   },
-  data() {
-    return {
-      text: this.initial,
-      inputType: this.type,
-      hasFocus: false,
-      showPassword: false,
-      currentIcon: this.icon || "eye",
-      dataState: this.state,
-      dataError: this.hasError,
-      dataHelper: this.helper,
-      dataHelperTemp: this.helper,
-    };
-  },
-  watch: {
-    showPassword: function () {
-      this.inputType = this.showPassword ? "text" : "password";
-      this.currentIcon = this.showPassword ? "eye-slash" : "eye";
-    },
-  },
-  computed: {
-    guid() {
-      return (Math.random() + 1).toString(36).substring(2);
-    },
-    currentColor() {
-      switch (this.state) {
-        case "success":
-          return "green";
-        case "error":
-          return "red";
-        default:
-          return "blue";
-      }
-    },
-  },
-  methods: {
-    updateValue(event) {
-      const value = event.target.value;
+});
+const inputType = ref(props.type);
+const hasFocus = ref(false);
+const showPassword = ref(false);
+const currentIcon = ref(props.icon || "eye");
+const dataState = ref(props.state);
+const dataError = ref(props.hasError);
+const dataHelper = ref(props.helper);
+const dataHelperTemp = ref(props.helper);
 
-      this.text = value;
-      this.$forceUpdate();
-    },
-    onFocus() {
-      this.hasFocus = true;
-      this.$emit("hasFocus");
-    },
-    onBlur() {
-      this.hasFocus = false;
-      this.$emit("hasBlur");
-    },
-    switchPasswordVisibility() {
-      if (this.type !== "password") return;
-      this.showPassword = !this.showPassword;
-    },
-    keydown($event) {
-      this.$emit("keydown", $event);
+watch(showPassword, () => {
+  inputType.value = showPassword.value ? "text" : "password";
+  currentIcon.value = showPassword.value ? "eye-slash" : "eye";
+});
 
-      if (this.restrict === "") return;
 
-      const baseKeys = new Set([
-        "F1",
-        "F2",
-        "F3",
-        "F4",
-        "F5",
-        "F6",
-        "F7",
-        "F8",
-        "F9",
-        "F10",
-        "F11",
-        "F12",
-        "Backspace",
-        "Enter",
-        "Escape",
-        "Delete",
-        "ArrowLeft",
-        "ArrowRight",
-        "Tab",
-        "Control",
-        "Home",
-        "End",
-        "PageUp",
-        "PageDown",
-      ]);
+const guid = computed(() => {
+  return (Math.random() + 1).toString(36).substring(2);
+});
 
-      const int = new Set([
-        ...baseKeys,
-        "0",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-      ]);
+const currentColor = computed(() => {
+  switch (props.state) {
+    case "success":
+      return "green";
+    case "error":
+      return "red";
+    default:
+      return "blue";
+  }
+});
 
-      const float = new Set([...int, "."]);
+const updateValue = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  text.value = target.value;
+};
 
-      if (this.restrict === "int") {
-        if (!int.has($event.key) && $event.ctrlKey === false) {
-          $event.preventDefault();
-          this.dataError = true;
-          this.dataHelper = "Restricted input";
-        } else {
-          this.dataError = false;
-          this.dataHelper = this.dataHelperTemp;
-        }
-      }
+const onFocus = () => {
+  hasFocus.value = true;
+  emit("hasFocus");
+};
 
-      if (this.restrict === "float") {
-        if (!float.has($event.key) && $event.ctrlKey === false) {
-          $event.preventDefault();
-          this.dataError = true;
-          this.dataHelper = "Restricted input";
-        } else {
-          this.dataError = false;
-          this.dataHelper = this.dataHelperTemp;
-        }
-      }
-    },
-  },
+const onBlur = () => {
+  hasFocus.value = false;
+  emit("hasBlur");
+};
+
+const switchPasswordVisibility = () => {
+  if (props.type !== "password") return;
+  showPassword.value = !showPassword.value;
+};
+
+const keydown = ($event: KeyboardEvent) => {
+  emit("keydown", $event);
+
+  if (props.restrict === "") return;
+
+  const baseKeys = new Set([
+    "F1",
+    "F2",
+    "F3",
+    "F4",
+    "F5",
+    "F6",
+    "F7",
+    "F8",
+    "F9",
+    "F10",
+    "F11",
+    "F12",
+    "Backspace",
+    "Enter",
+    "Escape",
+    "Delete",
+    "ArrowLeft",
+    "ArrowRight",
+    "Tab",
+    "Control",
+    "Home",
+    "End",
+    "PageUp",
+    "PageDown",
+  ]);
+
+  const int = new Set([
+    ...baseKeys,
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+  ]);
+
+  const float = new Set([...int, "."]);
+
+  if (props.restrict === "int") {
+    if (!int.has($event.key) && $event.ctrlKey === false) {
+      $event.preventDefault();
+      dataError.value = true;
+      dataHelper.value = "Restricted input";
+    } else {
+      dataError.value = false;
+      dataHelper.value = dataHelperTemp.value;
+    }
+  }
+
+  if (props.restrict === "float") {
+    if (!float.has($event.key) && $event.ctrlKey === false) {
+      $event.preventDefault();
+      dataError.value = true;
+      dataHelper.value = "Restricted input";
+    } else {
+      dataError.value = false;
+      dataHelper.value = dataHelperTemp.value;
+    }
+  }
 };
 </script>
 

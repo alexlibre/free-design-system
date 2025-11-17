@@ -17,95 +17,100 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import PhotoSwipeLightbox from "photoswipe/lightbox";
 import PhotoSwipe from "photoswipe";
 import "photoswipe/style.css";
-export default {
-  props: {
-    images: { type: Array, required: true },
-    id: { type: String, required: true },
-    hasDownload: { type: Boolean, default: false },
-    height: { type: Number, default: 133 },
-  },
-  data() {
-    return {
-      imagesData: this.images,
-      lightbox: null,
-    };
-  },
-  computed: {
-    getMinHeight() {
-      return this.images.reduce(function (prev, curr) {
-        return prev.height < curr.height ? prev : curr;
-      }).height;
-    },
-  },
-  mounted() {
-    if (!this.lightbox) {
-      this.lightbox = new PhotoSwipeLightbox({
-        mainClass: "gallery",
-        gallery: "#" + this.id,
-        children: "a",
-        pswpModule: PhotoSwipe,
-        padding: { top: 60, bottom: 80, left: 0, right: 0 },
-      });
 
-      this.lightbox.on("uiRegister", () => {
-        if (this.hasDownload) {
-          this.lightbox.pswp.ui.registerElement({
-            name: "download-button",
-            order: 8,
-            isButton: true,
-            tagName: "a",
+interface Image {
+  largeURL: string;
+  thumbnailURL: string;
+  width: number;
+  height: number;
+}
 
-            // SVG with outline
-            html: {
-              isCustomSVG: true,
-              inner:
-                '<path d="M20.5 14.3 17.1 18V10h-2.2v7.9l-3.4-3.6L10 16l6 6.1 6-6.1ZM23 23H9v2h14Z" id="gallery__icn-download"/>',
-              outlineID: "gallery__icn-download",
-            },
+interface Props {
+  images: Image[];
+  id: string;
+  hasDownload?: boolean;
+  height?: number;
+}
 
-            // Or provide full svg:
-            // html: '<svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true" class="gallery__icn"><path d="M20.5 14.3 17.1 18V10h-2.2v7.9l-3.4-3.6L10 16l6 6.1 6-6.1ZM23 23H9v2h14Z" /></svg>',
+const props = withDefaults(defineProps<Props>(), {
+  hasDownload: false,
+  height: 133,
+});
 
-            // Or provide any other markup:
-            // html: '<i class="fa-solid fa-download"></i>'
+const imagesData = ref<Image[]>(props.images);
+const lightbox = ref<PhotoSwipeLightbox | null>(null);
 
-            onInit: (el, pswp) => {
-              el.setAttribute("download", "");
-              el.setAttribute("target", "_blank");
-              el.setAttribute("rel", "noopener");
+const getMinHeight = computed(() => {
+  return props.images.reduce(function (prev, curr) {
+    return prev.height < curr.height ? prev : curr;
+  }).height;
+});
 
-              pswp.on("change", () => {
-                el.href = pswp.currSlide.data.src;
-              });
-            },
-          });
-        }
+onMounted(() => {
+  if (!lightbox.value) {
+    lightbox.value = new PhotoSwipeLightbox({
+      mainClass: "gallery",
+      gallery: "#" + props.id,
+      children: "a",
+      pswpModule: PhotoSwipe,
+      padding: { top: 60, bottom: 80, left: 0, right: 0 },
+    });
 
-        this.lightbox.pswp.ui.registerElement({
+    lightbox.value.on("uiRegister", () => {
+      if (props.hasDownload && lightbox.value) {
+        lightbox.value.pswp.ui.registerElement({
+          name: "download-button",
+          order: 8,
+          isButton: true,
+          tagName: "a",
+
+          html: {
+            isCustomSVG: true,
+            inner:
+              '<path d="M20.5 14.3 17.1 18V10h-2.2v7.9l-3.4-3.6L10 16l6 6.1 6-6.1ZM23 23H9v2h14Z" id="gallery__icn-download"/>',
+            outlineID: "gallery__icn-download",
+          },
+
+          onInit: (el, pswp) => {
+            el.setAttribute("download", "");
+            el.setAttribute("target", "_blank");
+            el.setAttribute("rel", "noopener");
+
+            pswp.on("change", () => {
+              el.href = pswp.currSlide.data.src;
+            });
+          },
+        });
+      }
+
+      if (lightbox.value) {
+        lightbox.value.pswp.ui.registerElement({
           name: "thumbsIndicator",
           className: "gallery__thumbs-indicator",
           appendTo: "wrapper",
           onInit: (el, pswp) => {
-            const thumbs = [];
-            let thumb;
-            let img;
+            const thumbs: HTMLElement[] = [];
+            let thumb: HTMLElement;
+            let img: HTMLImageElement;
             let prevIndex = -1;
 
             for (let i = 0; i < pswp.getNumItems(); i++) {
               img = document.createElement("img");
-              img.src = this.images[i].thumbnailURL;
+              img.src = props.images[i].thumbnailURL;
               thumb = document.createElement("div");
               thumb.className = "gallery__thumb";
               thumb.appendChild(img);
               thumbs.push(thumb);
               el.appendChild(thumb);
-              thumb.onclick = (e) => {
-                if (e.target.closest(".gallery__thumb")) {
-                  pswp.goTo(thumbs.indexOf(e.target));
+              thumb.onclick = (e: Event) => {
+                const target = e.target as HTMLElement;
+                if (target.closest(".gallery__thumb")) {
+                  pswp.goTo(thumbs.indexOf(target));
                 }
               };
             }
@@ -119,22 +124,22 @@ export default {
             });
           },
         });
-      });
+      }
+    });
 
-      this.lightbox.init();
-    }
-  },
-  unmounted() {
-    if (this.lightbox) {
-      this.lightbox.destroy();
-      this.lightbox = null;
-    }
-  },
-  methods: {
-    getRatio(width, height) {
-      return width / height;
-    },
-  },
+    lightbox.value.init();
+  }
+});
+
+onUnmounted(() => {
+  if (lightbox.value) {
+    lightbox.value.destroy();
+    lightbox.value = null;
+  }
+});
+
+const getRatio = (width: number, height: number) => {
+  return width / height;
 };
 </script>
 

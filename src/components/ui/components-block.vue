@@ -10,31 +10,21 @@
   </section>
 </template>
 
-<script>
-export default {
-  props: {
-    id: {
-      type: String,
-      required: true,
-    },
-    title: {
-      type: String,
-      required: true,
-    },
-    desc: {
-      type: String,
-      default: "",
-    },
-    variants: {
-      type: Array,
-      default: () => [],
-    },
-  },
-  methods: {
-    capitalize(str) {
-      return (str.charAt(0).toUpperCase() + str.slice(1)).split("-").join(" ");
-    },
-  },
+<script setup lang="ts">
+interface Props {
+  id: string;
+  title: string;
+  desc?: string;
+  variants?: unknown[];
+}
+
+withDefaults(defineProps<Props>(), {
+  desc: "",
+  variants: () => [],
+});
+
+const capitalize = (str: string) => {
+  return (str.charAt(0).toUpperCase() + str.slice(1)).split("-").join(" ");
 };
 </script>
 

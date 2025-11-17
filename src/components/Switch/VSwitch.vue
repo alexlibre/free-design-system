@@ -20,38 +20,34 @@
   </label>
 </template>
 
-<script>
-export default {
-  props: {
-    label: {
-      type: String,
-      default: "",
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    checked: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  data() {
-    return {
-      switchChecked: this.checked,
-    };
-  },
-  computed: {
-    guid() {
-      return (Math.random() + 1).toString(36).substring(2);
-    },
-  },
-  methods: {
-    onChecked(val) {
-      this.switchChecked = val;
-      this.$emit("checked", val);
-    },
-  },
+<script setup lang="ts">
+import { ref, computed } from "vue";
+
+interface Props {
+  label?: string;
+  disabled?: boolean;
+  checked?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  label: "",
+  disabled: false,
+  checked: false,
+});
+
+const emit = defineEmits<{
+  checked: [val: boolean];
+}>();
+
+const switchChecked = ref(props.checked);
+
+const guid = computed(() => {
+  return (Math.random() + 1).toString(36).substring(2);
+});
+
+const onChecked = (val: boolean) => {
+  switchChecked.value = val;
+  emit("checked", val);
 };
 </script>
 

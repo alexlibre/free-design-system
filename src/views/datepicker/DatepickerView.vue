@@ -43,19 +43,10 @@
   </div>
 </template>
 
-<script>
-import VDatepicker from "@/components/Datepicker/VDatepicker";
-
+<script setup lang="ts">
+import VDatepicker from "@/components/Datepicker/VDatepicker.vue";
 import ComponentsTable from "@/components/ui/components-table.vue";
 import ComponentsBlock from "@/components/ui/components-block.vue";
-
-export default {
-  components: {
-    VDatepicker,
-    ComponentsTable,
-    ComponentsBlock,
-  },
-};
 </script>
 
 <style lang="scss" scoped></style>

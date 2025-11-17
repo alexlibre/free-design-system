@@ -2,7 +2,7 @@
   <div id="app">
     <header class="header">
       <nav class="header__nav">
-        <router-link class="header__link" exact to="/">Home</router-link>
+        <router-link class="header__link" to="/">Home</router-link>
         <router-link class="header__link" to="/components"
           >Components</router-link
         >
@@ -14,30 +14,26 @@
         /> -->
       </nav>
     </header>
-    <transition appear name="nested" mode="out-in">
-      <router-view />
-    </transition>
+    <router-view v-slot="{ Component }">
+      <transition appear name="nested" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      darkTheme: false,
-    };
-  },
-  methods: {
-    switchTheme() {
-      this.darkTheme = !this.darkTheme;
-    },
-  },
-  watch: {
-    darkTheme: function (val) {
-      document.body.style = `color-scheme: ${val ? "light" : "dark"}`;
-    },
-  },
+<script setup lang="ts">
+import { ref, watch } from "vue";
+
+const darkTheme = ref(false);
+
+const switchTheme = () => {
+  darkTheme.value = !darkTheme.value;
 };
+
+watch(darkTheme, (val) => {
+  document.body.style.colorScheme = val ? "light" : "dark";
+});
 </script>
 
 <style lang="scss">

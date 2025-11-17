@@ -63,18 +63,10 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import VLogo from "@/components/Logo/VLogo.vue";
 import ComponentsTable from "@/components/ui/components-table.vue";
 import ComponentsBlock from "@/components/ui/components-block.vue";
-
-export default {
-  components: {
-    VLogo,
-    ComponentsTable,
-    ComponentsBlock,
-  },
-};
 </script>
 
 <style lang="scss" scoped>

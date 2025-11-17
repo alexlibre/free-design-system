@@ -4,20 +4,12 @@
   </div>
 </template>
 
-<script>
-import GameConwayLife from "@/components/Games/ConwayLife/GameConwayLife";
+<script setup lang="ts">
+import { ref } from "vue";
+import GameConwayLife from "@/components/Games/ConwayLife/GameConwayLife.vue";
 
-export default {
-  components: {
-    GameConwayLife,
-  },
-  data() {
-    return {
-      width: 1280,
-      height: 640,
-    };
-  },
-};
+const width = ref(1280);
+const height = ref(640);
 </script>
 
 <style lang="scss" scoped></style>

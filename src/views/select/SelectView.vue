@@ -88,19 +88,10 @@
   </div>
 </template>
 
-<script>
-import VSelect from "@/components/Select/VSelect";
-
-import ComponentsTable from "@/components/ui/components-table";
-import ComponentsBlock from "@/components/ui/components-block";
-
-export default {
-  components: {
-    VSelect,
-    ComponentsTable,
-    ComponentsBlock,
-  },
-};
+<script setup lang="ts">
+import VSelect from "@/components/Select/VSelect.vue";
+import ComponentsTable from "@/components/ui/components-table.vue";
+import ComponentsBlock from "@/components/ui/components-block.vue";
 </script>
 
 <style lang="scss" scoped></style>

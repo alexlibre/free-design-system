@@ -32,61 +32,51 @@
   </button>
 </template>
 
-<script>
-import SvgIcon from "@/components/SvgIcon";
+<script setup lang="ts">
+import { computed, useSlots } from "vue";
+import SvgIcon from "@/components/SvgIcon.vue";
 
-export default {
-  props: {
-    size: {
-      type: String,
-      default: "m",
-    },
-    view: {
-      type: String,
-      default: "primary",
-    },
-    icon: {
-      type: String,
-      default: "",
-    },
-    active: {
-      type: Boolean,
-      default: false,
-    },
-    empty: {
-      type: Boolean,
-      default: false,
-    },
-    condensed: {
-      type: Boolean,
-      default: false,
-    },
-    color: {
-      type: String,
-      default: "blue",
-    },
-  },
-  components: { SvgIcon },
-  computed: {
-    noText() {
-      return !this.$slots.default;
-    },
-    iconSize() {
-      switch (this.size) {
-        case "s":
-          return [14];
-        case "l":
-          return [20];
-        default:
-          return [16];
-      }
-    },
-  },
-  methods: {
-    onClick(e) {
-      this.$emit("click", e);
-    },
-  },
+interface Props {
+  size?: "s" | "m" | "l";
+  view?: "primary" | "secondary" | "outline" | "text" | "rounded" | "square";
+  icon?: string;
+  active?: boolean;
+  empty?: boolean;
+  condensed?: boolean;
+  color?: "red" | "orange" | "yellow" | "green" | "blue" | "violet" | "gray";
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  size: "m",
+  view: "primary",
+  icon: "",
+  active: false,
+  empty: false,
+  condensed: false,
+  color: "blue",
+});
+
+const emit = defineEmits<{
+  click: [e: MouseEvent];
+}>();
+
+const slots = useSlots();
+
+const noText = computed(() => !slots.default);
+
+const iconSize = computed(() => {
+  switch (props.size) {
+    case "s":
+      return [14] as [number];
+    case "l":
+      return [20] as [number];
+    default:
+      return [16] as [number];
+  }
+});
+
+const onClick = (e: MouseEvent) => {
+  emit("click", e);
 };
 </script>
 

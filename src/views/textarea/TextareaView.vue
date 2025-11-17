@@ -137,29 +137,24 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import VTextarea from "@/components/Textarea/VTextarea.vue";
 import ComponentsTable from "@/components/ui/components-table.vue";
 import ComponentsBlock from "@/components/ui/components-block.vue";
-export default {
-  components: {
-    VTextarea,
-    ComponentsTable,
-    ComponentsBlock,
-  },
-  methods: {
-    cb1() {
-      alert("Will set text to bold");
-    },
-    cb2() {
-      alert("Will set text to italic");
-    },
-    cb3() {
-      alert("Will set text to underline");
-    },
-    cb4() {
-      alert("Will add link");
-    },
-  },
+
+const cb1 = () => {
+  alert("Will set text to bold");
+};
+
+const cb2 = () => {
+  alert("Will set text to italic");
+};
+
+const cb3 = () => {
+  alert("Will set text to underline");
+};
+
+const cb4 = () => {
+  alert("Will add link");
 };
 </script>

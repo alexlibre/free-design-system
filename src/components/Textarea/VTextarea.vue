@@ -55,90 +55,69 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref, computed } from "vue";
 import SvgIcon from "@/components/SvgIcon.vue";
 import VButton from "@/components/Button/VButton.vue";
 
-export default {
-  props: {
-    label: {
-      type: String,
-      default: "",
-    },
-    placeholder: {
-      type: String,
-      default: "",
-    },
-    helper: {
-      type: String,
-      default: "",
-    },
-    limit: {
-      type: Number,
-      default: 0,
-    },
-    rows: {
-      type: Number,
-      default: 6,
-    },
-    controls: {
-      type: Array,
-      default: () => [],
-    },
-    error: {
-      type: Boolean,
-      default: false,
-    },
-    success: {
-      type: Boolean,
-      default: false,
-    },
-    isFixed: {
-      type: Boolean,
-      default: false,
-    },
-    compact: {
-      type: Boolean,
-      default: false,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  components: {
-    SvgIcon,
-    VButton,
-  },
-  data() {
-    return {
-      text: "",
-      hasFocus: false,
-    };
-  },
-  computed: {
-    guid() {
-      return (Math.random() + 1).toString(36).substring(2);
-    },
-    limitRest() {
-      return this.text.length;
-    },
-  },
-  methods: {
-    updateValue(event) {
-      const value = event.target.value;
-      if (!this.limit || String(value).length <= this.limit) {
-        this.text = value;
-      }
-      this.$forceUpdate();
-    },
-    onFocus() {
-      this.hasFocus = true;
-    },
-    onBlur() {
-      this.hasFocus = false;
-    },
-  },
+interface Control {
+  name: string;
+  cb?: () => void;
+}
+
+interface Props {
+  label?: string;
+  placeholder?: string;
+  helper?: string;
+  limit?: number;
+  rows?: number;
+  controls?: Control[];
+  error?: boolean;
+  success?: boolean;
+  isFixed?: boolean;
+  compact?: boolean;
+  disabled?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  label: "",
+  placeholder: "",
+  helper: "",
+  limit: 0,
+  rows: 6,
+  controls: () => [],
+  error: false,
+  success: false,
+  isFixed: false,
+  compact: false,
+  disabled: false,
+});
+
+const text = ref("");
+const hasFocus = ref(false);
+
+const guid = computed(() => {
+  return (Math.random() + 1).toString(36).substring(2);
+});
+
+const limitRest = computed(() => {
+  return text.value.length;
+});
+
+const updateValue = (event: Event) => {
+  const target = event.target as HTMLTextAreaElement;
+  const value = target.value;
+  if (!props.limit || String(value).length <= props.limit) {
+    text.value = value;
+  }
+};
+
+const onFocus = () => {
+  hasFocus.value = true;
+};
+
+const onBlur = () => {
+  hasFocus.value = false;
 };
 </script>
 

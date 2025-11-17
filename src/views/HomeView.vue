@@ -12,16 +12,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
+<script setup lang="ts">
 import SvgIcon from "@/components/SvgIcon.vue";
-
-export default Vue.extend({
-  name: "HomeView",
-  components: {
-    SvgIcon,
-  },
-});
 </script>
 
 <style lang="scss">

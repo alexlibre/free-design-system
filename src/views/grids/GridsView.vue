@@ -45,17 +45,9 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 // import VGrid from "@/components/ui/VGrid";
-
 import ComponentsBlock from "@/components/ui/components-block.vue";
-
-export default {
-  components: {
-    // VGrid,
-    ComponentsBlock,
-  },
-};
 </script>
 
 <style lang="scss" scoped>
